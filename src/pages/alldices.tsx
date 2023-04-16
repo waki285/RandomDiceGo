@@ -4,9 +4,11 @@ import Header from "@/components/Header";
 import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
+import Big from "big.js";
 
 import Fire from "@/../public/dices/fire.png";
 import Wind from "@/../public/dices/wind.png";
+import Water from "@/../public/dices/water.png";
 
 type DiceInfo = {
   id: string,
@@ -36,7 +38,14 @@ const minimumClass = {
 } as const;
 
 const incrementalCalculate = (initialValue: number, incrementWhenClassUp: number, incrementWhenDotUp: number, initialDiceClass: number, diceClass: number, dot: number) => {
-  return initialValue + (incrementWhenClassUp * (diceClass - initialDiceClass)) + (incrementWhenDotUp * (dot - 1));
+  const iV = new Big(initialValue);
+  const iWC = new Big(incrementWhenClassUp);
+  const iWD = new Big(incrementWhenDotUp);
+  const iDC = new Big(initialDiceClass);
+  const dC = new Big(diceClass);
+  const d = new Big(dot);
+  return iV.plus(iWC.mul(dC.minus(iDC))).plus(iWD.mul(d.minus(1))).toNumber();
+  // return initialValue + (incrementWhenClassUp * (diceClass - initialDiceClass)) + (incrementWhenDotUp * (dot - 1));
 }
 
 const IC = (desc: DiceInfo, key: string) => {
@@ -88,7 +97,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           ))}
         </dl>
       </section>
-      <section className="increment flex mt-4 gap-12">
+      <section className="increment flex mt-4 gap-12 flex-col pc:flex-row">
         <div className="flex-grow flex flex-col">
           <p>クラス: {desc.diceClasses[desc.id] || minClass}</p>
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} />
@@ -180,8 +189,28 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p className="font-medium">敵を攻撃するとき、攻撃した敵の周囲8方向にいるすべての敵に<span className="variable">{incrementalCalculate(40, 2, 20, 1, diceClasses.fire || 1, diceDots.fire || 1)}</span>の追加ダメージを与える。</p>
-            <p className="mt-4">素の火力が高く、後述する盾のダイスに挑発されても周囲8マスに別のダイスがあればそちらにも攻撃を与えられる点が強いダイスです。</p>
+            <p className="font-medium">広範囲にわたって敵を素早く攻撃する。</p>
+            <p className="mt-4">このゲームにおいて射程が長いことは常に強いのですが、これよりも射程が長い狙撃のダイスや、これより高DPSが出せる強風のダイスがいるためにあまり使われません。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="water"
+            name="水のダイス"
+            rarity="ノーマル"
+            image={Water}
+            atk={90}
+            attackSpeed={0.8}
+            range={2}
+            hp={800}
+            diceColor="aqua"
+            customProperties={{ "攻撃速度減少(%)": 12 }}
+            incrementWhenClassUp={{ atk: 4.5, hp: 40, "攻撃速度減少(%)": 0.6 }}
+            incrementWhenDotUp={{ atk: 63, hp: 560, attackSpeed: 0.16, "攻撃速度減少(%)": 1.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃する時、敵の攻撃速度を<span className="variable">3秒間</span>、<span className="variable">{incrementalCalculate(12, 0.6, 1.2, 1, diceClasses.water || 1, diceDots.water || 1)}%</span>減少させる。最大<span className="variable">3回まで</span>蓄積する。</p>
+            <p className="mt-4">基本光や月のほうが効果が上回るかつ、盾に挑発されると攻撃速度減少が無に帰すので弱いです。</p>
+            <p>素のDPSは結構あります。</p>
           </DiceDesc>
         </div>
       </main>

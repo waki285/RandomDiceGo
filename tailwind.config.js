@@ -16,6 +16,9 @@ module.exports = {
         "auto-1fr": "auto 1fr",
       }
     },
+    screens: {
+      "pc": "700px"
+    }
   },
   plugins: [],
 };
