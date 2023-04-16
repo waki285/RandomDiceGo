@@ -25,3 +25,16 @@ html {
 .toc-list {
   @apply list-disc ml-4;
 }
+
+.when-classup > p, .when-dotup > p {
+  @apply text-xs text-gray-500;
+}
+
+.info dl {
+  @apply grid grid-cols-auto-1fr gap-x-2 gap-y-0.5;
+}
+.info dt {
+  @apply font-bold;
+}
+.info dd {
+}
