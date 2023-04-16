@@ -5,10 +5,14 @@ import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 
+import Fire from "@/../public/dices/fire.png";
+import Wind from "@/../public/dices/wind.png";
+
 type DiceInfo = {
   id: string,
   name: string,
   rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神",
+  image: any,
   atk: number,
   attackSpeed: number,
   range: number,
@@ -39,6 +43,7 @@ const IC = (desc: DiceInfo, key: string) => {
   return incrementalCalculate(key in desc ? desc[key as keyof DiceInfo]:desc.customProperties![key], desc.incrementWhenClassUp[key] || 0, desc.incrementWhenDotUp[key] || 0, minimumClass[desc.rarity], desc.diceClasses[desc.id] || minimumClass[desc.rarity], desc.dots[desc.id] || 1);
 }
 
+
 const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   const minClass = minimumClass[desc.rarity];
   const [diceClass, setDiceClass] = [desc.diceClasses[desc.id] || minClass, (diceClass: number) => {
@@ -60,6 +65,9 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   return (
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor}>{desc.name}</Headline>
+      <section className="image">
+        <Image src={desc.image} alt="" className="my-4" width={128} />
+      </section>
       <section className="info">
         <dl>
           <dt>レアリティ</dt>
@@ -82,7 +90,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
       </section>
       <section className="increment flex mt-4 gap-12">
         <div className="flex-grow flex flex-col">
-          <p>クラス: {desc.diceClasses[desc.id]}</p>
+          <p>クラス: {desc.diceClasses[desc.id] || minClass}</p>
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} />
           <div className="when-classup mt-2">
             {desc.incrementWhenClassUp.atk ? <p>攻撃力 +{desc.incrementWhenClassUp.atk}</p> : ""}
@@ -95,7 +103,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           </div>
         </div>
         <div className="flex-grow flex flex-col">
-          <p>出目数: {desc.dots[desc.id]}</p>
+          <p>出目数: {desc.dots[desc.id] || 1}</p>
           <input type="range" min={1} max={7} value={dot} onChange={(e) => setDot(Number(e.target.value))} />
           <div className="when-dotup mt-2">
             {desc.incrementWhenDotUp.atk ? <p>攻撃力 +{desc.incrementWhenDotUp.atk}</p> : ""}
@@ -107,6 +115,9 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
             ))}
           </div>
         </div>
+      </section>
+      <section className="description">
+        {desc.children}
       </section>
     </>
   );
@@ -126,7 +137,7 @@ export default function AllDices() {
   return (
     <>
       <Header />
-      <main className="mx-8">
+      <main className="mx-12">
         <Headline id="all-dices">全ダイス解説</Headline>
         <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
@@ -139,6 +150,7 @@ export default function AllDices() {
             id="fire"
             name="火のダイス"
             rarity="ノーマル"
+            image={Fire}
             atk={100}
             attackSpeed={0.7}
             range={2}
@@ -150,7 +162,26 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p>DiceDescription</p>
+            <p className="font-medium">敵を攻撃するとき、攻撃した敵の周囲8方向にいるすべての敵に<span className="variable">{incrementalCalculate(40, 2, 20, 1, diceClasses.fire || 1, diceDots.fire || 1)}</span>の追加ダメージを与える。</p>
+            <p className="mt-4">素の火力が高く、後述する盾のダイスに挑発されても周囲8マスに別のダイスがあればそちらにも攻撃を与えられる点が強いダイスです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="wind"
+            name="風のダイス"
+            rarity="ノーマル"
+            image={Wind}
+            atk={50}
+            attackSpeed={1.5}
+            range={3}
+            hp={600}
+            diceColor="palegreen"
+            incrementWhenClassUp={{ atk: 2.5, hp: 30 }}
+            incrementWhenDotUp={{ atk: 35, hp: 420, attackSpeed: 0.3 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃するとき、攻撃した敵の周囲8方向にいるすべての敵に<span className="variable">{incrementalCalculate(40, 2, 20, 1, diceClasses.fire || 1, diceDots.fire || 1)}</span>の追加ダメージを与える。</p>
+            <p className="mt-4">素の火力が高く、後述する盾のダイスに挑発されても周囲8マスに別のダイスがあればそちらにも攻撃を与えられる点が強いダイスです。</p>
           </DiceDesc>
         </div>
       </main>

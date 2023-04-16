@@ -36,5 +36,7 @@ html {
 .info dt {
   @apply font-bold;
 }
-.info dd {
+
+.variable {
+  @apply text-pink-500;
 }
