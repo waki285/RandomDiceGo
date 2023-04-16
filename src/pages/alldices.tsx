@@ -76,7 +76,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor}>{desc.name}</Headline>
       <section className="image">
-        <Image src={desc.image} alt="" className="my-4" width={128} />
+        <Image src={desc.image} alt="" className="my-4" width={128} loader={({ src }) => src} />
       </section>
       <section className="info">
         <dl>
