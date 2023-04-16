@@ -31,8 +31,12 @@ const minimumClass = {
   "四神": 7,
 } as const;
 
-const incrementalCalculate = (initialValue: number, increment: number, initialDiceClass: number, diceClass: number) => {
-  return initialValue + increment * (diceClass - initialDiceClass);
+const incrementalCalculate = (initialValue: number, incrementWhenClassUp: number, incrementWhenDotUp: number, initialDiceClass: number, diceClass: number, dot: number) => {
+  return initialValue + (incrementWhenClassUp * (diceClass - initialDiceClass)) + (incrementWhenDotUp * (dot - 1));
+}
+
+const IC = (desc: DiceInfo, key: string) => {
+  return incrementalCalculate(key in desc ? desc[key as keyof DiceInfo]:desc.customProperties![key], desc.incrementWhenClassUp[key] || 0, desc.incrementWhenDotUp[key] || 0, minimumClass[desc.rarity], desc.diceClasses[desc.id] || minimumClass[desc.rarity], desc.dots[desc.id] || 1);
 }
 
 const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
@@ -61,17 +65,17 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <dt>レアリティ</dt>
           <dd>{desc.rarity}</dd>
           <dt>攻撃力</dt>
-          <dd>{incrementalCalculate(desc.atk, desc.incrementWhenClassUp.atk || 0, minClass, diceClass)}</dd>
+          <dd>{IC(desc, "atk")}</dd>
           <dt>攻撃速度</dt>
-          <dd>{incrementalCalculate(desc.attackSpeed, desc.incrementWhenClassUp.attackSpeed || 0, minClass, diceClass)}s</dd>
+          <dd>{IC(desc, "attackSpeed")}s</dd>
           <dt>攻撃範囲</dt>
           <dd>{desc.range}</dd>
           <dt>HP</dt>
-          <dd>{desc.hp}</dd>
+          <dd>{IC(desc, "hp")}</dd>
           {Object.entries(desc.customProperties || {}).map(([key, value]) => (
             <Fragment key={key}>
               <dt>{key}</dt>
-              <dd>{value}</dd>
+              <dd>{incrementalCalculate(value, desc.incrementWhenClassUp[key] || 0, desc.incrementWhenDotUp[key] || 0, minClass, diceClass, dot)}</dd>
             </Fragment>
           ))}
         </dl>
