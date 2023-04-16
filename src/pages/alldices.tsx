@@ -9,6 +9,7 @@ import Big from "big.js";
 import Fire from "@/../public/dices/fire.png";
 import Wind from "@/../public/dices/wind.png";
 import Water from "@/../public/dices/water.png";
+import Sword from "@/../public/dices/sword.png";
 
 type DiceInfo = {
   id: string,
@@ -97,7 +98,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           ))}
         </dl>
       </section>
-      <section className="increment flex mt-4 gap-12 flex-col pc:flex-row">
+      <section className="increment flex mt-4 gap-4 pc:gap-12 flex-col pc:flex-row">
         <div className="flex-grow flex flex-col">
           <p>クラス: {desc.diceClasses[desc.id] || minClass}</p>
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} />
@@ -146,9 +147,9 @@ export default function AllDices() {
   return (
     <>
       <Header />
-      <main className="mx-12">
+      <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">全ダイス解説</Headline>
-        <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。</p>
+        <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
         <Headline id="toc-headline">目次</Headline>
         <aside className="toc" />
@@ -211,6 +212,25 @@ export default function AllDices() {
             <p className="font-medium">敵を攻撃する時、敵の攻撃速度を<span className="variable">3秒間</span>、<span className="variable">{incrementalCalculate(12, 0.6, 1.2, 1, diceClasses.water || 1, diceDots.water || 1)}%</span>減少させる。最大<span className="variable">3回まで</span>蓄積する。</p>
             <p className="mt-4">基本光や月のほうが効果が上回るかつ、盾に挑発されると攻撃速度減少が無に帰すので弱いです。</p>
             <p>素のDPSは結構あります。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="sword"
+            name="剣のダイス"
+            rarity="ノーマル"
+            image={Sword}
+            atk={180}
+            attackSpeed={0.7}
+            range={1}
+            hp={1000}
+            diceColor="silver"
+            incrementWhenClassUp={{ atk: 9, hp: 50 }}
+            incrementWhenDotUp={{ atk: 126, hp: 700, attackSpeed: 0.14 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">攻撃範囲は狭いが、高い攻撃力で敵を攻撃する。</p>
+            <p className="mt-4">射程がかなり狭い代わりに、その範囲内の敵に関してはかなりのDPSを発揮します。</p>
+            <p>また、2マス遠くにおいてある盾が効かないというのもメリットです。</p>
           </DiceDesc>
         </div>
       </main>
