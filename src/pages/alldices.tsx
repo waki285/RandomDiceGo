@@ -29,6 +29,7 @@ import Spear from "@/../public/dices/spear.webp";
 import Barrier from "@/../public/dices/barrier.webp";
 import Death from "@/../public/dices/death.webp";
 import Teleport from "@/../public/dices/teleport.webp";
+import Meteor from "@/../public/dices/meteor.webp";
 
 type DiceInfo = {
   id: string,
@@ -522,6 +523,25 @@ export default function AllDices() {
           >
             <p className="font-medium">自分のHPが<span className="variable">50%</span>以下になると、ランダムな位置に瞬間移動する。</p>
             <p className="mt-4">同じ位置にとどまっていたほうが、テレポートするより多くの敵を倒せると感じます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="meteor"
+            name="隕石のダイス"
+            rarity="英雄"
+            image={Meteor}
+            atk={60}
+            attackSpeed={1.2}
+            range={2}
+            hp={1100}
+            diceColor="mediumpurple"
+            customProperties={{ "攻撃回数": 7, "隕石ダメージ": 350 }}
+            incrementWhenClassUp={{ atk: 3, hp: 55, "隕石ダメージ": 17.5 }}
+            incrementWhenDotUp={{ atk: 42, hp: 770, attackSpeed: 0.24, "隕石ダメージ": 175 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を<span className="variable">7回</span>攻撃すると、ランダムな敵に隕石を落とす。</p>
+            <p className="mt-4">HPが高く、攻撃速度もある程度あるため強いダイスです。</p>
           </DiceDesc>
         </div>
       </main>
