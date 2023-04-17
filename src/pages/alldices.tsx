@@ -25,6 +25,8 @@ import Gale from "@/../public/dices/gale.webp";
 import GaleTransform from "@/../public/dices/gale_transform.webp";
 import Invincible from "@/../public/dices/invincible.webp";
 import Spear from "@/../public/dices/spear.webp";
+// 英雄
+import Barrier from "@/../public/dices/barrier.webp";
 
 type DiceInfo = {
   id: string,
@@ -435,7 +437,7 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p className="font-medium">周囲8方向の範囲内にいる味方のHPが<span className="variable">20%</span>以下になると、その味方に<span className="variable">{incrementalCalculate(0.5, 0.025, 0.1, 3, diceClasses.invincible || 3, diceDots.invincible || 3)}秒間</span>無敵状態になるバフを与える。</p>
+            <p className="font-medium">周囲8方向の範囲内にいる味方のHPが<span className="variable">20%</span>以下になると、その味方に<span className="variable">{incrementalCalculate(0.5, 0.025, 0.1, 3, diceClasses.invincible || 3, diceDots.invincible || 1)}秒間</span>無敵状態になるバフを与える。</p>
             <p className="mt-4">味方が瀕死になると0.5秒(以前は1秒だった)以上の無敵バフを付与するダイスです。</p>
             <p>盾のダイスや倒されるとまずい火力ダイスと組み合わせて使われることが多いです。</p>
             <p>なお、無敵のダイスが倒されると無敵効果は付与されません。</p>
@@ -456,9 +458,30 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p className="font-medium">敵を攻撃する時、攻撃した敵の1マス後ろの方向にいる敵に<span className="variable">{incrementalCalculate(150, 7.5, 75, 3, diceClasses.spear || 3, diceDots.spear || 3)}</span>の追加ダメージを与える。</p>
+            <p className="font-medium">敵を攻撃する時、攻撃した敵の1マス後ろの方向にいる敵に<span className="variable">{incrementalCalculate(150, 7.5, 75, 3, diceClasses.spear || 3, diceDots.spear || 1)}</span>の追加ダメージを与える。</p>
             <p className="mt-4">敵を攻撃するときに1マス貫通して攻撃を与えることができるダイスです。</p>
             <p>素の攻撃力が低いうえ、攻撃範囲が1のためかなり使いづらいダイスです。</p>
+          </DiceDesc>
+          <Headline id="dices-unique" renderAs="h3" fontSize={1.25} borderColor="magenta">英雄</Headline>
+          <DiceDesc
+            id="barrier"
+            name="バリアのダイス"
+            rarity="英雄"
+            image={Barrier}
+            atk={70}
+            attackSpeed={0.8}
+            range={1}
+            hp={1100}
+            diceColor="midnightblue"
+            customProperties={{ "獲得保護シールド": 300 }}
+            incrementWhenClassUp={{ atk: 3.5, hp: 55, "獲得保護シールド": 15 }}
+            incrementWhenDotUp={{ atk: 49, hp: 770, attackSpeed: 0.16, "獲得保護シールド": 150 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向にいる全ての味方に<span className="variable">{incrementalCalculate(300, 15, 150, 5, diceClasses.barrier || 5, diceDots.barrier || 1)}HP</span>分の追加ダメージを与える。</p>
+            <p className="mt-4">味方にバリアを与えるダイスです。</p>
+            <p>無敵と違い、最初から発動するため、HPが少ない善悪のダイスを守ることが多いです。</p>
           </DiceDesc>
         </div>
       </main>
