@@ -6,10 +6,13 @@ import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 import Big from "big.js";
 
+// 画像素材
+// ノーマル
 import Fire from "@/../public/dices/fire.png";
 import Wind from "@/../public/dices/wind.png";
 import Water from "@/../public/dices/water.png";
 import Sword from "@/../public/dices/sword.png";
+import Shield from "@/../public/dices/shield.png";
 
 type DiceInfo = {
   id: string,
@@ -85,7 +88,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <dt>攻撃力</dt>
           <dd>{IC(desc, "atk")}</dd>
           <dt>攻撃速度</dt>
-          <dd>{IC(desc, "attackSpeed")}s</dd>
+          <dd>{IC(desc, "attackSpeed")}</dd>
           <dt>攻撃範囲</dt>
           <dd>{desc.range}</dd>
           <dt>HP</dt>
@@ -104,7 +107,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} />
           <div className="when-classup mt-2">
             {desc.incrementWhenClassUp.atk ? <p>攻撃力 +{desc.incrementWhenClassUp.atk}</p> : ""}
-            {desc.incrementWhenClassUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenClassUp.attackSpeed}s</p> : ""}
+            {desc.incrementWhenClassUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenClassUp.attackSpeed}</p> : ""}
             {desc.incrementWhenClassUp.hp ? <p>HP +{desc.incrementWhenClassUp.hp}</p> : ""}
             {/* Custom properties */}
             {Object.entries(desc.incrementWhenClassUp).filter(([key]) => !["atk", "attackSpeed", "hp"].includes(key)).map(([key, value]) => (
@@ -117,7 +120,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <input type="range" min={1} max={7} value={dot} onChange={(e) => setDot(Number(e.target.value))} />
           <div className="when-dotup mt-2">
             {desc.incrementWhenDotUp.atk ? <p>攻撃力 +{desc.incrementWhenDotUp.atk}</p> : ""}
-            {desc.incrementWhenDotUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenDotUp.attackSpeed}s</p> : ""}
+            {desc.incrementWhenDotUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenDotUp.attackSpeed}</p> : ""}
             {desc.incrementWhenDotUp.hp ? <p>HP +{desc.incrementWhenDotUp.hp}</p> : ""}
             {/* Custom properties */}
             {Object.entries(desc.incrementWhenDotUp).filter(([key]) => !["atk", "attackSpeed", "hp"].includes(key)).map(([key, value]) => (
@@ -151,6 +154,11 @@ export default function AllDices() {
         <Headline id="all-dices">全ダイス解説</Headline>
         <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
+        <Headline id="warning">注意事項</Headline>
+        <p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
+        <p>たとえば、<code>1</code>なら1秒間に1回攻撃ですが、<code>2</code>なら1秒間に2回、つまり0.5秒おきに1回攻撃です。(ランダムダイス本家とは仕様が異なるので注意)</p>
+        <p>またこのため、本家とは違い攻撃速度内で出目数回攻撃ではなく、<span className="font-bold">1秒間に攻撃速度回攻撃</span>です。出目数は関係ありません。</p>
+        <p>(しかし出目数恩恵に殆どの場合攻撃速度があるので、出目が上がれば攻撃速度が早くなります。)</p>
         <Headline id="toc-headline">目次</Headline>
         <aside className="toc" />
         <Headline id="dices-headline">ダイス</Headline>
@@ -231,6 +239,26 @@ export default function AllDices() {
             <p className="font-medium">攻撃範囲は狭いが、高い攻撃力で敵を攻撃する。</p>
             <p className="mt-4">射程がかなり狭い代わりに、その範囲内の敵に関してはかなりのDPSを発揮します。</p>
             <p>また、2マス遠くにおいてある盾が効かないというのもメリットです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="shield"
+            name="盾のダイス"
+            rarity="ノーマル"
+            image={Shield}
+            atk={180}
+            attackSpeed={0.7}
+            range={0}
+            hp={1000}
+            diceColor="goldenrod"
+            incrementWhenClassUp={{ atk: 9, hp: 50 }}
+            incrementWhenDotUp={{ atk: 126, hp: 700, attackSpeed: 0.14 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">攻撃範囲は狭いが、高い攻撃力で敵を攻撃する。</p>
+            <p className="mt-4">敵のダイスがある近くに置くだけで、お手軽に敵の攻撃先をそらし、その間に自分の強いダイスで攻撃することができます。</p>
+            <p className="mt-4">盾のダイスは、本作における<span className="font-bold">最強</span>のダイスです。</p>
+            <p></p>
           </DiceDesc>
         </div>
       </main>

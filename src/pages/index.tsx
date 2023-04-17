@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="">
-      <Link href="/alldices">All Dices </Link>
+      <Link href="/alldices" className="link">All Dices </Link>
     </main>
   );
 }
