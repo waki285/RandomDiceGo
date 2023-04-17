@@ -10,15 +10,15 @@ import Ogp from "@/components/Ogp";
 
 // 画像素材
 // ノーマル
-import Fire from "@/../public/dices/fire.png";
-import Wind from "@/../public/dices/wind.png";
-import Water from "@/../public/dices/water.png";
-import Sword from "@/../public/dices/sword.png";
-import Shield from "@/../public/dices/shield.png";
-import Electric from "@/../public/dices/electric.png";
-import Iron from "@/../public/dices/iron.png";
+import Fire from "@/../public/dices/fire.webp";
+import Wind from "@/../public/dices/wind.webp";
+import Water from "@/../public/dices/water.webp";
+import Sword from "@/../public/dices/sword.webp";
+import Shield from "@/../public/dices/shield.webp";
+import Electric from "@/../public/dices/electric.webp";
+import Iron from "@/../public/dices/iron.webp";
 // レア
-import Light from "@/../public/dices/light.png";
+import Light from "@/../public/dices/light.webp";
 
 type DiceInfo = {
   id: string,
@@ -110,7 +110,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
       <section className="increment flex mt-4 gap-4 pc:gap-12 flex-col pc:flex-row">
         <div className="flex-grow flex flex-col">
           <p>クラス: {desc.diceClasses[desc.id] || minClass}</p>
-          <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} />
+          <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} aria-label="クラス" />
           <div className="when-classup mt-2">
             {desc.incrementWhenClassUp.atk ? <p>攻撃力 +{desc.incrementWhenClassUp.atk}</p> : ""}
             {desc.incrementWhenClassUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenClassUp.attackSpeed}</p> : ""}
@@ -123,7 +123,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
         </div>
         <div className="flex-grow flex flex-col">
           <p>出目数: {desc.dots[desc.id] || 1}</p>
-          <input type="range" min={1} max={7} value={dot} onChange={(e) => setDot(Number(e.target.value))} />
+          <input type="range" min={1} max={7} value={dot} onChange={(e) => setDot(Number(e.target.value))} aria-label="出目数" />
           <div className="when-dotup mt-2">
             {desc.incrementWhenDotUp.atk ? <p>攻撃力 +{desc.incrementWhenDotUp.atk}</p> : ""}
             {desc.incrementWhenDotUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenDotUp.attackSpeed}</p> : ""}
