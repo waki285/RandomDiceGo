@@ -14,3 +14,5 @@ const Ogp = memo(function Ogp({ url, type, title, description }: { url: string, 
     </Head>
   )
 });
+
+export default Ogp;
