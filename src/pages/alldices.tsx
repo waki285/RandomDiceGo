@@ -27,6 +27,7 @@ import Invincible from "@/../public/dices/invincible.webp";
 import Spear from "@/../public/dices/spear.webp";
 // 英雄
 import Barrier from "@/../public/dices/barrier.webp";
+import Death from "@/../public/dices/death.webp";
 
 type DiceInfo = {
   id: string,
@@ -482,6 +483,25 @@ export default function AllDices() {
             <p className="font-medium">周囲8方向にいる全ての味方に<span className="variable">{incrementalCalculate(300, 15, 150, 5, diceClasses.barrier || 5, diceDots.barrier || 1)}HP</span>分の追加ダメージを与える。</p>
             <p className="mt-4">味方にバリアを与えるダイスです。</p>
             <p>無敵と違い、最初から発動するため、HPが少ない善悪のダイスを守ることが多いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="death"
+            name="死のダイス"
+            rarity="英雄"
+            image={Death}
+            atk={100}
+            attackSpeed={0.7}
+            range={2}
+            hp={900}
+            diceColor="black"
+            customProperties={{ "即死率(%)": 2 }}
+            incrementWhenClassUp={{ atk: 5, hp: 45, "即死率(%)": 0.1 }}
+            incrementWhenDotUp={{ atk: 70, hp: 630, attackSpeed: 0.14, "即死率": 0.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃するとき、<span className="variable">{incrementalCalculate(2, 0.1, 0.2, 5, diceClasses.death || 5, diceDots.death || 1)}%</span>の確率で即死させる。</p>
+            <p className="mt-4">攻撃速度が低いため試行を稼げないうえに、即死確率が低いため弱いです。</p>
           </DiceDesc>
         </div>
       </main>
