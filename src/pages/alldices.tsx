@@ -28,6 +28,7 @@ import Spear from "@/../public/dices/spear.webp";
 // 英雄
 import Barrier from "@/../public/dices/barrier.webp";
 import Death from "@/../public/dices/death.webp";
+import Teleport from "@/../public/dices/teleport.webp";
 
 type DiceInfo = {
   id: string,
@@ -502,6 +503,25 @@ export default function AllDices() {
           >
             <p className="font-medium">敵を攻撃するとき、<span className="variable">{incrementalCalculate(2, 0.1, 0.2, 5, diceClasses.death || 5, diceDots.death || 1)}%</span>の確率で即死させる。</p>
             <p className="mt-4">攻撃速度が低いため試行を稼げないうえに、即死確率が低いため弱いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="teleport"
+            name="テレポートのダイス"
+            rarity="英雄"
+            image={Teleport}
+            atk={80}
+            attackSpeed={1}
+            range={3}
+            hp={900}
+            diceColor="magenta"
+            customProperties={{ "発動HP(%)": 50 }}
+            incrementWhenClassUp={{ atk: 4, hp: 45 }}
+            incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">自分のHPが<span className="variable">50%</span>以下になると、ランダムな位置に瞬間移動する。</p>
+            <p className="mt-4">同じ位置にとどまっていたほうが、テレポートするより多くの敵を倒せると感じます。</p>
           </DiceDesc>
         </div>
       </main>
