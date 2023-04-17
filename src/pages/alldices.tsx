@@ -23,6 +23,8 @@ import Sniper from "@/../public/dices/sniper.webp";
 import Heal from "@/../public/dices/heal.webp";
 import Gale from "@/../public/dices/gale.webp";
 import GaleTransform from "@/../public/dices/gale_transform.webp";
+import Invincible from "@/../public/dices/invincible.webp";
+import Spear from "@/../public/dices/spear.webp";
 
 type DiceInfo = {
   id: string,
@@ -185,11 +187,13 @@ export default function AllDices() {
         <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
         <Headline id="warning">注意事項</Headline>
-        <p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
+        {/*<p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
         <p>たとえば、<code>1</code>なら1秒間に1回攻撃ですが、<code>2</code>なら1秒間に2回、つまり0.5秒おきに1回攻撃です。(ランダムダイス本家とは仕様が異なるので注意)</p>
         <p>またこのため、本家とは違い攻撃速度内で出目数回攻撃ではなく、<span className="font-bold">1秒間に攻撃速度回攻撃</span>です。出目数は関係ありません。</p>
-        <p>(しかし出目数恩恵に殆どの場合攻撃速度があるので、出目が上がれば攻撃速度が早くなります。)</p>
-        <p>また、「本家式攻撃速度」とは、GO式の攻撃速度を本家のsecondsに直したものになります。小数第2位より下は四捨五入です。</p>
+        <p>(しかし出目数恩恵に殆どの場合攻撃速度があるので、出目が上がれば攻撃速度が早くなります。)</p>*/}
+        <p>本作RandomDiceGO(以下RDG)は本家RandomDice(以下本家)とは異なり現状どの出目でも攻撃回数は1固定です。</p>
+        <p>RDGは出目の数分の攻撃をするわけではなく(1なら1、5なら5等)、攻撃速度=1秒間に何回攻撃するかです。</p>
+        <p>また、「本家式攻撃速度」とは、RDG式の攻撃速度を本家のsecondsに直したものになります。小数第2位より下は四捨五入です。</p>
         <Headline id="toc-headline">目次</Headline>
         <aside className="toc" />
         <Headline id="dices-headline">ダイス</Headline>
@@ -414,6 +418,47 @@ export default function AllDices() {
             <p className="font-medium">バトル開始<span className="variable">5秒後</span>に変身し、変身した場合、攻撃速度が<span className="variable">{incrementalCalculate(80, 4, 8, 3, diceClasses.gale || 3, diceDots.gale || 3)}%</span>増加する。</p>
             <p className="mt-4">5秒(以前は4秒だった)を耐えることで、攻撃速度を1.5倍以上にできるダイスです。</p>
             <p>盾のダイスを使用することで5秒は簡単に稼げるため、簡単に高DPSな攻撃を遠距離から与えることができます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="invincible"
+            name="無敵のダイス"
+            rarity="レア"
+            image={Invincible}
+            atk={50}
+            attackSpeed={0.8}
+            range={1}
+            hp={600}
+            diceColor="darkgoldenrod"
+            customProperties={{ "発動HP(%)": 20, "持続時間(s)": 0.5 }}
+            incrementWhenClassUp={{ atk: 2.5, hp: 30, "持続時間(s)": 0.025 }}
+            incrementWhenDotUp={{ atk: 35, hp: 420, attackSpeed: 0.16, "持続時間(s)": 0.1 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向の範囲内にいる味方のHPが<span className="variable">20%</span>以下になると、その味方に<span className="variable">{incrementalCalculate(0.5, 0.025, 0.1, 3, diceClasses.invincible || 3, diceDots.invincible || 3)}秒間</span>無敵状態になるバフを与える。</p>
+            <p className="mt-4">味方が瀕死になると0.5秒(以前は1秒だった)以上の無敵バフを付与するダイスです。</p>
+            <p>盾のダイスや倒されるとまずい火力ダイスと組み合わせて使われることが多いです。</p>
+            <p>なお、無敵のダイスが倒されると無敵効果は付与されません。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="spear"
+            name="槍のダイス"
+            rarity="レア"
+            image={Spear}
+            atk={40}
+            attackSpeed={1}
+            range={1}
+            hp={1000}
+            diceColor="darkslateblue"
+            customProperties={{ "追加ダメージ": 150 }}
+            incrementWhenClassUp={{ atk: 2, hp: 50, "追加ダメージ": 7.5 }}
+            incrementWhenDotUp={{ atk: 28, hp: 700, attackSpeed: 0.2, "追加ダメージ": 75 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃する時、攻撃した敵の1マス後ろの方向にいる敵に<span className="variable">{incrementalCalculate(150, 7.5, 75, 3, diceClasses.spear || 3, diceDots.spear || 3)}</span>の追加ダメージを与える。</p>
+            <p className="mt-4">敵を攻撃するときに1マス貫通して攻撃を与えることができるダイスです。</p>
+            <p>素の攻撃力が低いうえ、攻撃範囲が1のためかなり使いづらいダイスです。</p>
           </DiceDesc>
         </div>
       </main>
