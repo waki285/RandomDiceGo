@@ -6,6 +6,7 @@ import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 import Big from "big.js";
+import Ogp from "@/components/Ogp";
 
 // 画像素材
 // ノーマル
@@ -166,6 +167,12 @@ export default function AllDices() {
       <Head>
         <title>全ダイス解説｜RandomDiceGo攻略</title>
       </Head>
+      <Ogp
+        url="https://rdg.suzuneu.com/alldices"
+        type="article"
+        title="全ダイス解説"
+        description="RandomDiceGoにおける全ダイスを解説します。"
+      />
       <Header />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">全ダイス解説</Headline>
