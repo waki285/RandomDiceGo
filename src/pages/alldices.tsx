@@ -19,12 +19,17 @@ import Electric from "@/../public/dices/electric.webp";
 import Iron from "@/../public/dices/iron.webp";
 // レア
 import Light from "@/../public/dices/light.webp";
+import Sniper from "@/../public/dices/sniper.webp";
+import Heal from "@/../public/dices/heal.webp";
+import Gale from "@/../public/dices/gale.webp";
+import GaleTransform from "@/../public/dices/gale_transform.webp";
 
 type DiceInfo = {
   id: string,
   name: string,
   rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神",
   image: any,
+  image2?: any,
   atk: number,
   attackSpeed: number,
   range: number,
@@ -84,8 +89,9 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   return (
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor}>{desc.name}</Headline>
-      <section className="image">
+      <section className="image flex gap-8">
         <Image src={desc.image} alt="" className="my-4" width={128} loader={({ src }) => src} unoptimized />
+        {desc.image2 ? <Image src={desc.image2} alt="" className="my-4" width={128} loader={({ src }) => src} unoptimized />:""}
       </section>
       <section className="info">
         <dl>
@@ -280,7 +286,7 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p className="font-medium">攻撃範囲は狭いが、高い攻撃力で敵を攻撃する。</p>
+            <p className="font-medium">周囲8方向を2倍に拡張した範囲にいる全ての敵を挑発する。</p>
             <p className="mt-4">敵のダイスがある近くに置くだけで、お手軽に敵の攻撃先をそらし、その間に自分の強いダイスで攻撃することができます。</p>
             <p className="mt-4">盾のダイスは、本作における<span className="font-bold">最強</span>のダイスです。</p>
             <p>かなりHPが高く、かつ生き残れば生存ダイス数を増やせるので、無敵のダイスなどと組み合わせることがよくあります。</p>
@@ -346,6 +352,68 @@ export default function AllDices() {
             <p className="font-medium">周囲8方向にいる全ての味方の攻撃速度を<span className="variable">{incrementalCalculate(20, 0.5, 5, 3, diceClasses.light || 3, diceDots.light || 3)}%</span>増加させる。</p>
             <p className="mt-4">攻撃速度を増加させるダイスです。</p>
             <BuffNote />
+          </DiceDesc>
+          <DiceDesc
+            id="sniper"
+            name="狙撃のダイス"
+            rarity="レア"
+            image={Sniper}
+            atk={60}
+            attackSpeed={0.5}
+            range={4}
+            hp={500}
+            diceColor="maroon"
+            customProperties={{ "距離ごとの追加ダメージ(%)": 30 }}
+            incrementWhenClassUp={{ atk: 3, hp: 25, "距離ごとの追加ダメージ(%)": 1.5 }}
+            incrementWhenDotUp={{ atk: 42, hp: 350, attackSpeed: 0.1, "距離ごとの追加ダメージ(%)": 3 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">攻撃する敵との距離が1マス遠くなるほど、与えるダメージ量が<span className="variable">{incrementalCalculate(30, 1.5, 3, 3, diceClasses.sniper || 3, diceDots.sniper || 3)}%</span>ずつ増加する。</p>
+            <p className="mt-4">GO史上一番射程が長いダイスです。</p>
+            <p>ボードの中央におけばどのダイスにも攻撃が届く上に、攻撃速度は遅いが敵のダイスとの距離が離れていれば攻撃力が高いのでかなり有用なダイスです。</p>
+            <p>銃、砂(スナ)と呼ばれることもあります。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="heal"
+            name="ヒーリングのダイス"
+            rarity="レア"
+            image={Heal}
+            atk={60}
+            attackSpeed={0.8}
+            range={1}
+            hp={900}
+            diceColor="mediumspringgreen"
+            customProperties={{ "発動時間(s)": 1, "HP回復": 50 }}
+            incrementWhenClassUp={{ atk: 3, hp: 45, "HP回復": 2.5 }}
+            incrementWhenDotUp={{ atk: 42, hp: 630, attackSpeed: 0.16, "HP回復": 10 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium"><span className="variable">1秒</span>ごとに周囲8方向にいる味方のHPを<span className="variable">{incrementalCalculate(50, 2.5, 10, 3, diceClasses.heal || 3, diceDots.heal || 3)}</span>回復させる。</p>
+            <p className="mt-4">周囲の味方を高頻度で回復することができるダイスです。</p>
+            <p>しかし、序盤は回復量が上回ることがありますが、後半になってくると攻撃された時点でもう回復しても意味がないような状況になってしまうことが多いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="gale"
+            name="強風のダイス"
+            rarity="レア"
+            image={Gale}
+            image2={GaleTransform}
+            atk={60}
+            attackSpeed={1.2}
+            range={3}
+            hp={600}
+            diceColor="darkturquoise"
+            customProperties={{ "発動時間(s)": 5, "攻撃速度増加(%)": 80 }}
+            incrementWhenClassUp={{ atk: 3, hp: 30, "攻撃速度増加(%)": 4 }}
+            incrementWhenDotUp={{ atk: 42, hp: 420, attackSpeed: 0.24, "攻撃速度増加(%)": 8 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">バトル開始<span className="variable">5秒後</span>に変身し、変身した場合、攻撃速度が<span className="variable">{incrementalCalculate(80, 4, 8, 3, diceClasses.gale || 3, diceDots.gale || 3)}%</span>増加する。</p>
+            <p className="mt-4">5秒(以前は4秒だった)を耐えることで、攻撃速度を1.5倍以上にできるダイスです。</p>
+            <p>盾のダイスを使用することで5秒は簡単に稼げるため、簡単に高DPSな攻撃を遠距離から与えることができます。</p>
           </DiceDesc>
         </div>
       </main>
