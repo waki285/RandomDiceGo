@@ -323,7 +323,7 @@ export default function AllDices() {
             hp={800}
             diceColor="orange"
             customProperties={{ "連鎖ダメージ": 50 }}
-            incrementWhenClassUp={{ atk: 2.5, hp: 40, "連鎖ダメージ": 2.5 }}
+            incrementWhenClassUp={{ atk: 3.5, hp: 40, "連鎖ダメージ": 2.5 }}
             incrementWhenDotUp={{ atk: 49, hp: 560, attackSpeed: 0.24, "連鎖ダメージ": 25 }}
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
