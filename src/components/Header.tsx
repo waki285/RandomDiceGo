@@ -6,8 +6,8 @@ const LilitaOneFont = Lilita_One({
 
 export default function Header() {
   return (
-    <header className="flex flex-col items-center my-8">
-      <h1 className={`text-5xl ${LilitaOneFont.className}`}>RANDOM DICE GO 解説</h1>
+    <header className="my-8">
+      <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}>RANDOM DICE GO 解説</h1>
     </header>
   )
 }
