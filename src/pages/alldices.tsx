@@ -30,6 +30,7 @@ import Barrier from "@/../public/dices/barrier.webp";
 import Death from "@/../public/dices/death.webp";
 import Teleport from "@/../public/dices/teleport.webp";
 import Meteor from "@/../public/dices/meteor.webp";
+import Lock from "@/../public/dices/lock.webp";
 
 type DiceInfo = {
   id: string,
@@ -541,7 +542,31 @@ export default function AllDices() {
             dots={diceDots} setDots={setDiceDots}
           >
             <p className="font-medium">敵を<span className="variable">7回</span>攻撃すると、ランダムな敵に隕石を落とす。</p>
-            <p className="mt-4">HPが高く、攻撃速度もある程度あるため強いダイスです。</p>
+            <p className="mt-4">盾を攻撃していても、他の敵のダイスに攻撃を与えられる可能性があるので、強いです。</p>
+            <p>また、HPが高く、攻撃速度もある程度あるため殴り合いでも有利を取れます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="lock"
+            name="ロックのダイス"
+            rarity="英雄"
+            image={Lock}
+            atk={70}
+            attackSpeed={0.8}
+            range={1}
+            hp={1100}
+            diceColor="darkgray"
+            customProperties={{ "持続時間(s)": 3 }}
+            incrementWhenClassUp={{ atk: 3.5, hp: 55, "持続時間(s)": 0.15 }}
+            incrementWhenDotUp={{ atk: 49, hp: 770, attackSpeed: 0.16, "持続時間(s)": 0.5 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向にいる一番近い敵1体をロックし、<span className="variable">{incrementalCalculate(3, 0.15, 0.5, 5, diceClasses.lock || 5, diceDots.lock || 1)}秒間</span>基本攻撃ができない状態にする。</p>
+            <p className="font-medium">ロックが解除されると基本攻撃ができるようになる。</p>
+            <p className="mt-4">攻撃を3秒間停止できるダイスです。</p>
+            <p>ここにおいての「最も近い」とは、周囲8方向にある敵のダイスのうちの1つ(おそらくランダム)であり、2つのロックのダイスが同じ敵のダイスをロックすることもあります。</p>
+            <p>この場合、ロックの時間が延長されるわけでもないので、目的のダイスをロックできるかどうかが運です。</p>
+            <p>また、ロックのダイスが倒されるとロックは解除されます。</p>
           </DiceDesc>
         </div>
       </main>
