@@ -31,13 +31,15 @@ import Death from "@/../public/dices/death.webp";
 import Teleport from "@/../public/dices/teleport.webp";
 import Meteor from "@/../public/dices/meteor.webp";
 import Lock from "@/../public/dices/lock.webp";
+import Resurrection from "@/../public/dices/resurrection.webp";
+import ModifiedElectric from "@/../public/dices/modifiedelectric.webp";
 
 type DiceInfo = {
   id: string,
   name: string,
   rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神",
   image: any,
-  image2?: any,
+  addImages?: readonly any[],
   atk: number,
   attackSpeed: number,
   range: number,
@@ -97,9 +99,13 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   return (
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor}>{desc.name}</Headline>
-      <section className="image flex gap-8">
-        <Image src={desc.image} alt="" className="my-4" width={128} loader={({ src }) => src} unoptimized />
-        {desc.image2 ? <Image src={desc.image2} alt="" className="my-4" width={128} loader={({ src }) => src} unoptimized />:""}
+      <section className="image flex gap-8 my-4">
+        <Image src={desc.image} alt="" className="" width={128} loader={({ src }) => src} unoptimized />
+        {desc.addImages ? desc.addImages.map((x, i) => {
+          return (
+            <Image src={x} alt="" className="" width={128} loader={({ src }) => src} unoptimized key={i} />
+          )
+        }):""}
       </section>
       <section className="info">
         <dl>
@@ -409,7 +415,7 @@ export default function AllDices() {
             name="強風のダイス"
             rarity="レア"
             image={Gale}
-            image2={GaleTransform}
+            addImages={[GaleTransform]}
             atk={60}
             attackSpeed={1.2}
             range={3}
@@ -567,6 +573,50 @@ export default function AllDices() {
             <p>ここにおいての「最も近い」とは、周囲8方向にある敵のダイスのうちの1つ(おそらくランダム)であり、2つのロックのダイスが同じ敵のダイスをロックすることもあります。</p>
             <p>この場合、ロックの時間が延長されるわけでもないので、目的のダイスをロックできるかどうかが運です。</p>
             <p>また、ロックのダイスが倒されるとロックは解除されます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="resurrection"
+            name="復活のダイス"
+            rarity="英雄"
+            image={Resurrection}
+            atk={60}
+            attackSpeed={0.8}
+            range={1}
+            hp={1200}
+            diceColor="yellow"
+            customProperties={{ "復活時のHP(%)": 40 }}
+            incrementWhenClassUp={{ atk: 3, hp: 60, "復活時のHP(%)": 2 }}
+            incrementWhenDotUp={{ atk: 42, hp: 840, attackSpeed: 0.16, "復活時のHP(%)": 4 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">自分が死ぬ時、周囲8方向にいる死んだ味方の中から1体を<span className="variable">{incrementalCalculate(40, 2, 4, 5, diceClasses.resurrection || 5, diceDots.resurrection || 1)}%</span>のHP状態に復活させる。</p>
+            <p className="font-medium">復活のダイスを復活させることはできない。</p>
+            <p className="mt-4">常に死んだ味方を復活させることができるダイスです。</p>
+            <p>後述する自爆のダイスと組み合わせて、何回も自爆させたり、主火力と隣接させて死んでもチャンスを掴むデッキなどがあります。</p>
+            <p>注意として、先に復活のダイスが死んでしまうと復活させることができません。 </p>
+          </DiceDesc>
+          <DiceDesc
+            id="modifiedelectric"
+            name="改造された電気のダイス"
+            rarity="英雄"
+            image={ModifiedElectric}
+            atk={30}
+            attackSpeed={0.8}
+            range={2}
+            hp={900}
+            diceColor="red"
+            customProperties={{ "ダメージ増加(%)": 10 }}
+            incrementWhenClassUp={{ atk: 1.5, hp: 45, "ダメージ増加(%)": 0.5 }}
+            incrementWhenDotUp={{ atk: 21, hp: 630, attackSpeed: 0.16, "ダメージ増加(%)": 1 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃する時、攻撃した敵の周囲8方向に敵がいる場合、ランダムな敵1体に攻撃が弾き、<span className="variable">{incrementalCalculate(10, 0.5, 1, 5, diceClasses.modifiedelectric || 5, diceDots.modifiedelectric || 1)}%</span>増加したダメージを与える。</p>
+            <p className="font-medium">このスキルは、周囲8方向にいる敵がいなくなるまで繰り返す。</p>
+            <p className="mt-4">敵のダイスが繋がっていれば連鎖してダメージが上がるダイスです。</p>
+            <p>かつてはパラメーターがかなり高くとても強かったのですが、今はかなりDPSが低くなってしまい盾を倒すことが困難になってしまいました。</p>
+            <p>そのため、今はあまり使われていません。</p>
           </DiceDesc>
         </div>
       </main>
