@@ -34,6 +34,9 @@ import Lock from "@/../public/dices/lock.webp";
 import Resurrection from "@/../public/dices/resurrection.webp";
 import ModifiedElectric from "@/../public/dices/modifiedelectric.webp";
 import Fury from "@/../public/dices/fury.webp";
+import Vampire from "@/../public/dices/vampire.webp";
+// 伝説
+import Explode from "@/../public/dices/explode.webp";
 
 type DiceInfo = {
   id: string,
@@ -639,6 +642,28 @@ export default function AllDices() {
             <p className="mt-4">HPが減るとダメージが2倍以上になるダイスです。</p>
             <p>そのDPSの高さと暴走状態のステータスからかなりよく使われています。</p>
             <p>無敵のダイスや復活のダイスと組み合わせて暴走状態の攻撃を多く浴びせるデッキが多いです。</p>
+          </DiceDesc>
+          <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">伝説</Headline>
+          <DiceDesc
+            id="explode"
+            name="自爆のダイス"
+            rarity="伝説"
+            image={Explode}
+            atk={50}
+            attackSpeed={0.4}
+            range={1}
+            hp={700}
+            diceColor="red"
+            customProperties={{ "範囲ダメージ": 700 }}
+            incrementWhenClassUp={{ atk: 5, hp: 70, "範囲ダメージ": 70 }}
+            incrementWhenDotUp={{ atk: 35, hp: 490, attackSpeed: 0.08, "範囲ダメージ": 350 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">自分が死んだ時、周囲8方向にいる全ての味方に<span className="variable">{incrementalCalculate(700, 70, 350, 7, diceClasses.explode || 7, diceDots.explode || 1)}</span>ダメージを与える。</p>
+            <p className="mt-4">死んだときに周囲の敵に大ダメージを与えるダイスです。</p>
+            <p>火力は高いがHPが低い善悪のダイスに対してかなりの有利を取ることができます。</p>
+            <p>また、復活のダイスと組み合わせることで繰り返し自爆させることができます。</p>
           </DiceDesc>
         </div>
       </main>
