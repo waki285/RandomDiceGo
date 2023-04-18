@@ -42,6 +42,7 @@ import Solar from "@/../public/dices/solar.webp";
 import SolarInactive from "@/../public/dices/solar_inactive.webp";
 import Lunar from "@/../public/dices/lunar.webp";
 import LunarInactive from "@/../public/dices/lunar_inactive.webp";
+import Judgement from "@/../public/dices/judgement.webp";
 
 type DiceInfo = {
   id: string,
@@ -760,6 +761,26 @@ export default function AllDices() {
             <p>その代わり活性化させるとクリティカル発生確率を上昇させることができます。</p>
             <BuffNote />
             <p>そのため、クリティカル発生率も重複させることができます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="judgement"
+            name="裁きのダイス"
+            rarity="伝説"
+            image={Judgement}
+            atk={100}
+            attackSpeed={0.5}
+            range={2}
+            hp={1000}
+            diceColor="darkgoldenrod"
+            customProperties={{ "範囲ダメージ": 200 }}
+            incrementWhenClassUp={{ atk: 10, hp: 100, attackSpeed: 0.05, "範囲ダメージ": 20 }}
+            incrementWhenDotUp={{ atk: 70, hp: 700, attackSpeed: 0.1, "範囲ダメージ": 60 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を倒した時、HPが一番低い敵とその周囲8方向にいる全ての敵に<span className="variable">{incrementalCalculate(200, 20, 60, 7, diceClasses.judgement || 7, diceDots.judgement || 1)}</span>の追加ダメージを与える。</p>
+            <p className="mt-4">敵を倒したときに弱い敵とその周りに追加で攻撃できるダイスです。</p>
+            <p>ただ、最初の状態だと攻撃速度がかなり遅いことがデメリットです。</p>
           </DiceDesc>
         </div>
       </main>
