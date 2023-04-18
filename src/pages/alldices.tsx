@@ -40,6 +40,8 @@ import Explode from "@/../public/dices/explode.webp";
 import Time from "@/../public/dices/time.webp";
 import Solar from "@/../public/dices/solar.webp";
 import SolarInactive from "@/../public/dices/solar_inactive.webp";
+import Lunar from "@/../public/dices/lunar.webp";
+import LunarInactive from "@/../public/dices/lunar_inactive.webp";
 
 type DiceInfo = {
   id: string,
@@ -732,6 +734,32 @@ export default function AllDices() {
             <p className="mt-4">火のダイスの強化版ダイスです。</p>
             <p>活性化させると周囲のダイスに1.5倍以上のダメージを与えることができるため、活性化できれば強いです。</p>
             <p>以前は火のダイスより弱かったことがあります。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="lunar"
+            name="月のダイス"
+            rarity="伝説"
+            image={Lunar}
+            addImages={[LunarInactive]}
+            atk={80}
+            attackSpeed={1.1}
+            range={1}
+            hp={1000}
+            diceColor="deepskyblue"
+            customProperties={{ "攻撃速度増加(%)": 15, "[3個]クリティカル率増加(%)": 15, "[5個]クリティカル率増加(%)": 25 }}
+            incrementWhenClassUp={{ atk: 8, hp: 100, attackSpeed: 0.11, "攻撃速度増加(%)": 1 }}
+            incrementWhenDotUp={{ atk: 56, hp: 700, attackSpeed: 0.22, "攻撃速度増加(%)": 4 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向にいる全ての味方の攻撃速度が<span className="variable">{incrementalCalculate(15, 1, 4, 7, diceClasses.lunar || 7, diceDots.lunar || 1)}%</span>増加する。</p>
+            <p className="font-medium">配置された[月のダイス]の数に従って、スキルが変化する。</p>
+            <p className="font-medium"><span className="qty">[3個]</span>追加で周囲8方向にいる全ての味方のクリティカル率が<span className="variable">15%</span>増加する。</p>
+            <p className="font-medium"><span className="qty">[5個]</span>追加で周囲8方向にいる全ての味方のクリティカル率が<span className="variable">25%</span>増加する。</p>
+            <p className="mt-4">光のダイスの強化版ダイス...なのですが、光のダイスより攻撃速度上昇値が弱いです。</p>
+            <p>その代わり活性化させるとクリティカル発生確率を上昇させることができます。</p>
+            <BuffNote />
+            <p>そのため、クリティカル発生率も重複させることができます。</p>
           </DiceDesc>
         </div>
       </main>
