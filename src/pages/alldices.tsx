@@ -643,6 +643,26 @@ export default function AllDices() {
             <p>そのDPSの高さと暴走状態のステータスからかなりよく使われています。</p>
             <p>無敵のダイスや復活のダイスと組み合わせて暴走状態の攻撃を多く浴びせるデッキが多いです。</p>
           </DiceDesc>
+          <DiceDesc
+            id="vampire"
+            name="ヴァンパイアのダイス"
+            rarity="英雄"
+            image={Vampire}
+            atk={110}
+            attackSpeed={1}
+            range={1}
+            hp={1000}
+            diceColor="firebrick"
+            customProperties={{ "吸血(%)": 15 }}
+            incrementWhenClassUp={{ atk: 5.5, hp: 50, "吸血(%)": 0.75 }}
+            incrementWhenDotUp={{ atk: 77, hp: 700, attackSpeed: 0.2, "吸血(%)": 1.5 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向にいる全ての味方に、敵に与えたダメージ量の<span className="variable">{incrementalCalculate(15, 0.75, 1.5, 5, diceClasses.vampire || 5, diceDots.vampire || 1)}%</span>分のHPを回復する吸血スキルを与える。</p>
+            <p className="mt-4">味方のダイスにヘルスドレイン効果を与えるダイスです。</p>
+            <p>高DPSで高射程のダイスと組み合わせることで、強固な塔を作ることができます。</p>
+          </DiceDesc>
           <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">伝説</Headline>
           <DiceDesc
             id="explode"
