@@ -38,6 +38,8 @@ import Vampire from "@/../public/dices/vampire.webp";
 // 伝説
 import Explode from "@/../public/dices/explode.webp";
 import Time from "@/../public/dices/time.webp";
+import Solar from "@/../public/dices/solar.webp";
+import SolarInactive from "@/../public/dices/solar_inactive.webp";
 
 type DiceInfo = {
   id: string,
@@ -706,6 +708,30 @@ export default function AllDices() {
             <p className="mt-4">置くだけで攻撃速度でアドを取ることができるダイスです。</p>
             <BuffNote />
             <p className="mt-4">基本的に時間のダイスの出目を上げるのではなく、時間のダイス含め1出目をまき散らすことで攻撃速度をかなり増加させる戦略が多いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="solar"
+            name="太陽のダイス"
+            rarity="伝説"
+            image={Solar}
+            addImages={[SolarInactive]}
+            atk={70}
+            attackSpeed={1.1}
+            range={2}
+            hp={1200}
+            diceColor="darkorange"
+            customProperties={{ "[3個]追加範囲ダメージ(%)": 50, "[5個]追加範囲ダメージ(%)": 80 }}
+            incrementWhenClassUp={{ atk: 7, hp: 120, attackSpeed: 0.11 }}
+            incrementWhenDotUp={{ atk: 49, hp: 840, attackSpeed: 0.22 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">配置された[太陽のダイス]の数に従って、スキルが変化する。</p>
+            <p className="font-medium"><span className="qty">[3個]</span>追加で敵を攻撃する時、攻撃した敵の周囲8方向にいる全ての敵に、与えたダメージの<span className="variable">50%</span>分の追加ダメージを与える。</p>
+            <p className="font-medium"><span className="qty">[5個]</span>追加で敵を攻撃する時、攻撃した敵の周囲8方向にいる全ての敵に、与えたダメージの<span className="variable">80%</span>分の追加ダメージを与える。</p>
+            <p className="mt-4">火のダイスの強化版ダイスです。</p>
+            <p>活性化させると周囲のダイスに1.5倍以上のダメージを与えることができるため、活性化できれば強いです。</p>
+            <p>以前は火のダイスより弱かったことがあります。</p>
           </DiceDesc>
         </div>
       </main>
