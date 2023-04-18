@@ -37,6 +37,7 @@ import Fury from "@/../public/dices/fury.webp";
 import Vampire from "@/../public/dices/vampire.webp";
 // 伝説
 import Explode from "@/../public/dices/explode.webp";
+import Time from "@/../public/dices/time.webp";
 
 type DiceInfo = {
   id: string,
@@ -675,7 +676,7 @@ export default function AllDices() {
             hp={700}
             diceColor="red"
             customProperties={{ "範囲ダメージ": 700 }}
-            incrementWhenClassUp={{ atk: 5, hp: 70, "範囲ダメージ": 70 }}
+            incrementWhenClassUp={{ atk: 5, hp: 70, attackSpeed: 0.04, "範囲ダメージ": 70 }}
             incrementWhenDotUp={{ atk: 35, hp: 490, attackSpeed: 0.08, "範囲ダメージ": 350 }}
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
@@ -684,6 +685,27 @@ export default function AllDices() {
             <p className="mt-4">死んだときに周囲の敵に大ダメージを与えるダイスです。</p>
             <p>火力は高いがHPが低い善悪のダイスに対してかなりの有利を取ることができます。</p>
             <p>また、復活のダイスと組み合わせることで繰り返し自爆させることができます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="time"
+            name="時間のダイス"
+            rarity="伝説"
+            image={Time}
+            atk={40}
+            attackSpeed={0.7}
+            range={0}
+            hp={800}
+            diceColor="dimgray"
+            customProperties={{ "味方の攻撃速度増加(%)": 7, "敵の攻撃速度減少(%)": 7 }}
+            incrementWhenClassUp={{ atk: 4, hp: 80, attackSpeed: 0.07, "味方の攻撃速度増加(%)": 0.5, "敵の攻撃速度減少(%)": 0.5 }}
+            incrementWhenDotUp={{ atk: 28, hp: 560, attackSpeed: 0.14, "味方の攻撃速度増加(%)": 2, "敵の攻撃速度減少(%)": 2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">自分と同じ出目を持つ味方の攻撃速度は、<span className="variable">{incrementalCalculate(7, 0.5, 2, 7, diceClasses.time || 7, diceDots.time || 1)}%</span>増加し、敵の攻撃速度は<span className="variable">{incrementalCalculate(7, 0.5, 2, 7, diceClasses.time || 7, diceDots.time || 1)}%</span>減少する。</p>
+            <p className="mt-4">置くだけで攻撃速度でアドを取ることができるダイスです。</p>
+            <BuffNote />
+            <p className="mt-4">基本的に時間のダイスの出目を上げるのではなく、時間のダイス含め1出目をまき散らすことで攻撃速度をかなり増加させる戦略が多いです。</p>
           </DiceDesc>
         </div>
       </main>
