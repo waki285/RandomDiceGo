@@ -33,6 +33,7 @@ import Meteor from "@/../public/dices/meteor.webp";
 import Lock from "@/../public/dices/lock.webp";
 import Resurrection from "@/../public/dices/resurrection.webp";
 import ModifiedElectric from "@/../public/dices/modifiedelectric.webp";
+import Fury from "@/../public/dices/fury.webp";
 
 type DiceInfo = {
   id: string,
@@ -617,6 +618,27 @@ export default function AllDices() {
             <p className="mt-4">敵のダイスが繋がっていれば連鎖してダメージが上がるダイスです。</p>
             <p>かつてはパラメーターがかなり高くとても強かったのですが、今はかなりDPSが低くなってしまい盾を倒すことが困難になってしまいました。</p>
             <p>そのため、今はあまり使われていません。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="fury"
+            name="バーサーカーのダイス"
+            rarity="英雄"
+            image={Fury}
+            atk={100}
+            attackSpeed={0.9}
+            range={2}
+            hp={1350}
+            diceColor="orchid"
+            customProperties={{ "発動HP(%)": 25, "攻撃力増加(%)": 100 }}
+            incrementWhenClassUp={{ atk: 5, hp: 67.5, "発動HP(%)": 1, "攻撃力増加(%)": 5 }}
+            incrementWhenDotUp={{ atk: 70, hp: 945, attackSpeed: 0.18, "発動HP(%)": 2.5, "攻撃力増加(%)": 10 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">HPが<span className="variable">{incrementalCalculate(25, 1, 2.5, 5, diceClasses.fury || 5, diceDots.fury || 1)}%</span>以下になると、攻撃力が<span className="variable">{incrementalCalculate(100, 5, 10, 5, diceClasses.fury || 5, diceDots.fury || 1)}%</span>増加する。</p>
+            <p className="mt-4">HPが減るとダメージが2倍以上になるダイスです。</p>
+            <p>そのDPSの高さと暴走状態のステータスからかなりよく使われています。</p>
+            <p>無敵のダイスや復活のダイスと組み合わせて暴走状態の攻撃を多く浴びせるデッキが多いです。</p>
           </DiceDesc>
         </div>
       </main>
