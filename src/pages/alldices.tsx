@@ -46,6 +46,7 @@ import Judgement from "@/../public/dices/judgement.webp";
 import Goodevil from "@/../public/dices/goodevil.webp";
 import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
 import GoodevilGood from "@/../public/dices/goodevil_good.webp";
+import Hell from "@/../public/dices/hell.webp";
 
 type DiceInfo = {
   id: string,
@@ -818,6 +819,28 @@ export default function AllDices() {
             <p>奇数時ではDPSがかなり高い+射程が3であるため、かなりの早さで敵を倒すことができます。</p>
             <p>しかし、HPがかなり低い状態なので、バリアのダイスなどと組み合わせて使われます。</p>
             <p>偶数時では盾の効果を持つ上に奇数状態から切り替えることが簡単なため、危ないときに凌ぐことができます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="hell"
+            name="地獄のダイス"
+            rarity="伝説"
+            image={Hell}
+            atk={80}
+            attackSpeed={1}
+            range={1}
+            hp={800}
+            diceColor="black"
+            customProperties={{ "即死率(%)": 2 }}
+            incrementWhenClassUp={{ atk: 8, hp: 80, attackSpeed: 0.1, "即死率(%)": 0.1 }}
+            incrementWhenDotUp={{ atk: 56, hp: 560, attackSpeed: 0.2, "即死率(%)": 0.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向にいる全ての味方に<span className="variable">{incrementalCalculate(2, 0.1, 0.2, 7, diceClasses.hell || 7, diceDots.hell || 1)}%</span>の確率で即死させる即死スキルを与える。</p>
+            <p className="mt-4">攻撃時に一定確率で即死できるダイスです。</p>
+            <BuffNote />
+            <p>敵の主力ダイスに即死が入ればかなりの確率で勝てますが、それ以外だとこのダイスを入れている意味がなくなってしまうため、かなり使いづらいです。</p>
+            <p>改造された電気のダイスの連鎖攻撃や、裁きのダイスの裁き効果などの特殊攻撃にも即死抽選が行われます。</p>
           </DiceDesc>
         </div>
       </main>
