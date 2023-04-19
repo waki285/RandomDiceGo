@@ -76,7 +76,7 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   return (
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor} borderGradient={desc.diceColorGradient}>{desc.name}</Headline>
-      <section className="image flex gap-8 my-4">
+      <section className="image flex gap-8 my-4 flex-wrap">
         <Image src={desc.image} alt="" className="" width={128} loader={({ src }) => src} unoptimized />
         {desc.addImages ? desc.addImages.map((x, i) => {
           return (
