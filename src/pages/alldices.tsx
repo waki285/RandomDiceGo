@@ -49,6 +49,8 @@ import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 import Hell from "@/../public/dices/hell.webp";
 import Levelup from "@/../public/dices/levelup.webp";
 import LevelupGt0 from "@/../public/dices/levelup_gt0.webp";
+import Holybow from "@/../public/dices/holybow.webp";
+import HolybowDivine from "@/../public/dices/holybow_divine.webp";
 
 type DiceInfo = {
   id: string,
@@ -866,6 +868,30 @@ export default function AllDices() {
             <p className="mt-4">自身が敵のダイスを倒すほど攻撃力が上がっていくダイスです。ウェーブを跨いでもレベルは持続します。</p>
             <p>説明文に「無限」と書いてありますが、100レベル以上になると攻撃力は99レベルのままになります。</p>
             <p>また、レベルは味方のレベルアップダイス全部で共有<span className="font-bold">ではありません</span>。独立しています。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="holybow"
+            name="光の弓のダイス"
+            rarity="伝説"
+            image={Holybow}
+            addImages={[HolybowDivine]}
+            atk={80}
+            attackSpeed={0.8}
+            range={3}
+            hp={1000}
+            diceColor="teal"
+            diceColorGradient="linear-gradient(180deg, teal 50%, orange 50%)"
+            customProperties={{ "発動確率(%)": 20, "光の矢ダメージ": 120, "変身確率(%)": 20, "ダメージ増加(%)": 150 }}
+            incrementWhenClassUp={{ atk: 8, hp: 100, attackSpeed: 0.08, "光の矢ダメージ": 15 }}
+            incrementWhenDotUp={{ atk: 56, hp: 700, attackSpeed: 0.16, "光の矢ダメージ": 70 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃する時、<span className="variable">20%</span>の確率で一直線上にいる全ての敵に<span className="variable">{incrementalCalculate(120, 15, 70, 7, diceClasses.holybow || 7, diceDots.holybow || 1)}</span>ダメージを与える。</p>
+            <p className="font-medium">また、生成/合成する時、<span className="variable">20%</span>の確率で天上の弓のダイスに変化し、この時にスキルを発動した場合、スキルダメージ量が<span className="variable">150%</span>増加する。</p>
+            <p className="mt-4">一定確率で貫通して攻撃することができるダイスです。</p>
+            <p>天上の弓になると、弓ダメージが2.5倍になることからかなりの強さを発揮します。</p>
+            <p>盾のダイスを攻撃しても奥に攻撃できるうえ、盾のダイスを破壊するのも早いです。</p>
           </DiceDesc>
         </div>
       </main>
