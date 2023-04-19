@@ -51,6 +51,8 @@ import Levelup from "@/../public/dices/levelup.webp";
 import LevelupGt0 from "@/../public/dices/levelup_gt0.webp";
 import Holybow from "@/../public/dices/holybow.webp";
 import HolybowDivine from "@/../public/dices/holybow_divine.webp";
+import Holysword from "@/../public/dices/holysword.webp";
+import HolyswordDivine from "@/../public/dices/holysword_divine.webp";
 
 type DiceInfo = {
   id: string,
@@ -892,6 +894,29 @@ export default function AllDices() {
             <p className="mt-4">一定確率で貫通して攻撃することができるダイスです。</p>
             <p>天上の弓になると、弓ダメージが2.5倍になることからかなりの強さを発揮します。</p>
             <p>盾のダイスを攻撃しても奥に攻撃できるうえ、盾のダイスを破壊するのも早いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="holysword"
+            name="光の剣のダイス"
+            rarity="伝説"
+            image={Holysword}
+            addImages={[HolyswordDivine]}
+            atk={100}
+            attackSpeed={0.9}
+            range={2}
+            hp={1400}
+            diceColor="deepskyblue"
+            diceColorGradient="linear-gradient(180deg, deepskyblue 50%, orange 50%)"
+            customProperties={{ "発動確率(%)": 20, "最大HP基盤ダメージ(%)": 5, "変身確率(%)": 20, "ダメージ増加(%)": 150 }}
+            incrementWhenClassUp={{ atk: 10, hp: 140, attackSpeed: 0.09, "最大HP基盤ダメージ(%)": 0.25 }}
+            incrementWhenDotUp={{ atk: 70, hp: 980, attackSpeed: 0.18, "最大HP基盤ダメージ(%)": 1 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">敵を攻撃する時、<span className="variable">20%</span>の確率で攻撃した敵の最大HP<span className="variable">{incrementalCalculate(5, 0.25, 1, 7, diceClasses.holysword || 7, diceDots.holysword || 1)}%</span>分の追加ダメージを与える。</p>
+            <p className="font-medium">また、生成/合成する時、<span className="variable">20%</span>の確率で天上の剣のダイスに変化し、この時にスキルを発動した場合、スキルダメージ量が<span className="variable">150%</span>増加する。</p>
+            <p className="mt-4">一定確率で最大HP割合ダメージを与えるダイスです。</p>
+            <p>しかし、発動するかわからないので、鉄のダイスや剣のダイスなどのほうが強いです。</p>
           </DiceDesc>
         </div>
       </main>
