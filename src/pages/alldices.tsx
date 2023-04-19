@@ -1018,26 +1018,26 @@ export default function AllDices() {
           </DiceDesc>
           <DiceDesc
             id="vermilionbird"
-            name="青龍のダイス"
+            name="朱雀のダイス"
             rarity="四神"
-            image={Azuredragon}
-            atk={40}
+            image={Vermilionbird}
+            atk={70}
             attackSpeed={0.9}
-            range={3}
-            hp={1400}
-            diceColor="darkgreen"
-            diceColorGradient="linear-gradient(180deg, mediumseagreen 0%, darkgreen 100%)"
-            customProperties={{ "破壊されたダイス": 10, "ビームダメージ": 250, "味方のHP回復": 100 }}
-            incrementWhenClassUp={{ atk: 4, hp: 140, attackSpeed: 0.09, "ビームダメージ": 25, "味方のHP回復": 10 }}
-            incrementWhenDotUp={{ atk: 28, hp: 980, attackSpeed: 0.18, "ビームダメージ": 50, "味方のHP回復": 20 }}
+            range={2}
+            hp={700}
+            diceColor="red"
+            diceColorGradient="linear-gradient(180deg, orange 0%, maroon 100%)"
+            customProperties={{ "卵状態のHP(%)": 100, "生存時間(s)": 2.5, "範囲ダメージ": 1000, "攻撃力増加": 50 }}
+            incrementWhenClassUp={{ atk: 7, hp: 70, attackSpeed: 0.09, "範囲ダメージ": 100, "攻撃力増加": 2.5 }}
+            incrementWhenDotUp={{ atk: 49, hp: 490, attackSpeed: 0.18, "範囲ダメージ": 500, "攻撃力増加": 20 }}
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
-            <p className="font-medium">スキルは、フィールドに[青龍]が1体のみ配置されている場合に使用できる。</p>
-            <p className="font-medium">範囲内にいる<span className="variable">10個</span>のダイスが破壊されると、攻撃が強化される。</p>
-            <p className="font-medium">強化後は、一直線上にいる全ての敵に<span className="variable">{incrementalCalculate(250, 25, 50, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}</span>ダメージを与え、味方には<span className="variable">{incrementalCalculate(100, 10, 20, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}HP</span>を回復させる。</p>
-            <p className="mt-4">敵味方関係なくダイスが10個破壊されたら、味方のダイスに対して回復効果がある光の弓のようなものを放つ攻撃をします。</p>
-            <p>10個は盾のダイスを破壊したり、復活のダイスで復活したダイスを破壊することでかなり簡単に稼ぐことができます。</p>
+            <p className="font-medium">スキルは、フィールドに[朱雀]が1体のみ配置されている場合に使用できる。</p>
+            <p className="font-medium">朱雀が破壊されるときに1回、<span className="variable">100%</span>のHPを持つ卵状態になる。卵状態で<span className="variable">2.5秒間</span>生存すると復活する。</p>
+            <p className="font-medium">復活すると周囲8方向を2倍に拡張した範囲にいる全ての敵に<span className="variable">{incrementalCalculate(1000, 100, 500, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>ダメージを与え、  フィールド上にいる全ての味方の攻撃力を<span className="variable">{incrementalCalculate(50, 2.5, 20, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>増加させる。</p>
+            <p className="mt-4">倒されても一度復活し、そのまま耐えれば味方の攻撃力を上昇し、自爆のダイスの上位互換効果を発動できるダイスです。</p>
+            <p>このダイスと復活のダイスとの特殊挙動として、卵状態で倒されたあと、復活のダイスで復活したとき、生存秒数のカウントが<span className="font-bold">卵状態での経過時間がすでに経過した状態からスタート</span>します。</p>
           </DiceDesc>
         </div>
       </main>
