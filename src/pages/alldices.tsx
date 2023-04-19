@@ -43,6 +43,9 @@ import SolarInactive from "@/../public/dices/solar_inactive.webp";
 import Lunar from "@/../public/dices/lunar.webp";
 import LunarInactive from "@/../public/dices/lunar_inactive.webp";
 import Judgement from "@/../public/dices/judgement.webp";
+import Goodevil from "@/../public/dices/goodevil.webp";
+import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
+import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 
 type DiceInfo = {
   id: string,
@@ -59,6 +62,7 @@ type DiceInfo = {
   incrementWhenDotUp: Record<string, number>,
   children: React.ReactNode,
   diceColor: string,
+  diceColorGradient?: string,
   diceClasses: Record<string, number>,
   dots: Record<string, number>,
   setDiceClasses: any,
@@ -108,7 +112,7 @@ const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   }]
   return (
     <>
-      <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor}>{desc.name}</Headline>
+      <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor} borderGradient={desc.diceColorGradient}>{desc.name}</Headline>
       <section className="image flex gap-8 my-4">
         <Image src={desc.image} alt="" className="" width={128} loader={({ src }) => src} unoptimized />
         {desc.addImages ? desc.addImages.map((x, i) => {
@@ -178,6 +182,11 @@ const BuffNote = memo(function BuffNote() {
       <p className="mt-4">ランダムダイスGOのバフは、本家とは違い<span className="font-bold">重複します</span>。</p>
       <p>例えば、16%のバフと16%のバフが重なったダイスがあった場合、そのダイスは32%のバフを獲得します。</p>
     </>
+  )
+});
+const CalcNote = memo(function CalcNote({ content }: { content: string }) {
+  return (
+    <><p className="mb-4">※{ content }はこちらに記載していません。知りたい場合は<Link href="/calculator" className="link">火力・バフ計算機</Link>が便利です。</p></>
   )
 });
 
@@ -781,6 +790,34 @@ export default function AllDices() {
             <p className="font-medium">敵を倒した時、HPが一番低い敵とその周囲8方向にいる全ての敵に<span className="variable">{incrementalCalculate(200, 20, 60, 7, diceClasses.judgement || 7, diceDots.judgement || 1)}</span>の追加ダメージを与える。</p>
             <p className="mt-4">敵を倒したときに弱い敵とその周りに追加で攻撃できるダイスです。</p>
             <p>ただ、最初の状態だと攻撃速度がかなり遅いことがデメリットです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="goodevil"
+            name="善悪のダイス"
+            rarity="伝説"
+            image={Goodevil}
+            addImages={[GoodevilEvil, GoodevilGood]}
+            atk={80}
+            attackSpeed={1.2}
+            range={2}
+            hp={900}
+            diceColor="gray"
+            diceColorGradient="linear-gradient(180deg, whitesmoke 50%, dimgray 50%)"
+            customProperties={{ "[奇数]攻撃力増加(%)": 100, "[奇数]HP減少(%)": 70, "[偶数]攻撃力減少(%)": 70, "[偶数]HP増加(%)": 200 }}
+            incrementWhenClassUp={{ atk: 8, hp: 90, attackSpeed: 0.12 }}
+            incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <CalcNote content="奇数・偶数時のパラメーター" />
+            <p className="font-medium">自分の現在出目数に従ってスキルが変わる。</p>
+            <p className="font-medium"><span className="qty">[奇数]</span>攻撃範囲が<span className="variable">1</span>、攻撃力が<span className="variable"><span className="line-through">200%</span>100%</span>増加するが、HPが<span className="variable">70%</span>減少する。</p>
+            <p className="font-medium"><span className="qty">[偶数]</span>攻撃範囲内にいる全ての敵を挑発し、HPが<span className="variable">200%※未検証</span>増加するが、攻撃力が<span className="variable">70%</span>減少する。</p>
+            <p className="mt-4 text-red-500">※奇数時の攻撃力増加は200%ではなく100%であることが判明しています。そのため、偶数時のHP200%増加も100%増加である可能性がありますが、未検証です。</p>
+            <p>2つのスキルを切り替えることができるダイスです。</p>
+            <p>奇数時ではDPSがかなり高い+射程が3であるため、かなりの早さで敵を倒すことができます。</p>
+            <p>しかし、HPがかなり低い状態なので、バリアのダイスなどと組み合わせて使われます。</p>
+            <p>偶数時では盾の効果を持つ上に奇数状態から切り替えることが簡単なため、危ないときに凌ぐことができます。</p>
           </DiceDesc>
         </div>
       </main>
