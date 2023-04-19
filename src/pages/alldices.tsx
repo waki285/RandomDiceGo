@@ -53,6 +53,7 @@ import Holybow from "@/../public/dices/holybow.webp";
 import HolybowDivine from "@/../public/dices/holybow_divine.webp";
 import Holysword from "@/../public/dices/holysword.webp";
 import HolyswordDivine from "@/../public/dices/holysword_divine.webp";
+import Soulcollector from "@/../public/dices/soulcollector.webp";
 
 type DiceInfo = {
   id: string,
@@ -917,6 +918,26 @@ export default function AllDices() {
             <p className="font-medium">また、生成/合成する時、<span className="variable">20%</span>の確率で天上の剣のダイスに変化し、この時にスキルを発動した場合、スキルダメージ量が<span className="variable">150%</span>増加する。</p>
             <p className="mt-4">一定確率で最大HP割合ダメージを与えるダイスです。</p>
             <p>しかし、発動するかわからないので、鉄のダイスや剣のダイスなどのほうが強いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="soulcollector"
+            name="魂のダイス"
+            rarity="伝説"
+            image={Soulcollector}
+            atk={50}
+            attackSpeed={0.9}
+            range={3}
+            hp={1300}
+            diceColor="darkcyan"
+            customProperties={{ "攻撃力増加(%)": 6, "攻撃速度増加(%)": 6, "HP増加(%)": 6 }}
+            incrementWhenClassUp={{ atk: 5, hp: 130, attackSpeed: 0.09, "攻撃力増加(%)": 0.5, "攻撃速度増加(%)": 0.5, "HP増加(%)": 0.5 }}
+            incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.18 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">周囲8方向を2倍に拡張した範囲内にいる味方のダイスが死ぬたびに、攻撃力と攻撃速度、HPが各<span className="variable">{incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)}%</span>ずつ増加する。</p>
+            <p className="mt-4">味方のダイスが死ぬほど強くなるダイスです。</p>
+            <p>復活のダイスで復活したダイスもカウントされます。</p>
           </DiceDesc>
         </div>
       </main>
