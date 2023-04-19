@@ -47,6 +47,8 @@ import Goodevil from "@/../public/dices/goodevil.webp";
 import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
 import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 import Hell from "@/../public/dices/hell.webp";
+import Levelup from "@/../public/dices/levelup.webp";
+import LevelupGt0 from "@/../public/dices/levelup_gt0.webp";
 
 type DiceInfo = {
   id: string,
@@ -841,6 +843,29 @@ export default function AllDices() {
             <BuffNote />
             <p>敵の主力ダイスに即死が入ればかなりの確率で勝てますが、それ以外だとこのダイスを入れている意味がなくなってしまうため、かなり使いづらいです。</p>
             <p>改造された電気のダイスの連鎖攻撃や、裁きのダイスの裁き効果などの特殊攻撃にも即死抽選が行われます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="levelup"
+            name="レベルアップのダイス"
+            rarity="伝説"
+            image={Levelup}
+            addImages={[LevelupGt0]}
+            atk={50}
+            attackSpeed={1}
+            range={3}
+            hp={1200}
+            diceColor="darkorange"
+            customProperties={{ "攻撃力増加": 10 }}
+            incrementWhenClassUp={{ atk: 5, hp: 120, attackSpeed: 0.1, "攻撃力増加": 0.5 }}
+            incrementWhenDotUp={{ atk: 35, hp: 840, attackSpeed: 0.2 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <CalcNote content="レベルアップ時の攻撃力" />
+            <p className="font-medium">敵を倒した時、攻撃力が<span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.levelup || 7, diceDots.levelup || 1)}</span>ずつ無限に増加する。</p>
+            <p className="mt-4">自身が敵のダイスを倒すほど攻撃力が上がっていくダイスです。ウェーブを跨いでもレベルは持続します。</p>
+            <p>説明文に「無限」と書いてありますが、100レベル以上になると攻撃力は99レベルのままになります。</p>
+            <p>また、レベルは味方のレベルアップダイス全部で共有<span className="font-bold">ではありません</span>。独立しています。</p>
           </DiceDesc>
         </div>
       </main>
