@@ -1010,6 +1010,7 @@ export default function AllDices() {
             diceClasses={diceClasses} setDiceClasses={setDiceClasses}
             dots={diceDots} setDots={setDiceDots}
           >
+            <p className="font-medium">スキルは、フィールドに[青龍]が1体のみ配置されている場合に使用できる。</p>
             <p className="font-medium">範囲内にいる<span className="variable">10個</span>のダイスが破壊されると、攻撃が強化される。</p>
             <p className="font-medium">強化後は、一直線上にいる全ての敵に<span className="variable">{incrementalCalculate(250, 25, 50, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}</span>ダメージを与え、味方には<span className="variable">{incrementalCalculate(100, 10, 20, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}HP</span>を回復させる。</p>
             <p className="mt-4">敵味方関係なくダイスが10個破壊されたら、味方のダイスに対して回復効果がある光の弓のようなものを放つ攻撃をします。</p>
