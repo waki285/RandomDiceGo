@@ -1015,6 +1015,29 @@ export default function AllDices() {
             <p className="mt-4">敵味方関係なくダイスが10個破壊されたら、味方のダイスに対して回復効果がある光の弓のようなものを放つ攻撃をします。</p>
             <p>10個は盾のダイスを破壊したり、復活のダイスで復活したダイスを破壊することでかなり簡単に稼ぐことができます。</p>
           </DiceDesc>
+          <DiceDesc
+            id="vermilionbird"
+            name="青龍のダイス"
+            rarity="四神"
+            image={Azuredragon}
+            atk={40}
+            attackSpeed={0.9}
+            range={3}
+            hp={1400}
+            diceColor="darkgreen"
+            diceColorGradient="linear-gradient(180deg, mediumseagreen 0%, darkgreen 100%)"
+            customProperties={{ "破壊されたダイス": 10, "ビームダメージ": 250, "味方のHP回復": 100 }}
+            incrementWhenClassUp={{ atk: 4, hp: 140, attackSpeed: 0.09, "ビームダメージ": 25, "味方のHP回復": 10 }}
+            incrementWhenDotUp={{ atk: 28, hp: 980, attackSpeed: 0.18, "ビームダメージ": 50, "味方のHP回復": 20 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">スキルは、フィールドに[青龍]が1体のみ配置されている場合に使用できる。</p>
+            <p className="font-medium">範囲内にいる<span className="variable">10個</span>のダイスが破壊されると、攻撃が強化される。</p>
+            <p className="font-medium">強化後は、一直線上にいる全ての敵に<span className="variable">{incrementalCalculate(250, 25, 50, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}</span>ダメージを与え、味方には<span className="variable">{incrementalCalculate(100, 10, 20, 7, diceClasses.azuredragon || 7, diceDots.azuredragon || 1)}HP</span>を回復させる。</p>
+            <p className="mt-4">敵味方関係なくダイスが10個破壊されたら、味方のダイスに対して回復効果がある光の弓のようなものを放つ攻撃をします。</p>
+            <p>10個は盾のダイスを破壊したり、復活のダイスで復活したダイスを破壊することでかなり簡単に稼ぐことができます。</p>
+          </DiceDesc>
         </div>
       </main>
     </>
