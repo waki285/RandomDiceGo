@@ -1064,6 +1064,30 @@ export default function AllDices() {
             <p>注意点として、火のダイスの範囲攻撃、青龍のダイスのビームなどは基本攻撃に当たらず、回数を稼ぐことができません。</p>
             <p>また、「攻撃範囲が最大に広がり」とあるように、盾のダイスや時間のダイスなど、攻撃範囲が0のダイスも玄武のダイスを攻撃するようになります。(これらのダイスに攻撃力がセットされているのはおそらくこのため)</p>
           </DiceDesc>
+          <DiceDesc
+            id="whitetiger"
+            name="白虎のダイス"
+            rarity="四神"
+            image={Whitetiger}
+            atk={50}
+            attackSpeed={1}
+            range={2}
+            hp={1300}
+            diceColor="midnightblue"
+            diceColorGradient="linear-gradient(180deg, paleturquoise 0%, midnightblue 50%, black 100%)"
+            customProperties={{ "待機時間(s)": 0.5, "クリティカルダメージ増加": 50 }}
+            incrementWhenClassUp={{ atk: 5, hp: 130, attackSpeed: 0.1, "クリティカルダメージ増加": 2.5 }}
+            incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.2, "クリティカルダメージ増加": 5 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">スキルは、フィールドに[白虎]が1体のみ配置されている場合に使用できる。</p>
+            <p className="font-medium"><span className="variable">0.5秒間</span>攻撃する敵がいない場合、敵の周囲8方向に瞬間移動する。</p>
+            <p className="font-medium">初めて瞬間移動したとき、攻撃範囲が1、クリティカル率は100%になり、瞬間移動するたびにクリティカルダメージが<span className="variable">{incrementalCalculate(50, 2.5, 5, 7, diceClasses.whitetiger || 7, diceDots.whitetiger || 1)}%</span>増加する。</p>
+            <p className="mt-4">周囲の敵を倒し終わったら、他の敵のダイスを全て倒すまで瞬間移動し続けるダイスです。</p>
+            <p>基本的に四隅に置き、最初の周囲の敵をなるべく少なくする立ち回りが基本です。</p>
+            <p>注意点として、四隅に置かれた敵のダイスは白虎のダイスで攻撃することができません。</p>
+          </DiceDesc>
         </div>
       </main>
     </>
