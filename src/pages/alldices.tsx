@@ -55,6 +55,7 @@ import Holysword from "@/../public/dices/holysword.webp";
 import HolyswordDivine from "@/../public/dices/holysword_divine.webp";
 import Soulcollector from "@/../public/dices/soulcollector.webp";
 import Recall from "@/../public/dices/recall.webp";
+import Prediction from "@/../public/dices/prediction.webp";
 
 type DiceInfo = {
   id: string,
@@ -959,6 +960,28 @@ export default function AllDices() {
             <p className="font-medium">自分が死ぬ時、出目数が一番高い味方のダイス1個を自分の位置に移動させる。</p>
             <p className="font-medium">移動したダイスは、最大HPの<span className="variable">{incrementalCalculate(20, 2, 10, 7, diceClasses.recall || 7, diceDots.recall || 1)}%</span>を回復する。</p>
             <p className="mt-4">出目が7のダイスを2つ作ってしまうとランダムで移動してしまうので、弱いです。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="prediction"
+            name="予測のダイス"
+            rarity="伝説"
+            image={Prediction}
+            atk={50}
+            attackSpeed={1.1}
+            range={2}
+            hp={1300}
+            diceColor="gold"
+            customProperties={{ "攻撃力増加": 100, "攻撃力増加(%)": 200 }}
+            incrementWhenClassUp={{ atk: 5, hp: 130, attackSpeed: 0.11, "攻撃力増加": 10, "攻撃力増加(%)": 10 }}
+            incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.22 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <CalcNote content="予測成功時のステータス" />
+            <p className="font-medium">予測のダイスを生成/合成する時、範囲内にいる敵のダイスが生成/合成されたら予測成功となる。</p>
+            <p className="font-medium">予測に成功した場合、攻撃力が永久に<span className="variable">{incrementalCalculate(100, 10, 0, 7, diceClasses.prediction || 7, diceDots.prediction || 1)}</span>増加する。</p>
+            <p className="font-medium">予測に成功したラウンドでは、フィールドに設置された全ての予測のダイスの攻撃力が<span className="variable">{incrementalCalculate(200, 10, 0, 7, diceClasses.prediction || 7, diceDots.prediction || 1)}%</span>増加する。</p>
+            <p className="mt-4">攻撃力が永久に上がる点はレベルと似ていますが、最大生成1回+出目上げ6回までしかチャンスがありません。その代わりにレベルのダイスより安定して攻撃力をあげることができます。</p>
           </DiceDesc>
         </div>
       </main>
