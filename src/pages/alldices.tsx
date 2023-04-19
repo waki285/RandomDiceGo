@@ -1035,9 +1035,34 @@ export default function AllDices() {
           >
             <p className="font-medium">スキルは、フィールドに[朱雀]が1体のみ配置されている場合に使用できる。</p>
             <p className="font-medium">朱雀が破壊されるときに1回、<span className="variable">100%</span>のHPを持つ卵状態になる。卵状態で<span className="variable">2.5秒間</span>生存すると復活する。</p>
-            <p className="font-medium">復活すると周囲8方向を2倍に拡張した範囲にいる全ての敵に<span className="variable">{incrementalCalculate(1000, 100, 500, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>ダメージを与え、  フィールド上にいる全ての味方の攻撃力を<span className="variable">{incrementalCalculate(50, 2.5, 20, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>増加させる。</p>
+            <p className="font-medium">復活すると周囲8方向を2倍に拡張した範囲にいる全ての敵に<span className="variable">{incrementalCalculate(1000, 100, 500, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>ダメージを与え、フィールド上にいる全ての味方の攻撃力を<span className="variable">{incrementalCalculate(50, 2.5, 20, 7, diceClasses.vermilionbird || 7, diceDots.vermilionbird || 1)}</span>増加させる。</p>
             <p className="mt-4">倒されても一度復活し、そのまま耐えれば味方の攻撃力を上昇し、自爆のダイスの上位互換効果を発動できるダイスです。</p>
             <p>このダイスと復活のダイスとの特殊挙動として、卵状態で倒されたあと、復活のダイスで復活したとき、生存秒数のカウントが<span className="font-bold">卵状態での経過時間がすでに経過した状態からスタート</span>します。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="blacktortoise"
+            name="玄武のダイス"
+            rarity="四神"
+            image={Blacktortoise}
+            atk={90}
+            attackSpeed={0.5}
+            range={1}
+            hp={1800}
+            diceColor="indigo"
+            diceColorGradient="linear-gradient(180deg, mediumpurple 0%, indigo 80%, darkslateblue 100%)"
+            customProperties={{ "基本攻撃被撃数": 12, "獲得保護シールド": 500 }}
+            incrementWhenClassUp={{ atk: 9, hp: 180, attackSpeed: 0.05, "獲得保護シールド": 50 }}
+            incrementWhenDotUp={{ atk: 63, hp: 1260, attackSpeed: 0.1, "獲得保護シールド": 100 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">スキルは、フィールドに[玄武]が1体のみ配置されている場合に使用できる。</p>
+            <p className="font-medium"><span className="variable">12回</span>基本攻撃を受けると、自分の攻撃範囲が最大に広がり、全ての敵を挑発する。</p>
+            <p className="font-medium">挑発された敵は、攻撃範囲が最大に広がり、挑発した敵1体ごとに<span className="variable">{incrementalCalculate(500, 50, 10, 7, diceClasses.blacktortoise || 7, diceDots.blacktortoise || 1)}HP</span>分の保護シールドを獲得する。</p>
+            <p className="mt-4">12回被弾したら、とても多いバリアをゲットし、挑発効果を獲得するダイスです。</p>
+            <p>他のダイスが玄武のダイスを攻撃している間に、自分の強いダイスで相手のダイスを攻撃することができます。</p>
+            <p>注意点として、火のダイスの範囲攻撃、青龍のダイスのビームなどは基本攻撃に当たらず、回数を稼ぐことができません。</p>
+            <p>また、「攻撃範囲が最大に広がり」とあるように、盾のダイスや時間のダイスなど、攻撃範囲が0のダイスも玄武のダイスを攻撃するようになります。(これらのダイスに攻撃力がセットされているのはおそらくこのため)</p>
           </DiceDesc>
         </div>
       </main>
