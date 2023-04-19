@@ -92,6 +92,8 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <dd>{IC(desc, "atk")}</dd>
           <dt>攻撃速度</dt>
           <dd>{IC(desc, "attackSpeed")} (本家式: {new Big(1).div(new Big(IC(desc, "attackSpeed"))).round(2).toNumber()}s)</dd>
+          <dt>DPS</dt>
+          <dd>{new Big(IC(desc, "atk")).mul(new Big(IC(desc, "attackSpeed"))).toNumber()}</dd>
           <dt>攻撃範囲</dt>
           <dd>{desc.range}</dd>
           <dt>HP</dt>
