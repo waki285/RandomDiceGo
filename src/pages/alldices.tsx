@@ -54,6 +54,7 @@ import HolybowDivine from "@/../public/dices/holybow_divine.webp";
 import Holysword from "@/../public/dices/holysword.webp";
 import HolyswordDivine from "@/../public/dices/holysword_divine.webp";
 import Soulcollector from "@/../public/dices/soulcollector.webp";
+import Recall from "@/../public/dices/recall.webp";
 
 type DiceInfo = {
   id: string,
@@ -928,7 +929,7 @@ export default function AllDices() {
             attackSpeed={0.9}
             range={3}
             hp={1300}
-            diceColor="darkcyan"
+            diceColor="darkslategray"
             customProperties={{ "攻撃力増加(%)": 6, "攻撃速度増加(%)": 6, "HP増加(%)": 6 }}
             incrementWhenClassUp={{ atk: 5, hp: 130, attackSpeed: 0.09, "攻撃力増加(%)": 0.5, "攻撃速度増加(%)": 0.5, "HP増加(%)": 0.5 }}
             incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.18 }}
@@ -938,6 +939,26 @@ export default function AllDices() {
             <p className="font-medium">周囲8方向を2倍に拡張した範囲内にいる味方のダイスが死ぬたびに、攻撃力と攻撃速度、HPが各<span className="variable">{incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)}%</span>ずつ増加する。</p>
             <p className="mt-4">味方のダイスが死ぬほど強くなるダイスです。</p>
             <p>復活のダイスで復活したダイスもカウントされます。</p>
+          </DiceDesc>
+          <DiceDesc
+            id="recall"
+            name="リコールのダイス"
+            rarity="伝説"
+            image={Recall}
+            atk={60}
+            attackSpeed={1}
+            range={3}
+            hp={1100}
+            diceColor="darkcyan"
+            customProperties={{ "HP回復(%)": 20 }}
+            incrementWhenClassUp={{ atk: 6, hp: 110, attackSpeed: 0.1, "HP回復(%)": 2 }}
+            incrementWhenDotUp={{ atk: 42, hp: 770, attackSpeed: 0.2, "HP回復(%)": 10 }}
+            diceClasses={diceClasses} setDiceClasses={setDiceClasses}
+            dots={diceDots} setDots={setDiceDots}
+          >
+            <p className="font-medium">自分が死ぬ時、出目数が一番高い味方のダイス1個を自分の位置に移動させる。</p>
+            <p className="font-medium">移動したダイスは、最大HPの<span className="variable">{incrementalCalculate(20, 2, 10, 7, diceClasses.recall || 7, diceDots.recall || 1)}%</span>を回復する。</p>
+            <p className="mt-4">出目が7のダイスを2つ作ってしまうとランダムで移動してしまうので、弱いです。</p>
           </DiceDesc>
         </div>
       </main>
