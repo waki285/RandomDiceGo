@@ -812,8 +812,8 @@ export default function AllDices() {
             <CalcNote content="奇数・偶数時のパラメーター" />
             <p className="font-medium">自分の現在出目数に従ってスキルが変わる。</p>
             <p className="font-medium"><span className="qty">[奇数]</span>攻撃範囲が<span className="variable">1</span>、攻撃力が<span className="variable"><span className="line-through">200%</span>100%</span>増加するが、HPが<span className="variable">70%</span>減少する。</p>
-            <p className="font-medium"><span className="qty">[偶数]</span>攻撃範囲内にいる全ての敵を挑発し、HPが<span className="variable">200%※未検証</span>増加するが、攻撃力が<span className="variable">70%</span>減少する。</p>
-            <p className="mt-4 text-red-500">※奇数時の攻撃力増加は200%ではなく100%であることが判明しています。そのため、偶数時のHP200%増加も100%増加である可能性がありますが、未検証です。</p>
+            <p className="font-medium"><span className="qty">[偶数]</span>攻撃範囲内にいる全ての敵を挑発し、HPが<span className="variable"><span className="line-through">200%</span>100%</span>増加するが、攻撃力が<span className="variable">70%</span>減少する。</p>
+            <p className="mt-4 text-red-600">※奇数時の攻撃力増加、また偶数時のHP増加は200%ではなく100%(2倍になる)であることが判明しています。</p>
             <p>2つのスキルを切り替えることができるダイスです。</p>
             <p>奇数時ではDPSがかなり高い+射程が3であるため、かなりの早さで敵を倒すことができます。</p>
             <p>しかし、HPがかなり低い状態なので、バリアのダイスなどと組み合わせて使われます。</p>
