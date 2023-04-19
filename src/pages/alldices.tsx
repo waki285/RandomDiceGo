@@ -57,6 +57,12 @@ import Soulcollector from "@/../public/dices/soulcollector.webp";
 import Recall from "@/../public/dices/recall.webp";
 import Prediction from "@/../public/dices/prediction.webp";
 
+// 四神
+import Azuredragon from "@/../public/dices/azuredragon.webp";
+import Vermilionbird from "@/../public/dices/vermilionbird.webp";
+import Blacktortoise from "@/../public/dices/blacktortoise.webp";
+import Whitetiger from "@/../public/dices/whitetiger.webp";
+
 type DiceInfo = {
   id: string,
   name: string,
@@ -688,6 +694,7 @@ export default function AllDices() {
             <p className="mt-4">味方のダイスにヘルスドレイン効果を与えるダイスです。</p>
             <p>高DPSで高射程のダイスと組み合わせることで、強固な塔を作ることができます。</p>
           </DiceDesc>
+          
           <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">伝説</Headline>
           <DiceDesc
             id="explode"
@@ -983,6 +990,8 @@ export default function AllDices() {
             <p className="font-medium">予測に成功したラウンドでは、フィールドに設置された全ての予測のダイスの攻撃力が<span className="variable">{incrementalCalculate(200, 10, 0, 7, diceClasses.prediction || 7, diceDots.prediction || 1)}%</span>増加する。</p>
             <p className="mt-4">攻撃力が永久に上がる点はレベルと似ていますが、最大生成1回+出目上げ6回までしかチャンスがありません。その代わりにレベルのダイスより安定して攻撃力をあげることができます。</p>
           </DiceDesc>
+
+          <Headline id="dices-guardians" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">四神</Headline>
         </div>
       </main>
     </>
