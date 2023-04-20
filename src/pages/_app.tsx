@@ -4,6 +4,7 @@ import { IBM_Plex_Sans_JP, Inter } from "next/font/google";
 import Head from "next/head";
 import Settings from "@/components/Settings";
 import { createContext, useContext, useEffect, useState } from "react";
+import { appWithTranslation } from "next-i18next";
 
 const IBMPlexSansJPFont = IBM_Plex_Sans_JP({
   weight: ["300", "400", "500", "700"],
@@ -20,7 +21,7 @@ export const useSettings = () => useContext(SettingsContext);
 const ThemeContext = createContext({ theme: "dark", setTheme: (args: string) => {} });
 export const useTheme = () => useContext(ThemeContext);
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   const [isOpened, setIsOpened] = useState(false);
   const [theme, setTheme] = useState("light");
   const themeSet = (theme: string) => {
@@ -57,3 +58,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </ThemeContext.Provider>
   );
 }
+
+export default appWithTranslation(App);
