@@ -153,13 +153,13 @@ export default function NormalDices({
         name="盾のダイス"
         rarity="ノーマル"
         image={Shield}
-        atk={180}
-        attackSpeed={0.7}
+        atk={50}
+        attackSpeed={0.6}
         range={0}
         hp={1200}
         diceColor="goldenrod"
-        incrementWhenClassUp={{ atk: 9, hp: 60 }}
-        incrementWhenDotUp={{ atk: 126, hp: 840, attackSpeed: 0.14 }}
+        incrementWhenClassUp={{ atk: 2.5, hp: 60 }}
+        incrementWhenDotUp={{ atk: 35, hp: 840, attackSpeed: 0.12 }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
         dots={diceDots}
