@@ -6,9 +6,9 @@ import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 import Ogp from "@/components/Ogp";
-import { minimumClass, DiceInfo } from "@/alldices/components";
+import { minimumClass, DiceInfo, IC, incrementalCalculate } from "@/alldices/components";
 
-export const DiceDesc = memo(function DiceDesc(desc: Omit<DiceInfo, "children">) {
+export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
   const minClass = minimumClass[desc.rarity];
   const [diceClass, setDiceClass] = [desc.diceClasses[desc.id] || minClass, (diceClass: number) => {
     desc.setDiceClasses((x: any) => {
