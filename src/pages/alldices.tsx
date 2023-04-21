@@ -18,6 +18,8 @@ import UniqueDices from "@/alldices/unique";
 import LegendaryDices from "@/alldices/legendary";
 // 四神
 import GuardianDices from "@/alldices/guardian";
+// 妖怪
+import CreatureDices from "@/alldices/creature";
 
 export default function AllDices() {
   useEffect(() => {
@@ -69,6 +71,9 @@ export default function AllDices() {
           <Headline id="dices-guardians" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">四神</Headline>
           <p>※判定は伝説です。</p>
           <GuardianDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
+          <Headline id="dices-creatures" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">妖怪</Headline>
+          <p>※判定は伝説です。</p>
+          <CreatureDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
         </div>
       </main>
     </>

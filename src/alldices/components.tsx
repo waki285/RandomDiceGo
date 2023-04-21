@@ -7,8 +7,8 @@ import Link from "next/link";
 export type DiceInfo = {
   id: string,
   name: string,
-  rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神",
-  image: any,
+  rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神" | "妖怪",
+  image?: any,
   addImages?: readonly any[],
   atk: number,
   attackSpeed: number,
@@ -37,6 +37,7 @@ export const minimumClass = {
   "英雄": 5,
   "伝説": 7,
   "四神": 7,
+  "妖怪": 7
 } as const;
 
 export const incrementalCalculate = (initialValue: number, incrementWhenClassUp: number, incrementWhenDotUp: number, initialDiceClass: number, diceClass: number, dot: number) => {
@@ -77,7 +78,7 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor} borderGradient={desc.diceColorGradient}>{desc.name}</Headline>
       <section className="image flex gap-8 my-4 flex-wrap">
-        <Image src={desc.image} alt="" className="" width={128} loader={({ src }) => src} unoptimized />
+        {desc.image ? <Image src={desc.image} alt="" className="" width={128} loader={({ src }) => src} unoptimized />:""}
         {desc.addImages ? desc.addImages.map((x, i) => {
           return (
             <Image src={x} alt="" className="" width={128} loader={({ src }) => src} unoptimized key={i} />
