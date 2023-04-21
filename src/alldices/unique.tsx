@@ -223,18 +223,18 @@ export default function UniqueDices({
         name="復活のダイス"
         rarity="英雄"
         image={Resurrection}
-        atk={60}
+        atk={40}
         attackSpeed={0.8}
         range={1}
-        hp={1200}
+        hp={900}
         diceColor="yellow"
-        customProperties={{ "復活時のHP(%)": 40 }}
-        incrementWhenClassUp={{ atk: 3, hp: 60, "復活時のHP(%)": 2 }}
+        customProperties={{ "復活時のHP(%)": 25 }}
+        incrementWhenClassUp={{ atk: 2, hp: 45, "復活時のHP(%)": 1.25 }}
         incrementWhenDotUp={{
-          atk: 42,
-          hp: 840,
+          atk: 28,
+          hp: 630,
           attackSpeed: 0.16,
-          "復活時のHP(%)": 4,
+          "復活時のHP(%)": 7,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -245,9 +245,9 @@ export default function UniqueDices({
           自分が死ぬ時、周囲8方向にいる死んだ味方の中から1体を
           <span className="variable">
             {incrementalCalculate(
-              40,
-              2,
-              4,
+              25,
+              1.25,
+              7,
               5,
               diceClasses.resurrection || 5,
               diceDots.resurrection || 1
@@ -258,7 +258,7 @@ export default function UniqueDices({
         </p>
         <p className="font-medium">復活のダイスを復活させることはできない。</p>
         <p className="mt-4">
-          常に死んだ味方を復活させることができるダイスです。
+          すでに死んだ味方を復活させることができるダイスです。
         </p>
         <p>
           後述する自爆のダイスと組み合わせて、何回も自爆させたり、主火力と隣接させて死んでもチャンスを掴むデッキなどがあります。
@@ -321,20 +321,20 @@ export default function UniqueDices({
         name="バーサーカーのダイス"
         rarity="英雄"
         image={Fury}
-        atk={100}
+        atk={80}
         attackSpeed={0.9}
         range={2}
         hp={1350}
         diceColor="orchid"
-        customProperties={{ "発動HP(%)": 25, "攻撃力増加(%)": 100 }}
+        customProperties={{ "発動HP(%)": 25, "攻撃力増加(%)": 120 }}
         incrementWhenClassUp={{
-          atk: 5,
+          atk: 4,
           hp: 67.5,
           "発動HP(%)": 1,
           "攻撃力増加(%)": 5,
         }}
         incrementWhenDotUp={{
-          atk: 70,
+          atk: 56,
           hp: 945,
           attackSpeed: 0.18,
           "発動HP(%)": 2.5,
@@ -361,7 +361,7 @@ export default function UniqueDices({
           以下になると、攻撃力が
           <span className="variable">
             {incrementalCalculate(
-              100,
+              120,
               5,
               10,
               5,

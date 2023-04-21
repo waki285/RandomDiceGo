@@ -45,7 +45,7 @@ export default function LegendaryDices({
         range={1}
         hp={700}
         diceColor="red"
-        customProperties={{ 範囲ダメージ: 700 }}
+        customProperties={{ 範囲ダメージ: 600 }}
         incrementWhenClassUp={{
           atk: 5,
           hp: 70,
@@ -56,7 +56,7 @@ export default function LegendaryDices({
           atk: 35,
           hp: 490,
           attackSpeed: 0.08,
-          範囲ダメージ: 350,
+          範囲ダメージ: 300,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -67,9 +67,9 @@ export default function LegendaryDices({
           自分が死んだ時、周囲8方向にいる全ての味方に
           <span className="variable">
             {incrementalCalculate(
-              700,
+              600,
               70,
-              350,
+              300,
               7,
               diceClasses.explode || 7,
               diceDots.explode || 1
@@ -565,7 +565,7 @@ export default function LegendaryDices({
           atk: 70,
           hp: 980,
           attackSpeed: 0.18,
-          "最大HP基盤ダメージ(%)": 1,
+          "最大HP基盤ダメージ(%)": 1.5,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -579,7 +579,7 @@ export default function LegendaryDices({
             {incrementalCalculate(
               5,
               0.25,
-              1,
+              1.5,
               7,
               diceClasses.holysword || 7,
               diceDots.holysword || 1

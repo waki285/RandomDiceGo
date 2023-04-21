@@ -4,7 +4,6 @@ import { IBM_Plex_Sans_JP, Inter } from "next/font/google";
 import Head from "next/head";
 import Settings from "@/components/Settings";
 import { createContext, useContext, useEffect, useState } from "react";
-import { appWithTranslation } from "next-i18next";
 
 const IBMPlexSansJPFont = IBM_Plex_Sans_JP({
   weight: ["300", "400", "500", "700"],
@@ -59,4 +58,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(App);
+export default App;//appWithTranslation(App);

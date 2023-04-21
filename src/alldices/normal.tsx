@@ -156,10 +156,10 @@ export default function NormalDices({
         atk={180}
         attackSpeed={0.7}
         range={0}
-        hp={1000}
+        hp={1200}
         diceColor="goldenrod"
-        incrementWhenClassUp={{ atk: 9, hp: 50 }}
-        incrementWhenDotUp={{ atk: 126, hp: 700, attackSpeed: 0.14 }}
+        incrementWhenClassUp={{ atk: 9, hp: 60 }}
+        incrementWhenDotUp={{ atk: 126, hp: 840, attackSpeed: 0.14 }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
         dots={diceDots}
@@ -229,15 +229,15 @@ export default function NormalDices({
         name="鉄のダイス"
         rarity="ノーマル"
         image={Iron}
-        atk={100}
+        atk={60}
         attackSpeed={0.5}
         range={2}
         hp={1000}
         diceColor="dimgray"
         customProperties={{ "現在HP基盤ダメージ(%)": 10 }}
-        incrementWhenClassUp={{ atk: 5, hp: 50, "現在HP基盤ダメージ(%)": 0.5 }}
+        incrementWhenClassUp={{ atk: 3, hp: 50, "現在HP基盤ダメージ(%)": 0.5 }}
         incrementWhenDotUp={{
-          atk: 70,
+          atk: 42,
           hp: 700,
           attackSpeed: 0.1,
           "現在HP基盤ダメージ(%)": 1,

@@ -5,11 +5,9 @@ const LilitaOneFont = Lilita_One({
   subsets: ["latin"],
 });
 import { useSettings } from "@/pages/_app";
-import { useTranslation } from "next-i18next";
 
 export default function Header() {
   const { setIsOpened } = useSettings();
-  const { t } = useTranslation('common');
   return (
     <>
       <header className="mb-8">
@@ -19,7 +17,7 @@ export default function Header() {
             <MdSettings size="2rem" />
           </div>
         </nav>
-        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}>{t("header.title")}</h1>
+        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}>Random Dice GO 攻略</h1>
       </header>
     </>
   )
