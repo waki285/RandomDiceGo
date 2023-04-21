@@ -6,6 +6,7 @@ import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 import Ogp from "@/components/Ogp";
+import Big from "big.js"
 import { minimumClass, DiceInfo, IC, incrementalCalculate } from "@/alldices/components";
 
 export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
