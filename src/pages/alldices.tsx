@@ -46,7 +46,7 @@ export default function AllDices() {
       <Header />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">全ダイス解説</Headline>
-        <p>2023/04/15 (バージョン1.1.4) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
+        <p>2023/04/22 (バージョン1.2.1) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
         <Headline id="warning">注意事項</Headline>
         {/*<p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>

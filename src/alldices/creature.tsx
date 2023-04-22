@@ -5,7 +5,10 @@ import {
   BuffNote,
 } from "./components";
 
-export default function GuardianDices({
+import Gumiho from "@/../public/dices/gumiho.webp";
+import GumihoInactive from "@/../public/dices/gumiho_inactive.webp";
+
+export default function CreatureDices({
   diceClasses,
   setDiceClasses,
   diceDots,
@@ -17,7 +20,8 @@ export default function GuardianDices({
         id="gumiho"
         name="九尾のダイス"
         rarity="妖怪"
-        image={undefined}
+        image={Gumiho}
+        addImages={[GumihoInactive]}
         atk={40}
         attackSpeed={1}
         range={3}
