@@ -10,6 +10,10 @@ body,
   height: 100%;
 }
 
+body > div {
+  @apply bg-amber-50 dark:bg-zinc-900 text-black dark:text-white;
+}
+
 
 .link, .toc-link.node-name--H4 {
   @apply text-blue-500 hover:text-indigo-500 visited:text-purple-500 hover:underline;

@@ -34,6 +34,13 @@ function App({ Component, pageProps }: AppProps) {
       setTheme("dark")
     }
   }, []);
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
   return (
     <ThemeContext.Provider value={{ theme, setTheme: themeSet }}>
       <SettingsContext.Provider value={{ isOpened, setIsOpened }}>
@@ -47,9 +54,9 @@ function App({ Component, pageProps }: AppProps) {
             }
           `}
         </style>
-        <div className={`h-full ${theme === "dark" ? "dark":""}`}>
+        <div className={`h-full`}>
           <Settings />
-          <div id="app-root" className="bg-amber-50 dark:bg-zinc-900 text-black dark:text-white">
+          <div id="app-root" className="">
             <Component {...pageProps} />
           </div>
         </div>
