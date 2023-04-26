@@ -17,6 +17,8 @@ import { Exo_2 } from "next/font/google";
 
 import LevelUpImage_0 from "@/../public/dices/levelup.webp";
 import LevelUpImage from "@/../public/dices/levelup_gt0.webp";
+import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
+import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 
 const exo2 = Exo_2({
   weight: ["600"],
@@ -46,7 +48,9 @@ const DPSResult = memo(function DPSResult({
           />
         )}
       </div>
-      <p className="p-1 bg-slate-300 text-black rounded-lg">{dps ? dps[1]:0}, {dps ? dps[0]:0}/s</p>
+      <p className="p-1 bg-slate-300 text-black rounded-lg">
+        {dps ? dps[1] : 0}, {dps ? dps[0] : 0}/s
+      </p>
     </div>
   );
 });
@@ -160,8 +164,30 @@ const LevelUp = memo(function LevelUp({ level }: { level: number }) {
     </div>
   );
 });
+const GoodEvil = memo(function GoodEvil({ dot }: { dot: number }) {
+  return (
+    <div className="relative w-[128px] h-[163px] select-none">
+      <Image
+        src={GoodevilGood}
+        alt=""
+        className={`absolute top-0 left-0 z-0${dot % 2 === 0 ? "" : " hidden"}`}
+        width={128}
+        loader={({ src }) => src}
+        unoptimized
+      />
+      <Image
+        src={GoodevilEvil}
+        alt=""
+        className={`absolute top-0 left-0 z-0${dot % 2 === 0 ? " hidden" : ""}`}
+        width={128}
+        loader={({ src }) => src}
+        unoptimized
+      />
+    </div>
+  );
+});
 
-export default function AllDices() {
+export default function Calculator() {
   useEffect(() => {
     tocbot.init({
       tocSelector: ".toc",
@@ -182,31 +208,6 @@ export default function AllDices() {
   useEffect(() => {
     setDPS({
       levelup: [
-        new Big(
-          incrementalCalculate(50, 5, 35, 7, diceClasses.levelup || 7, diceDots.levelup || 1)
-        )
-        .plus(
-          new Big(
-            incrementalCalculate(
-                10,
-                0.5,
-                0,
-                7,
-                diceClasses.levelup || 7,
-                diceDots.levelup || 1
-              )
-            ).mul(level)
-          )
-          .mul(
-            incrementalCalculate(
-              1,
-              0.1,
-              0.2,
-              7,
-              diceClasses.levelup || 7,
-              diceDots.levelup || 1
-            )
-          ).toNumber(),
         new Big(
           incrementalCalculate(
             50,
@@ -229,7 +230,40 @@ export default function AllDices() {
               )
             ).mul(level)
           )
-          .toNumber()
+          .mul(
+            incrementalCalculate(
+              1,
+              0.1,
+              0.2,
+              7,
+              diceClasses.levelup || 7,
+              diceDots.levelup || 1
+            )
+          )
+          .toNumber(),
+        new Big(
+          incrementalCalculate(
+            50,
+            5,
+            35,
+            7,
+            diceClasses.levelup || 7,
+            diceDots.levelup || 1
+          )
+        )
+          .plus(
+            new Big(
+              incrementalCalculate(
+                10,
+                0.5,
+                0,
+                7,
+                diceClasses.levelup || 7,
+                diceDots.levelup || 1
+              )
+            ).mul(level)
+          )
+          .toNumber(),
       ],
     });
   }, [diceClasses, diceDots, level]);
@@ -301,6 +335,48 @@ export default function AllDices() {
                 onChange={(e) => setLevel(e.target.value as any)}
               />
             </div>
+          </DiceDesc>
+          <DiceDesc
+            id="goodevil"
+            name="善悪のダイス"
+            rarity="伝説"
+            image={<GoodEvil dot={diceDots.goodevil} />}
+            atk={80}
+            attackSpeed={1.2}
+            range={2}
+            hp={900}
+            diceColor="gray"
+            diceColorGradient="linear-gradient(180deg, whitesmoke 50%, dimgray 50%)"
+            customProperties={{
+              "[奇数]攻撃力増加(%)": 100,
+              "[奇数]HP減少(%)": 70,
+              "[偶数]攻撃力減少(%)": 70,
+              "[偶数]HP増加(%)": 200,
+            }}
+            incrementWhenClassUp={{ atk: 8, hp: 90, attackSpeed: 0.12 }}
+            incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
+            diceClasses={diceClasses}
+            setDiceClasses={setDiceClasses}
+            dots={diceDots}
+            setDots={setDiceDots}
+          >
+            <p className="font-medium">
+              <span className="qty">[奇数]</span>攻撃範囲が
+              <span className="variable">1</span>、攻撃力が
+              <span className="variable">
+                <span className="line-through">200%</span>100%
+              </span>
+              増加するが、HPが<span className="variable">70%</span>減少する。
+            </p>
+            <p className="font-medium">
+              <span className="qty">[偶数]</span>
+              攻撃範囲内にいる全ての敵を挑発し、HPが
+              <span className="variable">
+                <span className="line-through">200%</span>100%
+              </span>
+              増加するが、攻撃力が<span className="variable">70%</span>
+              減少する。
+            </p>
           </DiceDesc>
         </div>
       </main>

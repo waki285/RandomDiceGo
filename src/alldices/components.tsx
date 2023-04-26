@@ -4,6 +4,9 @@ import Headline from "@/components/Headline";
 import Image from "next/image";
 import Link from "next/link";
 
+import DotRound from "@/../public/images/dot_round.webp";
+import DotStar from "@/../public/images/dot_star.webp";
+
 export type DiceInfo = {
   id: string,
   name: string,
@@ -153,5 +156,34 @@ export const BuffNote = memo(function BuffNote() {
 export const CalcNote = memo(function CalcNote({ content }: { content: string }) {
   return (
     <><p className="mb-4">※{ content }はこちらに記載していません。知りたい場合は<Link href="/calculator" className="link">火力・バフ計算機</Link>が便利です。</p></>
+  )
+});
+const OneDot = memo(function OneDot({ hue, saturate, brightness }: { hue?: number, saturate?: number, brightness?: number }) {
+  return (
+    <Image
+      src={DotRound}
+      alt=""
+      loader={({ src }) => src}
+      unoptimized
+      style={{
+        filter: `hue-rotate(${hue || 0}deg) saturate(${saturate || 100}%) brightness(${brightness || 100}%)`
+      }}
+    />
+  )
+});
+export const Dot = memo(function Dot({ dot, hue, saturate, brightness }: { dot: number, hue?: number, saturate?: number, brightness?: number }) {
+  return (
+    <div className={`fit grid ${dot === 4 || dot === 6 ? "grid-cols-2":"grid-cols-3"} ${dot === 4 ? "grid-rows-2":"grid-rows-3"} gap-1 w-[80px] h-[80px]`}>
+      {/* 出目4, 5, 6 */}
+      {Math.sign(dot - 3) === 1 && dot !== 7 ? <div className={`col-start-1`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+      {/* 出目4, 6 */}
+      {dot === 4 || dot === 6 ? <div className={`col-start-2`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+      {/* 出目2, 3, 5 */}
+      {dot === 2 || dot === 3 || dot === 5 ? <div className={`col-start-3`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+      {/* 出目4, 6 */}
+      {dot === 4 || dot === 6 ? <div className={`col-start-1`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+      {/* 出目1, 3, 4, 5, 6 */}
+      {dot !== 2 && dot !== 7 ? <div className={`row-start-2 col-start-2`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+    </div>
   )
 });

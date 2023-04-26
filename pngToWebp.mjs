@@ -6,10 +6,10 @@ import path from "path";
 const imagePool = new ImagePool(cpus().length);
 
 // 画像フォルダのパス。今回はこのフォルダ内の画像を対象とする
-const IMAGE_DIR = "./public/dices";
+const IMAGE_DIR = "./public/images";
 
 // 出力先フォルダ
-const OUTPUT_DIR = "./public/dices";
+const OUTPUT_DIR = "./public/images";
 
 // WebPの圧縮オプション
 const webpEncodeOptions = {

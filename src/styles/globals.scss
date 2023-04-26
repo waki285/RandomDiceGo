@@ -79,3 +79,9 @@ body > div {
 .toggle.checked .togglebox {
   @apply left-[2.6rem];
 }
+
+.fit > div > img {
+  object-fit: scale-down;
+  width: 100%;
+  height: 100%;
+}
