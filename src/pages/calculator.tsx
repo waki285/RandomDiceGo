@@ -46,7 +46,7 @@ const DPSResult = memo(function DPSResult({
           />
         )}
       </div>
-      <p className="p-1 bg-slate-300 text-black rounded-lg">{dps[1]}, {dps[0]}/s</p>
+      <p className="p-1 bg-slate-300 text-black rounded-lg">{dps ? dps[1]:0}, {dps ? dps[0]:0}/s</p>
     </div>
   );
 });
