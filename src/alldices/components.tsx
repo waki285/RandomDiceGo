@@ -158,32 +158,39 @@ export const CalcNote = memo(function CalcNote({ content }: { content: string })
     <><p className="mb-4">※{ content }はこちらに記載していません。知りたい場合は<Link href="/calculator" className="link">火力・バフ計算機</Link>が便利です。</p></>
   )
 });
-const OneDot = memo(function OneDot({ hue, saturate, brightness }: { hue?: number, saturate?: number, brightness?: number }) {
+const OneDot = memo(function OneDot({ hue, saturate, brightness, star }: { hue?: number, saturate?: number, brightness?: number, star?: boolean }) {
   return (
     <Image
-      src={DotRound}
+      src={star ? DotStar:DotRound}
       alt=""
       loader={({ src }) => src}
       unoptimized
       style={{
-        filter: `hue-rotate(${hue || 0}deg) saturate(${saturate || 100}%) brightness(${brightness || 100}%)`
+        filter: `hue-rotate(${hue || 0}deg) saturate(${saturate || 100}%) brightness(${brightness || 100}%)`,
+        transform: star ? "scale(1.4)":""
       }}
     />
   )
 });
 export const Dot = memo(function Dot({ dot, hue, saturate, brightness }: { dot: number, hue?: number, saturate?: number, brightness?: number }) {
   return (
-    <div className={`fit grid ${dot === 4 || dot === 6 ? "grid-cols-2":"grid-cols-3"} ${dot === 4 ? "grid-rows-2":"grid-rows-3"} gap-1 w-[80px] h-[80px]`}>
+    <div className={`fit grid grid-cols-3 ${dot === 4 ? "grid-rows-2":"grid-rows-3"} gap-1 w-[80px] h-[80px]`}>
       {/* 出目4, 5, 6 */}
-      {Math.sign(dot - 3) === 1 && dot !== 7 ? <div className={`col-start-1`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
-      {/* 出目4, 6 */}
-      {dot === 4 || dot === 6 ? <div className={`col-start-2`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
-      {/* 出目2, 3, 5 */}
-      {dot === 2 || dot === 3 || dot === 5 ? <div className={`col-start-3`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
-      {/* 出目4, 6 */}
-      {dot === 4 || dot === 6 ? <div className={`col-start-1`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
-      {/* 出目1, 3, 4, 5, 6 */}
-      {dot !== 2 && dot !== 7 ? <div className={`row-start-2 col-start-2`}><OneDot {...{ hue, saturate, brightness }} /></div>:""}
+      <div className={`row-start-1 col-start-1 ${Math.sign(dot - 3) === 1 && dot !== 7 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目2, 3, 4, 5, 6 */}
+      <div className={`row-start-1 col-start-3 ${dot !== 1 && dot !== 7 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目6 */}
+      <div className={`row-start-2 col-start-1 ${dot === 6 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目1, 3, 5 */}
+      <div className={`row-start-2 col-start-2 ${dot % 2 === 1 && dot !== 7 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目6 */}
+      <div className={`row-start-2 col-start-3 ${dot === 6 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目2, 3, 4, 5, 6 */}
+      <div className={`row-start-3 col-start-1 ${dot !== 1 && dot !== 7 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目5, 4 */}
+      <div className={`row-start-3 col-start-3 ${Math.sign(dot - 3) === 1 && dot !== 7 ? "":"hidden"}`}><OneDot {...{ hue, saturate, brightness }} /></div>
+      {/* 出目7 */}
+      <div className={`row-start-2 col-start-2 ${dot === 7 ? "":"hidden"}`}><OneDot star {...{ hue, saturate, brightness }} /></div>
     </div>
   )
 });

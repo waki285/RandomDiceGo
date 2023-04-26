@@ -40,7 +40,7 @@ export default function Tools() {
         <p>hue</p>
         <input type="range" min={0} max={360} value={hue} onChange={(e) => setHue(Number(e.target.value))} />
         <p>saturate</p>
-        <input type="range" min={0} max={100} value={saturate} onChange={(e) => setSaturate(Number(e.target.value))} />
+        <input type="range" min={0} max={5000} value={saturate} onChange={(e) => setSaturate(Number(e.target.value))} />
         <p>brightness</p>
         <input type="range" min={0} max={100} value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} />
       </main>
