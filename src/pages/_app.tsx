@@ -56,7 +56,8 @@ function App({ Component, pageProps }: AppProps) {
         </style>
         <div className={`h-full`}>
           <Settings />
-          <div id="app-root" className="bg-amber-50 dark:bg-zinc-900 text-black dark:text-white">
+          <div className="bg-amber-50 dark:bg-zinc-900 fixed w-full h-full top-0 left-0 -z-50 pointer-events-none"></div>
+          <div id="app-root" className="text-black dark:text-white">
             <Component {...pageProps} />
           </div>
         </div>
