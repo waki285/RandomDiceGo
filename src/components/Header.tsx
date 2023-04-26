@@ -5,6 +5,7 @@ const LilitaOneFont = Lilita_One({
   subsets: ["latin"],
 });
 import { useSettings } from "@/pages/_app";
+import Link from "next/link";
 
 export default function Header() {
   const { setIsOpened } = useSettings();
@@ -17,7 +18,7 @@ export default function Header() {
             <MdSettings size="2rem" />
           </div>
         </nav>
-        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}>Random Dice GO 攻略</h1>
+        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}><Link href="/">Random Dice GO 攻略</Link></h1>
       </header>
     </>
   )
