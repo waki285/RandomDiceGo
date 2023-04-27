@@ -265,6 +265,15 @@ export default function Calculator() {
           )
           .toNumber(),
       ],
+      goodevil: [
+        new Big(incrementalCalculate(80, 8, 56, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
+          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3:2)
+          .mul(incrementalCalculate(1.2, 0.12, 0.2, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
+          .toNumber(),
+        new Big(incrementalCalculate(80, 8, 56, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
+          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3:2)
+          .toNumber(),
+      ]
     });
   }, [diceClasses, diceDots, level]);
   return (
@@ -297,8 +306,9 @@ export default function Calculator() {
         <Headline id="toc-headline">目次</Headline>
         <aside className="toc" />
         <Headline id="dps">攻撃力/DPS計算結果</Headline>
-        <div className="sticky top-0 h-16 bg-white dark:bg-black rounded-b-2xl flex items-center px-2">
+        <div className="sticky top-0 h-16 bg-white dark:bg-black rounded-b-2xl flex items-center px-2 gap-4">
           <DPSResult image={<LevelUp level={level} />} dps={dps.levelup} />
+          <DPSResult image={<GoodEvil dot={diceDots.goodevil} />} dps={dps.goodevil} />
         </div>
         <Headline id="dices-headline">火力ダイス</Headline>
         <div className="body">
@@ -360,19 +370,19 @@ export default function Calculator() {
             dots={diceDots}
             setDots={setDiceDots}
           >
-            <p className="font-medium">
+            <p className={`font-medium ${(diceDots.goodevil || 1) % 2 === 0 ? "opacity-50":""}`}>
               <span className="qty">[奇数]</span>攻撃範囲が
               <span className="variable">1</span>、攻撃力が
               <span className="variable">
-                <span className="line-through">200%</span>100%
+                100%
               </span>
               増加するが、HPが<span className="variable">70%</span>減少する。
             </p>
-            <p className="font-medium">
+            <p className={`font-medium ${(diceDots.goodevil || 1) % 2 === 0 ? "":"opacity-50"}`}>
               <span className="qty">[偶数]</span>
               攻撃範囲内にいる全ての敵を挑発し、HPが
               <span className="variable">
-                <span className="line-through">200%</span>100%
+                100%
               </span>
               増加するが、攻撃力が<span className="variable">70%</span>
               減少する。
