@@ -19,6 +19,7 @@ import LevelUpImage_0 from "@/../public/dices/levelup.webp";
 import LevelUpImage from "@/../public/dices/levelup_gt0.webp";
 import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
 import GoodevilGood from "@/../public/dices/goodevil_good.webp";
+import Soulcollector from "@/../public/dices/soulcollector.webp";
 
 const exo2 = Noto_Sans_KR({
   weight: ["700"],
@@ -33,19 +34,19 @@ const DPSResult = memo(function DPSResult({
   dps: [number, number];
 }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 h-14">
       <div className="scale-[0.4] origin-left w-14">
         {"props" in image ? (
           image
         ) : (
-          <Image
+          <div className="w-[128px]"><Image
             src={image}
             alt=""
             className=""
             width={128}
             loader={({ src }) => src}
             unoptimized
-          />
+          /></div>
         )}
       </div>
       <p className="p-1 bg-slate-300 text-black rounded-lg">
@@ -203,6 +204,7 @@ export default function Calculator() {
   >({});
   // 個別ダイス
   const [level, setLevel] = useState<number>(0);
+  const [soul, setSoul] = useState<number>(0);
 
   // DPS計算
   useEffect(() => {
@@ -266,16 +268,79 @@ export default function Calculator() {
           .toNumber(),
       ],
       goodevil: [
-        new Big(incrementalCalculate(80, 8, 56, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
-          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3:2)
-          .mul(incrementalCalculate(1.2, 0.12, 0.2, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
+        new Big(
+          incrementalCalculate(
+            80,
+            8,
+            56,
+            7,
+            diceClasses.goodevil || 7,
+            diceDots.goodevil || 1
+          )
+        )
+          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3 : 2)
+          .mul(
+            incrementalCalculate(
+              1.2,
+              0.12,
+              0.2,
+              7,
+              diceClasses.goodevil || 7,
+              diceDots.goodevil || 1
+            )
+          )
           .toNumber(),
-        new Big(incrementalCalculate(80, 8, 56, 7, diceClasses.goodevil || 7, diceDots.goodevil || 1))
-          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3:2)
+        new Big(
+          incrementalCalculate(
+            80,
+            8,
+            56,
+            7,
+            diceClasses.goodevil || 7,
+            diceDots.goodevil || 1
+          )
+        )
+          .mul((diceDots.goodevil || 1) % 2 === 0 ? 0.3 : 2)
+          .toNumber(),
+      ],
+      soulcollector: [
+        new Big(
+          incrementalCalculate(50, 5, 35, 7,
+            diceClasses.soulcollector || 7,
+            diceDots.soulcollector || 1
+          )
+        )
+          .mul(new Big(new Big(
+            incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
+          ).div(100).plus(1)).pow(soul))
+          .mul(
+            new Big(incrementalCalculate(
+              0.9,
+              0.09,
+              0.18,
+              7,
+              diceClasses.soulcollector || 7,
+              diceDots.soulcollector || 1
+            )).mul(new Big(new Big(
+              incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
+            ).div(100).plus(1)).pow(soul))
+          )
+          .round(2)
+          .toNumber(),
+        new Big(
+          incrementalCalculate(50, 5, 35, 7,
+            diceClasses.soulcollector || 7,
+            diceDots.soulcollector || 1
+          )
+        )
+          .mul(new Big(new Big(
+            incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
+          ).div(100).plus(1)).pow(soul))
+          .round(2)
           .toNumber(),
       ]
     });
-  }, [diceClasses, diceDots, level]);
+  }, [diceClasses, diceDots, level, soul]);
   return (
     <>
       <Head>
@@ -306,9 +371,16 @@ export default function Calculator() {
         <Headline id="toc-headline">目次</Headline>
         <aside className="toc" />
         <Headline id="dps">攻撃力/DPS計算結果</Headline>
-        <div className="sticky top-0 h-16 bg-white dark:bg-black rounded-b-2xl flex items-center px-2 gap-4">
+        <div className="sticky top-0 h-16 bg-white dark:bg-black rounded-b-2xl flex items-center px-2 gap-4 z-20 flex-wrap">
           <DPSResult image={<LevelUp level={level} />} dps={dps.levelup} />
-          <DPSResult image={<GoodEvil dot={diceDots.goodevil} />} dps={dps.goodevil} />
+          <DPSResult
+            image={<GoodEvil dot={diceDots.goodevil} />}
+            dps={dps.goodevil}
+          />
+          <DPSResult
+            image={Soulcollector}
+            dps={dps.soulcollector}
+          />
         </div>
         <Headline id="dices-headline">火力ダイス</Headline>
         <div className="body">
@@ -370,23 +442,67 @@ export default function Calculator() {
             dots={diceDots}
             setDots={setDiceDots}
           >
-            <p className={`font-medium ${(diceDots.goodevil || 1) % 2 === 0 ? "opacity-50":""}`}>
+            <p
+              className={`font-medium ${
+                (diceDots.goodevil || 1) % 2 === 0 ? "opacity-50" : ""
+              }`}
+            >
               <span className="qty">[奇数]</span>攻撃範囲が
               <span className="variable">1</span>、攻撃力が
-              <span className="variable">
-                100%
-              </span>
+              <span className="variable">100%</span>
               増加するが、HPが<span className="variable">70%</span>減少する。
             </p>
-            <p className={`font-medium ${(diceDots.goodevil || 1) % 2 === 0 ? "":"opacity-50"}`}>
+            <p
+              className={`font-medium ${
+                (diceDots.goodevil || 1) % 2 === 0 ? "" : "opacity-50"
+              }`}
+            >
               <span className="qty">[偶数]</span>
               攻撃範囲内にいる全ての敵を挑発し、HPが
-              <span className="variable">
-                100%
-              </span>
+              <span className="variable">100%</span>
               増加するが、攻撃力が<span className="variable">70%</span>
               減少する。
             </p>
+          </DiceDesc>
+          <DiceDesc
+            id="soulcollector"
+            name="魂のダイス"
+            rarity="伝説"
+            image={Soulcollector}
+            atk={50}
+            attackSpeed={0.9}
+            range={3}
+            hp={1300}
+            diceColor="darkslategray"
+            customProperties={{
+              "攻撃力増加(%)": 6,
+              "攻撃速度増加(%)": 6,
+              "HP増加(%)": 6,
+            }}
+            incrementWhenClassUp={{
+              atk: 5,
+              hp: 130,
+              attackSpeed: 0.09,
+              "攻撃力増加(%)": 0.5,
+              "攻撃速度増加(%)": 0.5,
+              "HP増加(%)": 0.5,
+            }}
+            incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.18 }}
+            diceClasses={diceClasses}
+            setDiceClasses={setDiceClasses}
+            dots={diceDots}
+            setDots={setDiceDots}
+          >
+            <div className="flex flex-col col-span-2">
+              <p>死んだ味方の数: {soul || 0}</p>
+              <input
+                type="range"
+                min={0}
+                max={12}
+                value={soul}
+                onChange={(e) => setSoul(Number(e.target.value))}
+              />
+            </div>
           </DiceDesc>
         </div>
       </main>
