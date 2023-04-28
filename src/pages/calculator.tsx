@@ -13,15 +13,15 @@ import {
   IC,
   incrementalCalculate,
 } from "@/alldices/components";
-import { Exo_2 } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 
 import LevelUpImage_0 from "@/../public/dices/levelup.webp";
 import LevelUpImage from "@/../public/dices/levelup_gt0.webp";
 import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
 import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 
-const exo2 = Exo_2({
-  weight: ["600"],
+const exo2 = Noto_Sans_KR({
+  weight: ["700"],
   subsets: ["latin"],
 });
 
@@ -157,7 +157,7 @@ const LevelUp = memo(function LevelUp({ level }: { level: number }) {
           exo2.className
         } text-[2.75rem] ${
           level >= 1 ? "" : "hidden"
-        } -translate-x-[46%] -translate-y-[61%]`}
+        } -translate-x-[46%] -translate-y-[64%]`}
       >
         {level}
       </span>
