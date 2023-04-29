@@ -20,6 +20,26 @@ import LevelUpImage from "@/../public/dices/levelup_gt0.webp";
 import GoodevilEvil from "@/../public/dices/goodevil_evil.webp";
 import GoodevilGood from "@/../public/dices/goodevil_good.webp";
 import Soulcollector from "@/../public/dices/soulcollector.webp";
+import PredictionIcon from "@/../public/dices/prediction.webp";
+
+import Prediction1 from "@/../public/dices/prediction_succeed/prediction1.webp";
+import Prediction2 from "@/../public/dices/prediction_succeed/prediction2.webp";
+import Prediction3 from "@/../public/dices/prediction_succeed/prediction3.webp";
+import Prediction4 from "@/../public/dices/prediction_succeed/prediction4.webp";
+import Prediction5 from "@/../public/dices/prediction_succeed/prediction5.webp";
+import Prediction6 from "@/../public/dices/prediction_succeed/prediction6.webp";
+import Prediction7 from "@/../public/dices/prediction_succeed/prediction7.webp";
+
+const Predictions = [
+  PredictionIcon,
+  Prediction1,
+  Prediction2,
+  Prediction3,
+  Prediction4,
+  Prediction5,
+  Prediction6,
+  Prediction7,
+];
 
 const exo2 = Noto_Sans_KR({
   weight: ["700"],
@@ -39,14 +59,16 @@ const DPSResult = memo(function DPSResult({
         {"props" in image ? (
           image
         ) : (
-          <div className="w-[128px]"><Image
-            src={image}
-            alt=""
-            className=""
-            width={128}
-            loader={({ src }) => src}
-            unoptimized
-          /></div>
+          <div className="w-[128px]">
+            <Image
+              src={image}
+              alt=""
+              className=""
+              width={128}
+              loader={({ src }) => src}
+              unoptimized
+            />
+          </div>
         )}
       </div>
       <p className="p-1 bg-slate-300 text-black rounded-lg">
@@ -187,6 +209,26 @@ const GoodEvil = memo(function GoodEvil({ dot }: { dot: number }) {
     </div>
   );
 });
+const Prediction = memo(function Prediction({ succeed }: { succeed: number }) {
+  return (
+    <div className="relative w-[128px] h-[163px] select-none">
+      {Predictions.map((image, i) => {
+        return (
+          <Image
+            src={image}
+            alt=""
+            className={`absolute top-0 left-0 z-0${
+              succeed === i ? "" : " hidden"
+            }`}
+            width={128}
+            loader={({ src }) => src}
+            unoptimized
+          />
+        );
+      })}
+    </div>
+  );
+});
 
 export default function Calculator() {
   useEffect(() => {
@@ -205,7 +247,8 @@ export default function Calculator() {
   // 個別ダイス
   const [level, setLevel] = useState<number>(0);
   const [soul, setSoul] = useState<number>(0);
-
+  const [succeed, setSucceed] = useState<number>(0);
+  const [predictSuccess, setPredictSuccess] = useState<boolean>(false);
   // DPS計算
   useEffect(() => {
     setDPS({
@@ -305,42 +348,165 @@ export default function Calculator() {
       ],
       soulcollector: [
         new Big(
-          incrementalCalculate(50, 5, 35, 7,
+          incrementalCalculate(
+            50,
+            5,
+            35,
+            7,
             diceClasses.soulcollector || 7,
             diceDots.soulcollector || 1
           )
         )
-          .mul(new Big(new Big(
-            incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
-          ).div(100).plus(1)).pow(soul))
           .mul(
-            new Big(incrementalCalculate(
-              0.9,
-              0.09,
-              0.18,
-              7,
-              diceClasses.soulcollector || 7,
-              diceDots.soulcollector || 1
-            )).mul(new Big(new Big(
-              incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
-            ).div(100).plus(1)).pow(soul))
+            new Big(
+              new Big(
+                incrementalCalculate(
+                  6,
+                  0.5,
+                  0,
+                  7,
+                  diceClasses.soulcollector || 7,
+                  diceDots.soulcollector || 1
+                )
+              )
+                .div(100)
+                .plus(1)
+            ).pow(soul)
+          )
+          .mul(
+            new Big(
+              incrementalCalculate(
+                0.9,
+                0.09,
+                0.18,
+                7,
+                diceClasses.soulcollector || 7,
+                diceDots.soulcollector || 1
+              )
+            ).mul(
+              new Big(
+                new Big(
+                  incrementalCalculate(
+                    6,
+                    0.5,
+                    0,
+                    7,
+                    diceClasses.soulcollector || 7,
+                    diceDots.soulcollector || 1
+                  )
+                )
+                  .div(100)
+                  .plus(1)
+              ).pow(soul)
+            )
           )
           .round(2)
           .toNumber(),
         new Big(
-          incrementalCalculate(50, 5, 35, 7,
+          incrementalCalculate(
+            50,
+            5,
+            35,
+            7,
             diceClasses.soulcollector || 7,
             diceDots.soulcollector || 1
           )
         )
-          .mul(new Big(new Big(
-            incrementalCalculate(6, 0.5, 0, 7, diceClasses.soulcollector || 7, diceDots.soulcollector || 1)
-          ).div(100).plus(1)).pow(soul))
+          .mul(
+            new Big(
+              new Big(
+                incrementalCalculate(
+                  6,
+                  0.5,
+                  0,
+                  7,
+                  diceClasses.soulcollector || 7,
+                  diceDots.soulcollector || 1
+                )
+              )
+                .div(100)
+                .plus(1)
+            ).pow(soul)
+          )
           .round(2)
           .toNumber(),
-      ]
+      ],
+      prediction: [
+        new Big(
+          incrementalCalculate(
+            50,
+            5,
+            35,
+            7,
+            diceClasses.prediction || 7,
+            diceDots.prediction || 1
+          )
+        )
+          .plus(
+            new Big(incrementalCalculate(
+              100,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).mul(succeed)
+          )
+          .mul(
+            !predictSuccess ? 1:(new Big(incrementalCalculate(
+              200,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).div(100).plus(1))
+          )
+          .mul(
+            incrementalCalculate(
+              1.1,
+              0.11,
+              0.22,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )
+          )
+          .toNumber(),
+        new Big(
+          incrementalCalculate(
+            50,
+            5,
+            35,
+            7,
+            diceClasses.prediction || 7,
+            diceDots.prediction || 1
+          )
+        )
+          .plus(
+            new Big(incrementalCalculate(
+              100,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).mul(succeed)
+          )
+          .mul(
+            !predictSuccess ? 1:new Big(incrementalCalculate(
+              200,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).div(100).plus(1)
+          )
+        .toNumber()
+      ],
     });
-  }, [diceClasses, diceDots, level, soul]);
+  }, [diceClasses, diceDots, level, soul, succeed, predictSuccess]);
   return (
     <>
       <Head>
@@ -377,10 +543,8 @@ export default function Calculator() {
             image={<GoodEvil dot={diceDots.goodevil} />}
             dps={dps.goodevil}
           />
-          <DPSResult
-            image={Soulcollector}
-            dps={dps.soulcollector}
-          />
+          <DPSResult image={Soulcollector} dps={dps.soulcollector} />
+          <DPSResult image={<Prediction succeed={succeed} />} dps={dps.prediction} />
         </div>
         <Headline id="dices-headline">火力ダイス</Headline>
         <div className="body">
@@ -502,6 +666,45 @@ export default function Calculator() {
                 value={soul}
                 onChange={(e) => setSoul(Number(e.target.value))}
               />
+            </div>
+          </DiceDesc>
+          <DiceDesc
+            id="prediction"
+            name="予測のダイス"
+            rarity="伝説"
+            image={<Prediction succeed={succeed} />}
+            atk={50}
+            attackSpeed={1.1}
+            range={2}
+            hp={1300}
+            diceColor="gold"
+            customProperties={{ 攻撃力増加: 100, "攻撃力増加(%)": 200 }}
+            incrementWhenClassUp={{
+              atk: 5,
+              hp: 130,
+              attackSpeed: 0.11,
+              攻撃力増加: 10,
+              "攻撃力増加(%)": 10,
+            }}
+            incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.22 }}
+            diceClasses={diceClasses}
+            setDiceClasses={setDiceClasses}
+            dots={diceDots}
+            setDots={setDiceDots}
+          >
+            <div className="flex flex-col">
+              <p>予測成功回数: {succeed || 0}</p>
+              <input
+                type="range"
+                min={0}
+                max={7}
+                value={succeed}
+                onChange={(e) => setSucceed(Number(e.target.value))}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <input type="checkbox" checked={predictSuccess} onChange={(e) => setPredictSuccess(Boolean(e.target.checked))} id="predict-success" className="w-4 h-4" />
+              <label htmlFor="predict-success" className="select-none">このターン中に予測成功した</label>
             </div>
           </DiceDesc>
         </div>

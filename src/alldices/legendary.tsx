@@ -595,7 +595,7 @@ export default function LegendaryDices({
         </p>
         <p className="mt-4">一定確率で最大HP割合ダメージを与えるダイスです。</p>
         <p>
-          しかし、発動するかわからないので、鉄のダイスや剣のダイスなどのほうが強いです。
+          出目を上げると割合がかなり強くなります。
         </p>
       </DiceDesc>
       <DiceDesc
