@@ -443,16 +443,6 @@ export default function Calculator() {
             diceDots.prediction || 1
           )
         )
-          .plus(
-            new Big(incrementalCalculate(
-              100,
-              10,
-              0,
-              7,
-              diceClasses.prediction || 7,
-              diceDots.prediction || 1
-            )).mul(succeed)
-          )
           .mul(
             !predictSuccess ? 1:(new Big(incrementalCalculate(
               200,
@@ -463,6 +453,17 @@ export default function Calculator() {
               diceDots.prediction || 1
             )).div(100).plus(1))
           )
+          .plus(
+            new Big(incrementalCalculate(
+              100,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).mul(succeed)
+          )
+          
           .mul(
             incrementalCalculate(
               1.1,
@@ -484,16 +485,6 @@ export default function Calculator() {
             diceDots.prediction || 1
           )
         )
-          .plus(
-            new Big(incrementalCalculate(
-              100,
-              10,
-              0,
-              7,
-              diceClasses.prediction || 7,
-              diceDots.prediction || 1
-            )).mul(succeed)
-          )
           .mul(
             !predictSuccess ? 1:new Big(incrementalCalculate(
               200,
@@ -503,6 +494,16 @@ export default function Calculator() {
               diceClasses.prediction || 7,
               diceDots.prediction || 1
             )).div(100).plus(1)
+          )
+          .plus(
+            new Big(incrementalCalculate(
+              100,
+              10,
+              0,
+              7,
+              diceClasses.prediction || 7,
+              diceDots.prediction || 1
+            )).mul(succeed)
           )
         .toNumber()
       ],
