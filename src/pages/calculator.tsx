@@ -223,6 +223,7 @@ const Prediction = memo(function Prediction({ succeed }: { succeed: number }) {
             width={128}
             loader={({ src }) => src}
             unoptimized
+            key={i}
           />
         );
       })}
