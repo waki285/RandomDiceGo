@@ -3,7 +3,9 @@ import type { AppProps } from "next/app";
 import { IBM_Plex_Sans_JP, Inter } from "next/font/google";
 import Head from "next/head";
 import Settings from "@/components/Settings";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, Suspense } from "react";
+
+import i18n from "@/i18n.ts";
 
 const IBMPlexSansJPFont = IBM_Plex_Sans_JP({
   weight: ["300", "400", "500", "700"],
@@ -14,6 +16,7 @@ const InterFont = Inter({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 });
+
 
 const SettingsContext = createContext({ isOpened: false, setIsOpened: (args: boolean) => {} });
 export const useSettings = () => useContext(SettingsContext);
@@ -42,6 +45,7 @@ function App({ Component, pageProps }: AppProps) {
     }
   }, [theme]);
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <ThemeContext.Provider value={{ theme, setTheme: themeSet }}>
       <SettingsContext.Provider value={{ isOpened, setIsOpened }}>
         <Head>
@@ -63,6 +67,7 @@ function App({ Component, pageProps }: AppProps) {
         </div>
       </SettingsContext.Provider>
     </ThemeContext.Provider>
+    </Suspense>
   );
 }
 

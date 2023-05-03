@@ -6,10 +6,10 @@ import path from "path";
 const imagePool = new ImagePool(cpus().length);
 
 // 画像フォルダのパス。今回はこのフォルダ内の画像を対象とする
-const IMAGE_DIR = "./public/dices/prediction_succeed";
+const IMAGE_DIR = "./public/dices";
 
 // 出力先フォルダ
-const OUTPUT_DIR = "./public/dices/prediction_succeed";
+const OUTPUT_DIR = "./public/dices";
 
 // WebPの圧縮オプション
 const webpEncodeOptions = {
@@ -60,6 +60,6 @@ for (const item of imagePoolList) {
 // imagePoolを閉じる
 await imagePool.close();
 
-for (const file of readdirSync(OUTPUT_DIR).filter(x => !x.endsWith("webp"))) {
+for (const file of readdirSync(OUTPUT_DIR).filter(x => x.endsWith("png"))) {
   unlinkSync(path.join(OUTPUT_DIR, file));
 }

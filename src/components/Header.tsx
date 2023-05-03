@@ -6,9 +6,11 @@ const LilitaOneFont = Lilita_One({
 });
 import { useSettings } from "@/pages/_app";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const { setIsOpened } = useSettings();
+  const { t } = useTranslation();
   return (
     <>
       <header className="mb-8">
@@ -18,7 +20,7 @@ export default function Header() {
             <MdSettings size="2rem" />
           </div>
         </nav>
-        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}><Link href="/">Random Dice GO 攻略</Link></h1>
+        <h1 className={`text-5xl text-center ${LilitaOneFont.className}`}><Link href="/">Random Dice GO 攻略{t("header.title")}</Link></h1>
       </header>
     </>
   )

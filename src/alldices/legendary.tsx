@@ -329,7 +329,7 @@ export default function LegendaryDices({
           "[奇数]攻撃力増加(%)": 100,
           "[奇数]HP減少(%)": 70,
           "[偶数]攻撃力減少(%)": 70,
-          "[偶数]HP増加(%)": 200,
+          "[偶数]HP増加(%)": 100,
         }}
         incrementWhenClassUp={{ atk: 8, hp: 90, attackSpeed: 0.12 }}
         incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
