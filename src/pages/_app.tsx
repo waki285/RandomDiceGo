@@ -5,7 +5,7 @@ import Head from "next/head";
 import Settings from "@/components/Settings";
 import { createContext, useContext, useEffect, useState, Suspense } from "react";
 
-import i18n from "@/i18n.ts";
+import i18n from "@/i18n";
 
 const IBMPlexSansJPFont = IBM_Plex_Sans_JP({
   weight: ["300", "400", "500", "700"],
