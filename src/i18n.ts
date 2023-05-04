@@ -1,24 +1,19 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+export const locales = ["en", "ja"] as const;
+export type Locales = (typeof locales)[number];
 
-import Backend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
+const dev = process.env.NEXT_ENV !== 'production';
 
-i18n
-  .use(Backend)
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: 'ja',
-    debug: true,
-
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    },
-    react: {
-      useSuspense: false
+export async function serverSideTranslations(ns: string[]) {
+//  console.log(ns);
+  const contents = {} as Record<Locales, Record<(typeof ns)[number], object>>;
+  for (const lang of locales) {
+    contents[lang] = {};
+    for (const n of ns) {
+      const res = await fetch(`${dev ? "http://localhost:3000":"https://rdg.suzuneu.com"}/locales/${lang}/${n}.json`);    
+      const json = await res.json();
+      contents[lang][n] = json;
     }
-  });
-
-
-export default i18n;
+  }
+  console.log(contents);
+  return { i18n: contents };
+}

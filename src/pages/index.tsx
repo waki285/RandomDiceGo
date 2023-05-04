@@ -4,6 +4,10 @@ import Head from "next/head";
 import Ogp from "@/components/Ogp";
 import Header from "@/components/Header";
 
+import { serverSideTranslations } from "@/i18n";
+import { useLocale } from "@/hooks/useLocale";
+import { useLang } from "@/pages/_app";
+
 /*
 export async function getStaticProps({ locale }) {
   return {
@@ -15,7 +19,9 @@ export async function getStaticProps({ locale }) {
   }
 }*/
 
-export default function Home() {
+export default function Home({ i18n }: { i18n: object }) {
+  const { lang } = useLang();
+  const { t } = useLocale(lang, i18n);
   return (
     <>
       <Head>
@@ -27,11 +33,18 @@ export default function Home() {
         title="ホーム"
         description="RandomDiceGoを解説します。"
       />
-      <Header />
+      <Header {...{ i18n }} />
       <main className="flex flex-col">
+        {t("common:header.title")}
         <Link href="/alldices" className="link">All Dices</Link>
         <Link href="/calculator" className="link">Calculator</Link>
       </main>
     </>
   );
+}
+
+export const getServerSideProps = async () => {
+  const d = await serverSideTranslations(["common"]);
+//  globalThis.i18nData = d;
+  return { props: {...d}}
 }

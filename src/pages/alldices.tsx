@@ -6,6 +6,9 @@ import Headline from "@/components/Headline";
 import tocbot from "tocbot";
 import { useEffect, useState, memo, Fragment } from "react";
 import Ogp from "@/components/Ogp";
+import { serverSideTranslations } from "@/i18n";
+import { useLang } from "@/pages/_app";
+import { useLocale } from "@/hooks/useLocale";
 
 // 画像素材
 // ノーマル
@@ -21,7 +24,7 @@ import GuardianDices from "@/alldices/guardian";
 // 妖怪
 import CreatureDices from "@/alldices/creature";
 
-export default function AllDices() {
+export default function AllDices({ i18n }: { i18n: any }) {
   useEffect(() => {
     tocbot.init({
       tocSelector: ".toc",
@@ -32,10 +35,15 @@ export default function AllDices() {
   }, []);
   const [diceClasses, setDiceClasses] = useState<Record<string, number>>({});
   const [diceDots, setDiceDots] = useState<Record<string, number>>({});
-  return (
+  const { lang } = useLang();
+  const { t } = useLocale(lang, i18n);
+  useEffect(() => {
+    tocbot.refresh();
+  }, [lang])
+ return (
     <>
       <Head>
-        <title>全ダイス解説｜RandomDiceGo攻略</title>
+        <title>{t("alldices:alldices")}｜RandomDiceGo攻略</title>
       </Head>
       <Ogp
         url="https://rdg.suzuneu.com/alldices"
@@ -43,39 +51,45 @@ export default function AllDices() {
         title="全ダイス解説"
         description="RandomDiceGoにおける全ダイスを解説します。"
       />
-      <Header />
+      <Header i18n={i18n} />
       <main className="mx-4 pc:mx-12">
-        <Headline id="all-dices">全ダイス解説</Headline>
-        <p>2023/04/22 (バージョン1.2.1) 時点の Random Dice GO の全ダイスを説明します。製作途中なので温かい目で見守ってくれれば幸いです。</p>
+        <Headline id="all-dices">{t("alldices:alldices")}</Headline>
+        <p>{t("alldices:version", { date: "20023/05/04", ver: "1.2.2" })}</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
-        <Headline id="warning">注意事項</Headline>
+        <Headline id="warning">{t("common:notes")}</Headline>
         {/*<p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
         <p>たとえば、<code>1</code>なら1秒間に1回攻撃ですが、<code>2</code>なら1秒間に2回、つまり0.5秒おきに1回攻撃です。(ランダムダイス本家とは仕様が異なるので注意)</p>
         <p>またこのため、本家とは違い攻撃速度内で出目数回攻撃ではなく、<span className="font-bold">1秒間に攻撃速度回攻撃</span>です。出目数は関係ありません。</p>
         <p>(しかし出目数恩恵に殆どの場合攻撃速度があるので、出目が上がれば攻撃速度が早くなります。)</p>*/}
-        <p>本作Random Dice: GO(以下RDG)は本家Random Dice: Defense(以下本家)とは異なり現状どの出目でも攻撃回数は1固定です。</p>
-        <p>RDGは出目の数分の攻撃をするわけではなく(1なら1、5なら5等)、攻撃速度=1秒間に何回攻撃するかです。</p>
-        <p>また、「本家式攻撃速度」とは、RDG式の攻撃速度を本家のsecondsに直したものになります。小数第2位より下は四捨五入です。</p>
-        <Headline id="toc-headline">目次</Headline>
+        <p>{t("alldices:notes.lock")}</p>
+        <p>{t("alldices:notes.speed")}</p>
+        <p>{t("alldices:notes.seconds")}</p>
+        <Headline id="toc-headline">{t("common:toc")}</Headline>
         <aside className="toc" />
-        <Headline id="dices-headline">ダイス</Headline>
+        <Headline id="dices-headline">{t("common:dice")}</Headline>
         <div className="body">
-          <Headline id="dices-normal" renderAs="h3" fontSize={1.25} borderColor="darkgray">ノーマル</Headline>
+          <Headline id="dices-normal" renderAs="h3" fontSize={1.25} borderColor="darkgray">{t("common:normal")}</Headline>
           <NormalDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
-          <Headline id="dices-rare" renderAs="h3" fontSize={1.25} borderColor="deepskyblue">レア</Headline>
+          <Headline id="dices-rare" renderAs="h3" fontSize={1.25} borderColor="deepskyblue">{t("common:rare")}</Headline>
           <RareDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
-          <Headline id="dices-unique" renderAs="h3" fontSize={1.25} borderColor="magenta">英雄</Headline>
+          <Headline id="dices-unique" renderAs="h3" fontSize={1.25} borderColor="magenta">{t("common:unique")}</Headline>
           <UniqueDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />          
-          <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">伝説</Headline>
+          <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">{t("common:legendary")}</Headline>
           <LegendaryDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />                 
-          <Headline id="dices-guardians" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">四神</Headline>
-          <p>※判定は伝説です。</p>
+          <Headline id="dices-guardians" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">{t("common:guardian")}</Headline>
+          <p>{t("alldices:notes.jil")}</p>
           <GuardianDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
-          <Headline id="dices-creatures" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">妖怪</Headline>
-          <p>※判定は伝説です。</p>
+          <Headline id="dices-creatures" renderAs="h3" fontSize={1.25} borderColor="mediumpurple">{t("common:creature")}</Headline>
+          <p>{t("alldices:notes.jil")}</p>
           <CreatureDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
         </div>
       </main>
     </>
   );
+}
+
+export const getServerSideProps = async () => {
+  const d = await serverSideTranslations(["common"/*, "dicedesc/normal", "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/, "alldices"]);
+//  globalThis.i18nData = d;
+  return { props: {...d}}
 }

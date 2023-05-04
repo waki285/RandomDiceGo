@@ -1,0 +1,10 @@
+{
+  "alldices": "All Dice Desc",
+  "version": "This page describes all the dice in Random Dice GO as of {{date}} (version {{ver}}). This is a work in progress.",
+  "notes": {
+    "lock": "Unlike the original Random Dice: Defense (RDG), the number of attacks in Random Dice: GO (RDG) is currently fixed at 1 at any pips.",
+    "speed": "RDG does not attack as many times as the number of pips (1 for 1, 5 for 5, etc.), but attack speed = number of attacks per second.",
+    "seconds": "The \"RDD attack speed\" is the RDG-style attack speed converted to the RDD seconds. The figures are rounded off to the second decimal place.",
+    "jil": "*They are treated as legends in the game."
+  }
+}
