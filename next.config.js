@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     loader: 'custom',
   },
+  experimental: { runtime: 'edge'}
 };
 //const { i18n } = require('./next-i18next.config')
 
