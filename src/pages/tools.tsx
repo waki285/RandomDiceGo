@@ -9,9 +9,9 @@ import Big from "big.js";
 import {
   Dot
 } from "@/alldices/components";
+import { serverSideTranslations } from "@/i18n";
 
-
-export default function Tools() {
+export default function Tools({ i18n }: { i18n: any }) {
   const [dot, setDot] = useState(1);
   const [hue, setHue] = useState(0);
   const [saturate, setSaturate] = useState(100);
@@ -27,7 +27,7 @@ export default function Tools() {
         title="開発者用ツール"
         description="RandomDiceGoページのためのツールです。"
       />
-      <Header />
+      <Header i18n={i18n} />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">開発者用ツール</Headline>
         <p>
@@ -46,4 +46,10 @@ export default function Tools() {
       </main>
     </>
   );
+}
+
+export const getServerSideProps = async () => {
+  const d = await serverSideTranslations(["common"/*, "dicedesc/normal", "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/, "alldices"]);
+//  globalThis.i18nData = d;
+  return { props: {...d}}
 }

@@ -14,6 +14,7 @@ import {
   incrementalCalculate,
 } from "@/alldices/components";
 import { Noto_Sans_KR } from "next/font/google";
+import { serverSideTranslations } from "@/i18n";
 
 import LevelUpImage_0 from "@/../public/dices/levelup.webp";
 import LevelUpImage from "@/../public/dices/levelup_gt0.webp";
@@ -231,7 +232,7 @@ const Prediction = memo(function Prediction({ succeed }: { succeed: number }) {
   );
 });
 
-export default function Calculator() {
+export default function Calculator({ i18n }: { i18n: any }) {
   useEffect(() => {
     tocbot.init({
       tocSelector: ".toc",
@@ -520,7 +521,7 @@ export default function Calculator() {
         title="火力・バフ計算機"
         description="RandomDiceGoにおけるバフ隣接時の火力などを解説します。"
       />
-      <Header />
+      <Header i18n={i18n} />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">火力・バフ計算機</Headline>
         <p>
@@ -713,4 +714,10 @@ export default function Calculator() {
       </main>
     </>
   );
+}
+
+export const getServerSideProps = async () => {
+  const d = await serverSideTranslations(["common"/*, "dicedesc/normal", "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/, "alldices"]);
+//  globalThis.i18nData = d;
+  return { props: {...d}}
 }
