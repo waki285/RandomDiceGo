@@ -4,7 +4,7 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import Headline from "@/components/Headline";
 import tocbot from "tocbot";
-import { useEffect, useState, memo, Fragment } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import Ogp from "@/components/Ogp";
 import { serverSideTranslations } from "@/i18n";
 import { useLang } from "@/pages/_app";
@@ -24,6 +24,10 @@ import GuardianDices from "@/alldices/guardian";
 // 妖怪
 import CreatureDices from "@/alldices/creature";
 
+const I18nContext = createContext<any>({});
+
+//export const useI18n = useContext(I18nContext);
+
 export default function AllDices({ i18n }: { i18n: any }) {
   useEffect(() => {
     tocbot.init({
@@ -41,9 +45,9 @@ export default function AllDices({ i18n }: { i18n: any }) {
     tocbot.refresh();
   }, [lang])
  return (
-    <>
+    <I18nContext.Provider value={i18n}>
       <Head>
-        <title>{t("alldices:alldices")}｜RandomDiceGo攻略</title>
+        <title>{`${t("alldices:alldices")}｜RandomDiceGo攻略`}</title>
       </Head>
       <Ogp
         url="https://rdg.suzuneu.com/alldices"
@@ -69,7 +73,7 @@ export default function AllDices({ i18n }: { i18n: any }) {
         <Headline id="dices-headline">{t("common:dice")}</Headline>
         <div className="body">
           <Headline id="dices-normal" renderAs="h3" fontSize={1.25} borderColor="darkgray">{t("common:normal")}</Headline>
-          <NormalDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
+          <NormalDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} i18n={i18n} />
           <Headline id="dices-rare" renderAs="h3" fontSize={1.25} borderColor="deepskyblue">{t("common:rare")}</Headline>
           <RareDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
           <Headline id="dices-unique" renderAs="h3" fontSize={1.25} borderColor="magenta">{t("common:unique")}</Headline>
@@ -84,12 +88,12 @@ export default function AllDices({ i18n }: { i18n: any }) {
           <CreatureDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
         </div>
       </main>
-    </>
+    </I18nContext.Provider>
   );
 }
 
 export const getServerSideProps = async () => {
-  const d = await serverSideTranslations(["common"/*, "dicedesc/normal", "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/, "alldices"]);
+  const d = await serverSideTranslations(["common", "dicedesc/normal",/* "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/ "alldices"]);
 //  globalThis.i18nData = d;
   return { props: {...d}}
 }

@@ -1,4 +1,6 @@
 import { incrementalCalculate, DiceDesc, CArgsType } from "./components";
+import { useLang } from "@/pages/_app";
+import { useLocale } from "@/hooks/useLocale";
 
 import Fire from "@/../public/dices/fire.webp";
 import Wind from "@/../public/dices/wind.webp";
@@ -13,12 +15,16 @@ export default function NormalDices({
   setDiceClasses,
   diceDots,
   setDiceDots,
+  i18n
 }: CArgsType) {
+  const { lang } = useLang();
+  const { t } = useLocale(lang, i18n, "dicedesc/normal");
+//  console.log(i18n);
   return (
     <>
       <DiceDesc
         id="fire"
-        name="火のダイス"
+        name={t("fire.name")}
         rarity="ノーマル"
         image={Fire}
         atk={100}

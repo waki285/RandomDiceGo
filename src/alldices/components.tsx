@@ -4,6 +4,10 @@ import Headline from "@/components/Headline";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useI18n } from "@/pages/alldices";
+import { useLang } from "@/pages/_app";
+import { useLocale } from "@/hooks/useLocale";
+
 import DotRound from "@/../public/images/dot_round.webp";
 import DotStar from "@/../public/images/dot_star.webp";
 
@@ -32,7 +36,8 @@ export type CArgsType = {
   diceClasses: Record<string, number>,
   setDiceClasses: (...args: any) => void
   diceDots: Record<string, number>,
-  setDiceDots: (...args: any) => void
+  setDiceDots: (...args: any) => void,
+  i18n?: any
 }
 export const minimumClass = {
   "ノーマル": 1,
@@ -60,6 +65,9 @@ export const IC = (desc: DiceInfo, key: string) => {
 
 
 export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
+  const { lang } = useLang();
+//  const i18n = useI18n();
+  const { s } = useLocale(lang, {});
   const minClass = minimumClass[desc.rarity];
   const [diceClass, setDiceClass] = [desc.diceClasses[desc.id] || minClass, (diceClass: number) => {
     desc.setDiceClasses((x: any) => {
@@ -77,6 +85,7 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
       }
     });
   }]
+
   return (
     <>
       <Headline id={`dice-${desc.id}`} renderAs="h4" fontSize={1.125} borderColor={desc.diceColor} borderGradient={desc.diceColorGradient}>{desc.name}</Headline>
@@ -90,15 +99,15 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
       </section>
       <section className="info">
         <dl>
-          <dt>レアリティ</dt>
+          <dt>{s({ en: "Rarity", ja: "レアリティ"})}</dt>
           <dd>{desc.rarity}</dd>
-          <dt>攻撃力</dt>
+          <dt>{s({ en: "ATK", ja: "攻撃力"})}</dt>
           <dd>{IC(desc, "atk")}</dd>
-          <dt>攻撃速度</dt>
-          <dd>{IC(desc, "attackSpeed")} (本家式: {new Big(1).div(new Big(IC(desc, "attackSpeed"))).round(2).toNumber()}s)</dd>
+          <dt>{s({ en: "Attack Speed", ja: "攻撃速度"})}</dt>
+          <dd>{IC(desc, "attackSpeed")} ({s({ en: "RDD-format", ja: "本家式"})}: {new Big(1).div(new Big(IC(desc, "attackSpeed"))).round(2).toNumber()}s)</dd>
           <dt>DPS</dt>
           <dd>{new Big(IC(desc, "atk")).mul(new Big(IC(desc, "attackSpeed"))).toNumber()}</dd>
-          <dt>攻撃範囲</dt>
+          <dt>{s({ en: "Attack Range", ja: "攻撃範囲"})}</dt>
           <dd>{desc.range}</dd>
           <dt>HP</dt>
           <dd>{IC(desc, "hp")}</dd>
@@ -112,11 +121,11 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
       </section>
       <section className="increment flex mt-4 gap-4 pc:gap-12 flex-col pc:flex-row">
         <div className="flex-grow flex flex-col">
-          <p>クラス: {desc.diceClasses[desc.id] || minClass}</p>
+          <p>{s({ en: "Class", ja: "クラス"})}: {desc.diceClasses[desc.id] || minClass}</p>
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} aria-label="クラス" />
           <div className="when-classup mt-2">
-            {desc.incrementWhenClassUp.atk ? <p>攻撃力 +{desc.incrementWhenClassUp.atk}</p> : ""}
-            {desc.incrementWhenClassUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenClassUp.attackSpeed}</p> : ""}
+            {desc.incrementWhenClassUp.atk ? <p>{s({ en: "ATK", ja: "攻撃力"})} +{desc.incrementWhenClassUp.atk}</p> : ""}
+            {desc.incrementWhenClassUp.attackSpeed ? <p>{s({ en: "Attack Speed", ja: "攻撃速度"})} +{desc.incrementWhenClassUp.attackSpeed}</p> : ""}
             {desc.incrementWhenClassUp.hp ? <p>HP +{desc.incrementWhenClassUp.hp}</p> : ""}
             {/* Custom properties */}
             {Object.entries(desc.incrementWhenClassUp).filter(([key]) => !["atk", "attackSpeed", "hp"].includes(key)).map(([key, value]) => (
@@ -125,11 +134,11 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           </div>
         </div>
         <div className="flex-grow flex flex-col">
-          <p>出目数: {desc.dots[desc.id] || 1}</p>
+          <p>{s({ en: "Pips", ja: "出目数"})}: {desc.dots[desc.id] || 1}</p>
           <input type="range" min={1} max={7} value={dot} onChange={(e) => setDot(Number(e.target.value))} aria-label="出目数" />
           <div className="when-dotup mt-2">
-            {desc.incrementWhenDotUp.atk ? <p>攻撃力 +{desc.incrementWhenDotUp.atk}</p> : ""}
-            {desc.incrementWhenDotUp.attackSpeed ? <p>攻撃速度 +{desc.incrementWhenDotUp.attackSpeed}</p> : ""}
+            {desc.incrementWhenDotUp.atk ? <p>{s({ en: "ATK", ja: "攻撃力"})} +{desc.incrementWhenDotUp.atk}</p> : ""}
+            {desc.incrementWhenDotUp.attackSpeed ? <p>{s({ en: "Attack Speed", ja: "攻撃速度"})} +{desc.incrementWhenDotUp.attackSpeed}</p> : ""}
             {desc.incrementWhenDotUp.hp ? <p>HP +{desc.incrementWhenDotUp.hp}</p> : ""}
             {/* Custom properties */}
             {Object.entries(desc.incrementWhenDotUp).filter(([key]) => !["atk", "attackSpeed", "hp"].includes(key)).map(([key, value]) => (

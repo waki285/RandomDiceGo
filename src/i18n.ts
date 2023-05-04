@@ -14,6 +14,6 @@ export async function serverSideTranslations(ns: string[]) {
       contents[lang][n] = json;
     }
   }
-  console.log(contents);
+//  console.log(contents);
   return { i18n: contents };
 }

@@ -10,5 +10,6 @@
   "unique": "Unique",
   "legendary": "Legendary",
   "guardian": "Guardian",
-  "creature": "Creature"
+  "creature": "Creature",
+  "rarity": "Rarity"
 }
