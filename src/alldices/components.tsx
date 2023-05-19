@@ -11,10 +11,27 @@ import { useLocale } from "@/hooks/useLocale";
 import DotRound from "@/../public/images/dot_round.webp";
 import DotStar from "@/../public/images/dot_star.webp";
 
+
+export const minimumClass = {
+  "ノーマル": 1,
+  "Normal": 1,
+  "レア": 3,
+  "Rare": 3,
+  "英雄": 5,
+  "Unique": 5,
+  "伝説": 7,
+  "Legendary": 7,
+  "四神": 7,
+  "Guardian": 7,
+  "妖怪": 7,
+  "Creature": 7
+} as any;
+
+
 export type DiceInfo = {
   id: string,
   name: string,
-  rarity: "ノーマル" | "レア" | "英雄" | "伝説" | "四神" | "妖怪",
+  rarity: any,
   image?: any,
   addImages?: readonly any[],
   atk: number,
@@ -39,14 +56,7 @@ export type CArgsType = {
   setDiceDots: (...args: any) => void,
   i18n?: any
 }
-export const minimumClass = {
-  "ノーマル": 1,
-  "レア": 3,
-  "英雄": 5,
-  "伝説": 7,
-  "四神": 7,
-  "妖怪": 7
-} as const;
+
 
 export const incrementalCalculate = (initialValue: number, incrementWhenClassUp: number, incrementWhenDotUp: number, initialDiceClass: number, diceClass: number, dot: number) => {
   const iV = new Big(initialValue);

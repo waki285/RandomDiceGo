@@ -25,20 +25,20 @@ export default function NormalDices({
       <DiceDesc
         id="fire"
         name={t("fire.name")}
-        rarity="ノーマル"
+        rarity={t("common:normal")}
         image={Fire}
         atk={100}
         attackSpeed={0.7}
         range={2}
         hp={900}
         diceColor="red"
-        customProperties={{ スプラッシュダメージ: 40 }}
-        incrementWhenClassUp={{ atk: 5, hp: 45, スプラッシュダメージ: 2 }}
+        customProperties={{ [t("fire.splashDmg")]: 40 }}
+        incrementWhenClassUp={{ atk: 5, hp: 45, [t("fire.splashDmg")]: 2 }}
         incrementWhenDotUp={{
           atk: 70,
           hp: 630,
           attackSpeed: 0.14,
-          スプラッシュダメージ: 20,
+          [t("fire.splashDmg")]: 20,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -46,7 +46,7 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          敵を攻撃するとき、攻撃した敵の周囲8方向にいるすべての敵に
+          {t("fire.desc1")}
           <span className="variable">
             {incrementalCalculate(
               40,
@@ -57,10 +57,10 @@ export default function NormalDices({
               diceDots.fire || 1
             )}
           </span>
-          の追加ダメージを与える。
+          {t("fire.desc2")}
         </p>
         <p className="mt-4">
-          素の火力が高く、後述する盾のダイスに挑発されても周囲8マスに別のダイスがあればそちらにも攻撃を与えられる点が強いダイスです。
+          {t("fire.guide1")}
         </p>
       </DiceDesc>
       <DiceDesc

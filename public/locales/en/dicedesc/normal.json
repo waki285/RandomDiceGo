@@ -1,5 +1,9 @@
 {
   "fire": {
-    "name": "Fire Dice"
+    "name": "Fire Dice",
+    "splashDmg": "Splash DMG",
+    "desc1": "Deals additional ",
+    "desc2": " damage to all enemies with in a 1-cell radius of the target.",
+    "guide1": "It is a strong dice because of its high firepower and the fact that even if it is taunted by the Shield Dice described below, it can attack another dice if there is another dice in the surrounding 8 squares."
   }
 }
