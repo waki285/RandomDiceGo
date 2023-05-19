@@ -590,7 +590,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
             name="善悪のダイス"
             rarity="伝説"
             image={<GoodEvil dot={diceDots.goodevil} />}
-            atk={80}
+            atk={70}
             attackSpeed={1.2}
             range={2}
             hp={900}
@@ -602,8 +602,8 @@ export default function Calculator({ i18n }: { i18n: any }) {
               "[偶数]攻撃力減少(%)": 70,
               "[偶数]HP増加(%)": 200,
             }}
-            incrementWhenClassUp={{ atk: 8, hp: 90, attackSpeed: 0.12 }}
-            incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
+            incrementWhenClassUp={{ atk: 7, hp: 90, attackSpeed: 0.12 }}
+            incrementWhenDotUp={{ atk: 49, hp: 630, attackSpeed: 0.2 }}
             diceClasses={diceClasses}
             setDiceClasses={setDiceClasses}
             dots={diceDots}
@@ -665,7 +665,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
               <input
                 type="range"
                 min={0}
-                max={12}
+                max={30}
                 value={soul}
                 onChange={(e) => setSoul(Number(e.target.value))}
               />
