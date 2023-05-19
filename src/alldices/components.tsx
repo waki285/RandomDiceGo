@@ -4,7 +4,6 @@ import Headline from "@/components/Headline";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useI18n } from "@/pages/alldices";
 import { useLang } from "@/pages/_app";
 import { useLocale } from "@/hooks/useLocale";
 
