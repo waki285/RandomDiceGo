@@ -319,7 +319,7 @@ export default function LegendaryDices({
         rarity="伝説"
         image={Goodevil}
         addImages={[GoodevilEvil, GoodevilGood]}
-        atk={80}
+        atk={70}
         attackSpeed={1.2}
         range={2}
         hp={900}
@@ -331,8 +331,8 @@ export default function LegendaryDices({
           "[偶数]攻撃力減少(%)": 70,
           "[偶数]HP増加(%)": 100,
         }}
-        incrementWhenClassUp={{ atk: 8, hp: 90, attackSpeed: 0.12 }}
-        incrementWhenDotUp={{ atk: 56, hp: 630, attackSpeed: 0.2 }}
+        incrementWhenClassUp={{ atk: 7, hp: 90, attackSpeed: 0.12 }}
+        incrementWhenDotUp={{ atk: 49, hp: 630, attackSpeed: 0.2 }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
         dots={diceDots}

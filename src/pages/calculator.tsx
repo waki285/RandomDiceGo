@@ -315,9 +315,9 @@ export default function Calculator({ i18n }: { i18n: any }) {
       goodevil: [
         new Big(
           incrementalCalculate(
-            80,
-            8,
-            56,
+            70,
+            7,
+            49,
             7,
             diceClasses.goodevil || 7,
             diceDots.goodevil || 1
@@ -337,9 +337,9 @@ export default function Calculator({ i18n }: { i18n: any }) {
           .toNumber(),
         new Big(
           incrementalCalculate(
-            80,
-            8,
-            56,
+            70,
+            7,
+            49,
             7,
             diceClasses.goodevil || 7,
             diceDots.goodevil || 1
