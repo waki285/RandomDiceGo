@@ -223,9 +223,9 @@ export default function CreatureDices({
         </p>
         <p className="font-medium">
           敵のダイスを破壊すると、HP
-          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf)}%</span>
+          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf || 1)}%</span>
           と攻撃力
-          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf)}%</span>
+          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf || 1)}%</span>
           が増加する。
         </p>
         <p className="font-medium">
