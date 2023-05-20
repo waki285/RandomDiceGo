@@ -181,19 +181,19 @@ export default function GuardianDices({
         atk={90}
         attackSpeed={0.5}
         range={1}
-        hp={1800}
+        hp={1700}
         diceColor="indigo"
         diceColorGradient="linear-gradient(180deg, mediumpurple 0%, indigo 80%, darkslateblue 100%)"
-        customProperties={{ 基本攻撃被撃数: 12, 獲得保護シールド: 500 }}
+        customProperties={{ 基本攻撃被撃数: 12, 獲得保護シールド: 400 }}
         incrementWhenClassUp={{
           atk: 9,
-          hp: 180,
+          hp: 170,
           attackSpeed: 0.05,
-          獲得保護シールド: 50,
+          獲得保護シールド: 40,
         }}
         incrementWhenDotUp={{
           atk: 63,
-          hp: 1260,
+          hp: 1190,
           attackSpeed: 0.1,
           獲得保護シールド: 100,
         }}
@@ -213,9 +213,9 @@ export default function GuardianDices({
           挑発された敵は、攻撃範囲が最大に広がり、挑発した敵1体ごとに
           <span className="variable">
             {incrementalCalculate(
-              500,
-              50,
-              10,
+              400,
+              40,
+              100,
               7,
               diceClasses.blacktortoise || 7,
               diceDots.blacktortoise || 1

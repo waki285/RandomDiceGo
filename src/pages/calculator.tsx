@@ -378,9 +378,9 @@ export default function Calculator({ i18n }: { i18n: any }) {
           .mul(
             new Big(
               incrementalCalculate(
-                0.9,
-                0.09,
-                0.18,
+                1,
+                0.1,
+                0.2,
                 7,
                 diceClasses.soulcollector || 7,
                 diceDots.soulcollector || 1

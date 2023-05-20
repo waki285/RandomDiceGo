@@ -9,6 +9,8 @@ import Gumiho from "@/../public/dices/gumiho.webp";
 import GumihoInactive from "@/../public/dices/gumiho_inactive.webp";
 import Gargoyle from "@/../public/dices/gargoyle.webp";
 import GargoyleInactive from "@/../public/dices/gargoyle_inactive.webp";
+import Werewolf from "@/../public/dices/werewolf.webp";
+import WerewolfInactive from "@/../public/dices/werewolf_inactive.webp";
 
 export default function CreatureDices({
   diceClasses,
@@ -176,7 +178,91 @@ export default function CreatureDices({
           挑発できると攻撃力を減少させられる上に、その後の攻撃力がかなり強いです。
         </p>
         <p>(表記ミスであった善悪の攻撃力200%(100%)上昇とは違い、こちらは本当に200%上昇することが確認されています。)</p>
-      </DiceDesc>      
+      </DiceDesc>
+      <DiceDesc
+        id="werewolf"
+        name="狼人間のダイス"
+        rarity="妖怪"
+        image={Werewolf}
+        addImages={[WerewolfInactive]}
+        atk={100}
+        attackSpeed={0.8}
+        range={1}
+        hp={1200}
+        diceColor="firebrick"
+        diceColorGradient="linear-gradient(180deg, crimson 0%, firebrick 50%, dimgray 100%)"
+        customProperties={{
+          "HP増加(%)": 10,
+          "攻撃力増加(%)": 10,
+          "発動HP(%)": 30,
+          "追加ダメージ(%)": 150,
+        }}
+        incrementWhenClassUp={{
+          atk: 10,
+          hp: 120,
+          attackSpeed: 0.08,
+          "HP増加(%)": 0.5,
+          "攻撃力増加(%)": 0.5,
+          "発動HP(%)": 1,
+          "追加ダメージ(%)": 7.5,
+        }}
+        incrementWhenDotUp={{
+          atk: 70,
+          hp: 840,
+          attackSpeed: 0.16,
+          "発動HP(%)": 2.5,
+          "追加ダメージ(%)": 20,
+        }}
+        diceClasses={diceClasses}
+        setDiceClasses={setDiceClasses}
+        dots={diceDots}
+        setDots={setDiceDots}
+      >
+        <p className="font-medium">
+          「狼人間のダイス」が2個以下で配置されている場合、スキルを発動できる。
+        </p>
+        <p className="font-medium">
+          敵のダイスを破壊すると、HP
+          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf)}%</span>
+          と攻撃力
+          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf)}%</span>
+          が増加する。
+        </p>
+        <p className="font-medium">
+          スキル範囲内にいる敵のダイスのHPが
+          <span className="variable">
+            {incrementalCalculate(
+              30,
+              1,
+              2.5,
+              7,
+              diceClasses.werewolf || 7,
+              diceDots.werewolf || 1
+            )}%
+          </span>
+          以下になると、その敵の周囲8方向に移動し攻撃力の
+          <span className="variable">
+            {incrementalCalculate(
+              150,
+              7.5,
+              20,
+              7,
+              diceClasses.werewolf || 7,
+              diceDots.werewolf || 1
+            )}%
+          </span>
+          分のダメージを与える。
+        </p>
+        <p className="font-medium">
+          攻撃対象になった敵のダイスが破壊された場合、移動スキルを再発動できる。
+        </p>
+        <p className="mt-4">
+          敵のダイスを倒すほど強くなり、どんどん瞬間移動するダイスです。
+        </p>
+        <p>
+          白虎のダイスのようなダイスですが、複数置けてこちらは倒すごとに攻撃力が上がるのが特徴です。
+        </p>
+      </DiceDesc>
     </>
   );
 }

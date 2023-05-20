@@ -604,7 +604,7 @@ export default function LegendaryDices({
         rarity="伝説"
         image={Soulcollector}
         atk={50}
-        attackSpeed={0.9}
+        attackSpeed={1}
         range={3}
         hp={1300}
         diceColor="darkslategray"
@@ -616,12 +616,12 @@ export default function LegendaryDices({
         incrementWhenClassUp={{
           atk: 5,
           hp: 130,
-          attackSpeed: 0.09,
+          attackSpeed: 0.1,
           "攻撃力増加(%)": 0.5,
           "攻撃速度増加(%)": 0.5,
           "HP増加(%)": 0.5,
         }}
-        incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.18 }}
+        incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.2 }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
         dots={diceDots}
