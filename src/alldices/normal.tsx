@@ -65,8 +65,8 @@ export default function NormalDices({
       </DiceDesc>
       <DiceDesc
         id="wind"
-        name="風のダイス"
-        rarity="ノーマル"
+        name={t("wind.name")}
+        rarity={t("common:normal")}
         image={Wind}
         atk={50}
         attackSpeed={1.5}
@@ -80,9 +80,9 @@ export default function NormalDices({
         dots={diceDots}
         setDots={setDiceDots}
       >
-        <p className="font-medium">広範囲にわたって敵を素早く攻撃する。</p>
+        <p className="font-medium">{t("wind.desc1")}</p>
         <p className="mt-4">
-          このゲームにおいて射程が長いことは常に強いのですが、これよりも射程が長い狙撃のダイスや、これより高DPSが出せる強風のダイスがいるためにあまり使われません。
+          {t("wind.guide1")}
         </p>
       </DiceDesc>
       <DiceDesc
