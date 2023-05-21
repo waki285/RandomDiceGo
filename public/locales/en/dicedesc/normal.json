@@ -10,5 +10,33 @@
     "name": "Wind Dice",
     "desc1": "Deals damage to a faraway target by a high attack speed.",
     "guide1": "Long range is always strong in this game, but it is not used very often because there are Sniper Dice with longer range than this and Mighty Wind Dice that can produce higher DPS than this."
+  },
+  "water": {
+    "name": "Water Dice",
+    "speedDown": "ATK Speed Down (%)",
+    "desc1": "Decreases the target's attack speed by ",
+    "desc2": " for ",
+    "desc3": " on every attack. (max stack: ",
+    "desc4": ")",
+    "stack": "",
+    "reverse": true,
+    "maxstack": "Max Stack",
+    "duration": "Duration (sec)",
+    "guide1": "It is a troublesome dice when used, although it is weaker than the basic Light Dice or Lunar Dice because it is more effective and the attack speed reduction is reduced to nothing when provoked by Shield Dice.",
+    "guide2": "But DPS is quite good."
+  },
+  "sword": {
+    "name": "Sword Dice",
+    "desc1": "Capable of dealing high damage despite the low attack range.",
+    "guide1": "Instead of having a fairly narrow range, it has a significant DPS with respect to enemies within its range.",
+    "guide2": "Another advantage is that Shield Dice(s) placed 2-cell radius away are ineffective."
+  },
+  "shield": {
+    "name": "Shield Dice",
+    "desc1": "Taunts all enemies within a 2-cell radius.",
+    "guide1": "By simply placing the dice near the enemy's dice, you can easily deflect the enemy's attack target and attack with your stronger dice in the meantime.",
+    "guide2": "The Shield dice are the ",
+    "guide3": "strongest ",
+    "guide4": "dice in the game."
   }
 }

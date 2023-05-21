@@ -87,21 +87,27 @@ export default function NormalDices({
       </DiceDesc>
       <DiceDesc
         id="water"
-        name="水のダイス"
-        rarity="ノーマル"
+        name={t("water.name")}
+        rarity={t("common:normal")}
         image={Water}
         atk={90}
         attackSpeed={0.8}
         range={2}
         hp={800}
         diceColor="aqua"
-        customProperties={{ "攻撃速度減少(%)": 12 }}
-        incrementWhenClassUp={{ atk: 4.5, hp: 40, "攻撃速度減少(%)": 0.6 }}
+        customProperties={
+          { 
+            [t("water.speedDown")]: 12,
+            [t("water.maxstack")]: 3,
+            [t("water.duration")]: 3
+          }
+        }
+        incrementWhenClassUp={{ atk: 4.5, hp: 40, [t("water.speedDown")]: 0.6 }}
         incrementWhenDotUp={{
           atk: 63,
           hp: 560,
           attackSpeed: 0.16,
-          "攻撃速度減少(%)": 1.2,
+          [t("water.speedDown")]: 1.2,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -109,30 +115,38 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          敵を攻撃する時、敵の攻撃速度を<span className="variable">3秒間</span>
-          、
-          <span className="variable">
-            {incrementalCalculate(
+          {t("water.desc1")}
+          <span className="variable">{t("water.reverse") ? `3${t("common:secs")}`:`${incrementalCalculate(
               12,
               0.6,
               1.2,
               1,
               diceClasses.water || 1,
               diceDots.water || 1
-            )}
-            %
+            )}%`}</span>
+          {t("water.desc2")}
+          <span className="variable">
+            {!t("water.reverse") ? `3${t("common:secs")}`:`${incrementalCalculate(
+              12,
+              0.6,
+              1.2,
+              1,
+              diceClasses.water || 1,
+              diceDots.water || 1
+            )}%`}
           </span>
-          減少させる。最大<span className="variable">3回まで</span>蓄積する。
+          {t("water.desc3")}
+          <span className="variable">3{t("water.stack")}</span>{t("water.desc4")}
         </p>
         <p className="mt-4">
-          基本光や月のほうが効果が上回るかつ、盾に挑発されると攻撃速度減少が無に帰すので弱いです。
+          {t("water.guide1")}
         </p>
-        <p>素のDPSは結構あります。</p>
+        <p>{t("water.guide2")}</p>
       </DiceDesc>
       <DiceDesc
         id="sword"
-        name="剣のダイス"
-        rarity="ノーマル"
+        name={t("sword.name")}
+        rarity={t("common:normal")}
         image={Sword}
         atk={180}
         attackSpeed={0.7}
@@ -147,17 +161,17 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          攻撃範囲は狭いが、高い攻撃力で敵を攻撃する。
+          {t("sword.desc1")}
         </p>
         <p className="mt-4">
-          射程がかなり狭い代わりに、その範囲内の敵に関してはかなりのDPSを発揮します。
+          {t("sword.guide1")}
         </p>
-        <p>また、2マス遠くにおいてある盾が効かないというのもメリットです。</p>
+        <p>{t("sword.guide2")}</p>
       </DiceDesc>
       <DiceDesc
         id="shield"
-        name="盾のダイス"
-        rarity="ノーマル"
+        name={t("shield.name")}
+        rarity={t("common:normal")}
         image={Shield}
         atk={50}
         attackSpeed={0.6}
@@ -172,14 +186,14 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          周囲8方向を2倍に拡張した範囲にいる全ての敵を挑発する。
+          {t("shield.desc1")}
         </p>
         <p className="mt-4">
-          敵のダイスがある近くに置くだけで、お手軽に敵の攻撃先をそらし、その間に自分の強いダイスで攻撃することができます。
+          {t("shield.guide1")}
         </p>
         <p className="mt-4">
-          盾のダイスは、本作における<span className="font-bold">最強</span>
-          のダイスです。
+          {t("shield.guide2")}<span className="font-bold">{t("shield.guide3")}</span>
+          {t("shield.guide4")}
         </p>
         <p>
           かなりHPが高く、かつ生き残れば生存ダイス数を増やせるので、無敵のダイスなどと組み合わせることがよくあります。

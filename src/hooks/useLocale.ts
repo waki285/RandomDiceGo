@@ -12,7 +12,7 @@ export function useLocale(lang: Locales, data: any, n?: string){
           localeObj = localeObj[keyArr[i]!] as any;
         }
         let result = localeObj[keyArr[keyArr.length - 1]!] as string;
-        if (!result) throw new Error("lang not defined");
+        if (!result && result !== "") throw new Error("lang not defined");
         if (replace) {
           for (const [key, value] of Object.entries(replace)) {
             result = result.replace(`{{${key}}}`, value);
@@ -30,7 +30,7 @@ export function useLocale(lang: Locales, data: any, n?: string){
             localeObj = localeObj[keyArr[i]!] as any;
           }
           let result = localeObj[keyArr[keyArr.length - 1]!] as string;
-          if (!result) throw new Error("lang not defined");
+          if (!result && result !== "") throw new Error("lang not defined");
           if (replace) {
             for (const [key, value] of Object.entries(replace)) {
               result = result.replace(`{{${key}}}`, value);

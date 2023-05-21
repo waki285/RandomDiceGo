@@ -11,5 +11,6 @@
   "legendary": "Legendary",
   "guardian": "Guardian",
   "creature": "Creature",
-  "rarity": "Rarity"
+  "rarity": "Rarity",
+  "secs": " sec(s)"
 }
