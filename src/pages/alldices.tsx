@@ -58,7 +58,7 @@ export default function AllDices({ i18n }: { i18n: any }) {
       <Header i18n={i18n} />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">{t("alldices:alldices")}</Headline>
-        <p>{t("alldices:version", { date: "2003/05/29", ver: "1.2.3" })}</p>
+        <p>{t("alldices:version", { date: "2003/06/08", ver: "1.2.5" })}</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
         <Headline id="warning">{t("common:notes")}</Headline>
         {/*<p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
