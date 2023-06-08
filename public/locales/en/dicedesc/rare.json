@@ -1,0 +1,8 @@
+{
+  "light": {
+    "name": "Light Dice",
+    "speedup": "ATK Speed Up (%)",
+    "desc1": "Provides ",
+    "desc2": " attack speed bonus to all allies within a 1-cell radius."
+  }
+}

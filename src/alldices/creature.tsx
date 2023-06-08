@@ -106,23 +106,23 @@ export default function CreatureDices({
         diceColorGradient="linear-gradient(180deg, darkslategray 0%, teal 100%)"
         customProperties={{
           "持続時間(s)": 3,
-          "受けるダメージ減少(%)": 50,
+          "受けるダメージ減少(%)": 40,
           "スキル減少(%)": 5,
-          "攻撃力増加(%)": 200
+          "攻撃力増加(%)": 150
         }}
         incrementWhenClassUp={{
           atk: 6,
           hp: 150,
           attackSpeed: 0.1,
           "受けるダメージ減少(%)": 1.25,
-          "攻撃力増加(%)": 10,
+          "攻撃力増加(%)": 7.5,
         }}
         incrementWhenDotUp={{
           atk: 42,
           hp: 1050,
           attackSpeed: 0.2,
-          "受けるダメージ減少(%)": 6,
-          "攻撃力増加(%)": 20,
+          "受けるダメージ減少(%)": 7,
+          "攻撃力増加(%)": 15,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -141,9 +141,9 @@ export default function CreatureDices({
           挑発した敵から基本攻撃を受けた場合、その基本攻撃ダメージ量が
           <span className="variable">
             {incrementalCalculate(
-              50,
+              40,
               1.25,
-              6,
+              7,
               7,
               diceClasses.gargoyle || 7,
               diceDots.gargoyle || 1
@@ -160,9 +160,9 @@ export default function CreatureDices({
           挑発スキル終了後、この「ガーゴイルのダイス」の攻撃範囲が1増加し、攻撃力が
           <span className="variable">
             {incrementalCalculate(
-              200,
-              10,
-              20,
+              150,
+              7.5,
+              15,
               7,
               diceClasses.gargoyle || 7,
               diceDots.gargoyle || 1
@@ -186,14 +186,14 @@ export default function CreatureDices({
         image={Werewolf}
         addImages={[WerewolfInactive]}
         atk={100}
-        attackSpeed={0.8}
+        attackSpeed={0.9}
         range={1}
         hp={1200}
         diceColor="firebrick"
         diceColorGradient="linear-gradient(180deg, crimson 0%, firebrick 50%, dimgray 100%)"
         customProperties={{
           "HP増加(%)": 10,
-          "攻撃力増加(%)": 10,
+          "攻撃力増加(%)": 14,
           "発動HP(%)": 30,
           "追加ダメージ(%)": 150,
         }}
@@ -225,7 +225,7 @@ export default function CreatureDices({
           敵のダイスを破壊すると、HP
           <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf || 1)}%</span>
           と攻撃力
-          <span className="variable">{incrementalCalculate(10, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf || 1)}%</span>
+          <span className="variable">{incrementalCalculate(14, 0.5, 0, 7, diceClasses.werewolf || 7, diceDots.werewolf || 1)}%</span>
           が増加する。
         </p>
         <p className="font-medium">

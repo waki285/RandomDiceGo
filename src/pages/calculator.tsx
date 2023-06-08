@@ -446,8 +446,8 @@ export default function Calculator({ i18n }: { i18n: any }) {
         )
           .mul(
             !predictSuccess ? 1:(new Big(incrementalCalculate(
-              200,
-              10,
+              150,
+              7.5,
               0,
               7,
               diceClasses.prediction || 7,
@@ -456,7 +456,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
           )
           .plus(
             new Big(incrementalCalculate(
-              100,
+              110,
               10,
               0,
               7,
@@ -488,8 +488,8 @@ export default function Calculator({ i18n }: { i18n: any }) {
         )
           .mul(
             !predictSuccess ? 1:new Big(incrementalCalculate(
-              200,
-              10,
+              150,
+              7.5,
               0,
               7,
               diceClasses.prediction || 7,
@@ -498,7 +498,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
           )
           .plus(
             new Big(incrementalCalculate(
-              100,
+              110,
               10,
               0,
               7,

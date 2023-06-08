@@ -1,4 +1,6 @@
 import { incrementalCalculate, DiceDesc, CArgsType, BuffNote } from "./components";
+import { useLang } from "@/pages/_app";
+import { useLocale } from "@/hooks/useLocale";
 
 import Light from "@/../public/dices/light.webp";
 import Sniper from "@/../public/dices/sniper.webp";
@@ -13,26 +15,29 @@ export default function RareDices({
   setDiceClasses,
   diceDots,
   setDiceDots,
+  i18n
 }: CArgsType) {
+  const { lang } = useLang();
+  const { t } = useLocale(lang, i18n, "dicedesc/rare");
   return (
     <>
       <DiceDesc
         id="light"
-        name="光のダイス"
-        rarity="レア"
+        name={t("light.name")}
+        rarity={t("common:rare")}
         image={Light}
         atk={50}
         attackSpeed={0.8}
         range={1}
         hp={700}
         diceColor="yellow"
-        customProperties={{ "攻撃速度増加(%)": 20 }}
-        incrementWhenClassUp={{ atk: 2.5, hp: 35, "攻撃速度増加(%)": 0.5 }}
+        customProperties={{ [t("light.speedup")]: 20 }}
+        incrementWhenClassUp={{ atk: 2.5, hp: 35, [t("light.speedup")]: 0.5 }}
         incrementWhenDotUp={{
           atk: 35,
           hp: 490,
           attackSpeed: 0.16,
-          "攻撃速度増加(%)": 5,
+          [t("light.speedup")]: 5,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -40,7 +45,7 @@ export default function RareDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          周囲8方向にいる全ての味方の攻撃速度を
+          {t("light.desc1")}
           <span className="variable">
             {incrementalCalculate(
               20,
@@ -52,7 +57,7 @@ export default function RareDices({
             )}
             %
           </span>
-          増加させる。
+          {t("light.desc2")}
         </p>
         <p className="mt-4">攻撃速度を増加させるダイスです。</p>
         <BuffNote />

@@ -37,6 +37,23 @@
     "guide1": "By simply placing the dice near the enemy's dice, you can easily deflect the enemy's attack target and attack with your stronger dice in the meantime.",
     "guide2": "The Shield dice are the ",
     "guide3": "strongest ",
-    "guide4": "dice in the game."
+    "guide4": "dice in the game.",
+    "guide5": "It is often combined with Invincible dice, etc., since it has a fairly high HP and can increase the number of survival dice if it survives."
+  },
+  "electric": {
+    "name": "Electric Dice",
+    "chain": "Chain Strike",
+    "desc1": "Creates an electric arc that deals ",
+    "desc2": " damage to an enemy within a 1-cell radius of the target.",
+    "guide1": "When you attack an enemy dice, this dice allows you to chain one attack.",
+    "guide2": "It is stronger than Fire dice when not as dense. It also has the advantage of having a higher bare attack power compared to Modified Electric dice that can be chained as many times as possible."
+  },
+  "iron": {
+    "name": "Iron Dice",
+    "div": "DMG / Current HP (%)",
+    "desc1": "Deals an additional ",
+    "desc2": " damage proportional to the target's current HP.",
+    "guide1": "This dice can deal a percentage of the enemy's current HP in damage.",
+    "guide2": "It can produce higher DPS than Sword dice when attacking Shield dice."
   }
 }

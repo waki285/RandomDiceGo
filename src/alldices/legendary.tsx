@@ -705,13 +705,13 @@ export default function LegendaryDices({
         range={2}
         hp={1300}
         diceColor="gold"
-        customProperties={{ 攻撃力増加: 100, "攻撃力増加(%)": 200 }}
+        customProperties={{ 攻撃力増加: 110, "攻撃力増加(%)": 150 }}
         incrementWhenClassUp={{
           atk: 5,
           hp: 130,
           attackSpeed: 0.11,
           攻撃力増加: 10,
-          "攻撃力増加(%)": 10,
+          "攻撃力増加(%)": 7.5,
         }}
         incrementWhenDotUp={{ atk: 35, hp: 910, attackSpeed: 0.22 }}
         diceClasses={diceClasses}
@@ -727,7 +727,7 @@ export default function LegendaryDices({
           予測に成功した場合、攻撃力が永久に
           <span className="variable">
             {incrementalCalculate(
-              100,
+              110,
               10,
               0,
               7,
@@ -741,8 +741,8 @@ export default function LegendaryDices({
           予測に成功したラウンドでは、フィールドに設置された全ての予測のダイスの攻撃力が
           <span className="variable">
             {incrementalCalculate(
-              200,
-              10,
+              150,
+              7.5,
               0,
               7,
               diceClasses.prediction || 7,

@@ -60,6 +60,7 @@ export type CArgsType = {
 export const incrementalCalculate = (initialValue: number, incrementWhenClassUp: number, incrementWhenDotUp: number, initialDiceClass: number, diceClass: number, dot: number) => {
   const iV = new Big(initialValue);
   const iWC = new Big(incrementWhenClassUp);
+//  console.log(initialDiceClass);
   const iWD = new Big(incrementWhenDotUp);
   const iDC = new Big(initialDiceClass);
   const dC = new Big(diceClass);

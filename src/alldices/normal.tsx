@@ -196,27 +196,27 @@ export default function NormalDices({
           {t("shield.guide4")}
         </p>
         <p>
-          かなりHPが高く、かつ生き残れば生存ダイス数を増やせるので、無敵のダイスなどと組み合わせることがよくあります。
+          {t("shield.guide5")}
         </p>
         <p></p>
       </DiceDesc>
       <DiceDesc
         id="electric"
-        name="電気のダイス"
-        rarity="ノーマル"
+        name={t("electric.name")}
+        rarity={t("common:normal")}
         image={Electric}
         atk={70}
         attackSpeed={1.2}
         range={2}
         hp={800}
         diceColor="orange"
-        customProperties={{ 連鎖ダメージ: 50 }}
-        incrementWhenClassUp={{ atk: 3.5, hp: 40, 連鎖ダメージ: 2.5 }}
+        customProperties={{ [t("electric.chain")]: 50 }}
+        incrementWhenClassUp={{ atk: 3.5, hp: 40, [t("electric.chain")]: 2.5 }}
         incrementWhenDotUp={{
           atk: 49,
           hp: 560,
           attackSpeed: 0.24,
-          連鎖ダメージ: 25,
+          [t("electric.chain")]: 25,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -224,7 +224,7 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          敵を攻撃する時、攻撃した敵の周囲8方向にいるランダムな敵1体に
+          {t("electric.desc1")}
           <span className="variable">
             {incrementalCalculate(
               50,
@@ -235,32 +235,32 @@ export default function NormalDices({
               diceDots.electric || 1
             )}
           </span>
-          の追加ダメージを与える。
+          {t("electric.desc2")}
         </p>
         <p className="mt-4">
-          敵のダイスを攻撃したときに、攻撃を一回弾くことができるダイスです。
+          {t("electric.guide1")}
         </p>
         <p>
-          火より密集していない場合に強いです。また、何回でも連鎖できる改造された電気のダイスと比べて素の攻撃力が高いこともメリットです。
+          {t("electric.guide2")}
         </p>
       </DiceDesc>
       <DiceDesc
         id="iron"
-        name="鉄のダイス"
-        rarity="ノーマル"
+        name={t("iron.name")}
+        rarity={t("common:normal")}
         image={Iron}
         atk={60}
         attackSpeed={0.5}
         range={2}
         hp={1000}
         diceColor="dimgray"
-        customProperties={{ "現在HP基盤ダメージ(%)": 10 }}
-        incrementWhenClassUp={{ atk: 3, hp: 50, "現在HP基盤ダメージ(%)": 0.5 }}
+        customProperties={{ [t("iron.div")]: 10 }}
+        incrementWhenClassUp={{ atk: 3, hp: 50, [t("iron.div")]: 0.5 }}
         incrementWhenDotUp={{
           atk: 42,
           hp: 700,
           attackSpeed: 0.1,
-          "現在HP基盤ダメージ(%)": 1,
+          [t("iron.div")]: 1,
         }}
         diceClasses={diceClasses}
         setDiceClasses={setDiceClasses}
@@ -268,7 +268,7 @@ export default function NormalDices({
         setDots={setDiceDots}
       >
         <p className="font-medium">
-          敵を攻撃する時、攻撃した敵の現在HP
+          {t("iron.desc1")}
           <span className="variable">
             {incrementalCalculate(
               10,
@@ -280,13 +280,13 @@ export default function NormalDices({
             )}
             %
           </span>
-          分の追加ダメージを与える。
+          {t("iron.desc2")}
         </p>
         <p className="mt-4">
-          敵に現在HP分の割合ダメージを与えることができるダイスです。
+          {t("iron.guide1")}
         </p>
         <p>
-          盾のダイスを攻撃する場合に剣のダイスより高いDPSを出すことができます。
+          {t("iron.guide2")}
         </p>
       </DiceDesc>
     </>

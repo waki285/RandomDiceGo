@@ -58,7 +58,7 @@ export default function AllDices({ i18n }: { i18n: any }) {
       <Header i18n={i18n} />
       <main className="mx-4 pc:mx-12">
         <Headline id="all-dices">{t("alldices:alldices")}</Headline>
-        <p>{t("alldices:version", { date: "20023/05/04", ver: "1.2.2" })}</p>
+        <p>{t("alldices:version", { date: "2003/05/29", ver: "1.2.3" })}</p>
         <p>Special Thanks: <a href="http://aureliano.ml/randomdice/alldices.html" className="link">http://aureliano.ml/randomdice/alldices.html</a></p>
         <Headline id="warning">{t("common:notes")}</Headline>
         {/*<p>攻撃速度の値は、<code>1秒に○回攻撃</code>ということです。</p>
@@ -75,7 +75,7 @@ export default function AllDices({ i18n }: { i18n: any }) {
           <Headline id="dices-normal" renderAs="h3" fontSize={1.25} borderColor="darkgray">{t("common:normal")}</Headline>
           <NormalDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} i18n={i18n} />
           <Headline id="dices-rare" renderAs="h3" fontSize={1.25} borderColor="deepskyblue">{t("common:rare")}</Headline>
-          <RareDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />
+          <RareDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} i18n={i18n} />
           <Headline id="dices-unique" renderAs="h3" fontSize={1.25} borderColor="magenta">{t("common:unique")}</Headline>
           <UniqueDices diceClasses={diceClasses} setDiceClasses={setDiceClasses} diceDots={diceDots} setDiceDots={setDiceDots} />          
           <Headline id="dices-legendary" renderAs="h3" fontSize={1.25} borderColor="gold">{t("common:legendary")}</Headline>
@@ -93,7 +93,7 @@ export default function AllDices({ i18n }: { i18n: any }) {
 }
 
 export const getServerSideProps = async () => {
-  const d = await serverSideTranslations(["common", "dicedesc/normal",/* "dicedesc/rare", "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/ "alldices"]);
+  const d = await serverSideTranslations(["common", "dicedesc/normal", "dicedesc/rare",/* "dicedesc/unique", "dicedesc/legendary", "dicedesc/guardian", "dicedesc/creature"*/ "alldices"]);
 //  globalThis.i18nData = d;
   return { props: {...d}}
 }
