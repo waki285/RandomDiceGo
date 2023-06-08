@@ -94,7 +94,28 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
         [desc.id]: dot,
       }
     });
-  }]
+  }];
+
+  const cupSpeed = (rarity: string) => {
+    switch (rarity) {
+      case "Normal":
+      case "ノーマル":
+        return 0.01;
+      case "Rare":
+      case "レア":
+        return 0.02;
+      case "Unique":
+      case "英雄":
+        return 0.03;
+      case "伝説":
+      case "Legendary":
+      case "四神":
+      case "Guardians":
+      case "妖怪":
+      case "Creatures":
+        return 0.05;
+    }
+  }
 
   return (
     <>
@@ -114,7 +135,7 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <dt>{s({ en: "ATK", ja: "攻撃力"})}</dt>
           <dd>{IC(desc, "atk")}</dd>
           <dt>{s({ en: "Attack Speed", ja: "攻撃速度"})}</dt>
-          <dd>{IC(desc, "attackSpeed")} ({s({ en: "RDD-format", ja: "本家式"})}: {new Big(1).div(new Big(IC(desc, "attackSpeed"))).round(2).toNumber()}s)</dd>
+          <dd>{incrementalCalculate(desc.attackSpeed, new Big(cupSpeed(desc.rarity)!).mul(desc.attackSpeed).toNumber(), desc.incrementWhenDotUp.attackSpeed, minimumClass[desc.rarity], desc.diceClasses[desc.id] || minimumClass[desc.rarity], desc.dots[desc.id] || 1)} ({s({ en: "RDD-format", ja: "本家式"})}: {new Big(1).div(new Big(incrementalCalculate(desc.attackSpeed, new Big(cupSpeed(desc.rarity)!).mul(desc.attackSpeed).toNumber(), desc.incrementWhenDotUp.attackSpeed, minimumClass[desc.rarity], desc.diceClasses[desc.id] || minimumClass[desc.rarity], desc.dots[desc.id] || 1))).round(2).toNumber()}s)</dd>
           <dt>DPS</dt>
           <dd>{new Big(IC(desc, "atk")).mul(new Big(IC(desc, "attackSpeed"))).toNumber()}</dd>
           <dt>{s({ en: "Attack Range", ja: "攻撃範囲"})}</dt>
@@ -135,7 +156,7 @@ export const DiceDesc = memo(function DiceDesc(desc: DiceInfo) {
           <input type="range" min={minClass} max={15} value={diceClass} onChange={(e) => setDiceClass(Number(e.target.value))} aria-label="クラス" />
           <div className="when-classup mt-2">
             {desc.incrementWhenClassUp.atk ? <p>{s({ en: "ATK", ja: "攻撃力"})} +{desc.incrementWhenClassUp.atk}</p> : ""}
-            {desc.incrementWhenClassUp.attackSpeed ? <p>{s({ en: "Attack Speed", ja: "攻撃速度"})} +{desc.incrementWhenClassUp.attackSpeed}</p> : ""}
+            <p>{s({ en: "Attack Speed", ja: "攻撃速度"})} +{new Big(cupSpeed(desc.rarity)!).mul(desc.attackSpeed).toNumber()}</p>
             {desc.incrementWhenClassUp.hp ? <p>HP +{desc.incrementWhenClassUp.hp}</p> : ""}
             {/* Custom properties */}
             {Object.entries(desc.incrementWhenClassUp).filter(([key]) => !["atk", "attackSpeed", "hp"].includes(key)).map(([key, value]) => (

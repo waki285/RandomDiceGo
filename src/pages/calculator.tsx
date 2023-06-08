@@ -280,7 +280,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
           .mul(
             incrementalCalculate(
               1,
-              0.1,
+              0.05,
               0.2,
               7,
               diceClasses.levelup || 7,
@@ -327,7 +327,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
           .mul(
             incrementalCalculate(
               1.2,
-              0.12,
+              0.06,
               0.2,
               7,
               diceClasses.goodevil || 7,
@@ -379,7 +379,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
             new Big(
               incrementalCalculate(
                 1,
-                0.1,
+                0.05,
                 0.2,
                 7,
                 diceClasses.soulcollector || 7,
@@ -468,7 +468,7 @@ export default function Calculator({ i18n }: { i18n: any }) {
           .mul(
             incrementalCalculate(
               1.1,
-              0.11,
+              0.055,
               0.22,
               7,
               diceClasses.prediction || 7,
