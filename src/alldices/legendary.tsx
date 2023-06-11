@@ -26,6 +26,7 @@ import HolyswordDivine from "@/../public/dices/holysword_divine.webp";
 import Soulcollector from "@/../public/dices/soulcollector.webp";
 import Recall from "@/../public/dices/recall.webp";
 import Prediction from "@/../public/dices/prediction.webp";
+import Scope from "@/../public/dices/scope.webp";
 
 export default function LegendaryDices({
   diceClasses,
@@ -756,6 +757,54 @@ export default function LegendaryDices({
           攻撃力が永久に上がる点はレベルと似ていますが、最大生成1回+出目上げ6回までしかチャンスがありません。その代わりにレベルのダイスより安定して攻撃力をあげることができます。
         </p>
         <p>また、攻撃力200%増加は基本攻撃力のみにかかります。予測成功時の攻撃力は増えません。</p>
+      </DiceDesc>
+      <DiceDesc
+        id="scope"
+        name="スコープのダイス"
+        rarity="伝説"
+        image={Scope}
+        atk={70}
+        attackSpeed={1.1}
+        range={2}
+        hp={1100}
+        diceColor="tomatp"
+        customProperties={{ "持続時間(s)": 1 }}
+        incrementWhenClassUp={{
+          atk: 7,
+          hp: 110,
+          "持続時間(s)": 0.2
+        }}
+        incrementWhenDotUp={{ atk: 49, hp: 770, attackSpeed: 0.22, "持続時間(s)": 0.4 }}
+        diceClasses={diceClasses}
+        setDiceClasses={setDiceClasses}
+        dots={diceDots}
+        setDots={setDiceDots}
+      >
+        <p className="font-medium">
+          攻撃範囲にいる出目が一番高いダイスを優先して攻撃する。
+        </p>
+        <p className="font-medium">
+          スコープのダイスが攻撃している敵をスキル範囲内にいる味方が
+          <span className="variable">
+            {incrementalCalculate(
+              1,
+              0.2,
+              0.4,
+              7,
+              diceClasses.scope || 7,
+              diceDots.scope || 1
+            )}
+            秒間
+          </span>
+          一緒に攻撃する。
+        </p>
+        <p className="font-medium">
+          このスキルは、攻撃対象が変わるたびに発動される。
+        </p>
+        <p className="mt-4">
+          盾や善悪、ガーゴイルの挑発を上書きして後で目に直接攻撃できるダイスです。
+        </p>
+        <p>レベルアップのダイスなどをとても早く攻撃し壊すことができます。</p>
       </DiceDesc>
     </>
   );
