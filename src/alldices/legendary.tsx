@@ -767,7 +767,7 @@ export default function LegendaryDices({
         attackSpeed={1.1}
         range={2}
         hp={1100}
-        diceColor="tomatp"
+        diceColor="tomato"
         customProperties={{ "持続時間(s)": 1 }}
         incrementWhenClassUp={{
           atk: 7,
