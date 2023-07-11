@@ -27,6 +27,8 @@ import Soulcollector from "@/../public/dices/soulcollector.webp";
 import Recall from "@/../public/dices/recall.webp";
 import Prediction from "@/../public/dices/prediction.webp";
 import Scope from "@/../public/dices/scope.webp";
+import Holyspear from "@/../public/dices/holyspear.webp";
+import HolyspearDivine from "@/../public/dices/holyspear_divine.webp";
 
 export default function LegendaryDices({
   diceClasses,
@@ -802,9 +804,73 @@ export default function LegendaryDices({
           このスキルは、攻撃対象が変わるたびに発動される。
         </p>
         <p className="mt-4">
-          盾や善悪、ガーゴイルの挑発を上書きして後で目に直接攻撃できるダイスです。
+          盾や善悪、ガーゴイルの挑発を上書きし高い出目のダイスに直接攻撃できるダイスです。
         </p>
         <p>レベルアップのダイスなどをとても早く攻撃し壊すことができます。</p>
+      </DiceDesc>
+      <DiceDesc
+        id="holyspear"
+        name="光の槍のダイス"
+        rarity="伝説"
+        image={Holyspear}
+        addImages={[HolyspearDivine]}
+        atk={70}
+        attackSpeed={1.2}
+        range={2}
+        hp={1300}
+        diceColor="indigo"
+        diceColorGradient="linear-gradient(180deg, indigo 50%, lightcoral 50%)"
+        customProperties={{
+          "発動確率(%)": 20,
+          "追加ダメージ": 200,
+          "変身確率(%)": 20,
+          "ダメージ増加(%)": 150,
+        }}
+        incrementWhenClassUp={{
+          atk: 7,
+          hp: 130,
+          attackSpeed: 0.06,
+          "追加ダメージ": 10,
+        }}
+        incrementWhenDotUp={{
+          atk: 49,
+          hp: 910,
+          attackSpeed: 0.24,
+          "追加ダメージ": 150,
+        }}
+        diceClasses={diceClasses}
+        setDiceClasses={setDiceClasses}
+        dots={diceDots}
+        setDots={setDiceDots}
+      >
+        <p className="font-medium">
+          直線方向に最大2マスまで攻撃でき、対角線は攻撃できない。
+        </p>
+        <p className="font-medium">
+          敵を攻撃する時、<span className="variable">20%</span>
+          の確率で対角線を除くすべての方向に攻撃して2マス目にいる敵には
+          <span className="variable">
+            {incrementalCalculate(
+              200,
+              10,
+              150,
+              7,
+              diceClasses.holyspear || 7,
+              diceDots.holyspear || 1
+            )}
+            %
+          </span>
+          の追加ダメージを与える。
+        </p>
+        <p className="font-medium">
+          また、生成/合成する時、<span className="variable">20%</span>
+          の確率で天上の槍のダイスに変化し、この時にスキルを発動した場合、スキルダメージ量が
+          <span className="variable">150%</span>増加する。
+        </p>
+        <p className="mt-4">一定確率で天翔十字鳳のような十字攻撃を放つダイスです。</p>
+        <p>
+          フィールドにかなり左右され、対角線に攻撃できないのがかなりよわいとかんじました
+        </p>
       </DiceDesc>
     </>
   );
